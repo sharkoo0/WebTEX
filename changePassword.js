@@ -4,6 +4,15 @@ function next() {
     let button = document.getElementById('next');
     let finish = document.getElementById('finish');
 
+    //TODO fix the if statements
+    // if(firstField[0].innerText.length === 0 || secondField[0].innerText.length === 0) {
+    //     alert("The fields above are required!");
+    // }
+    // if(firstField[0].innerText != secondField[0].innerText) {
+    //     alert("The passwords don't match!"); 
+    // }
+    
+
     firstField[0].placeholder = 'Enter new password*';
     secondField[0].placeholder = 'Re-enter new password*';
 
@@ -20,5 +29,7 @@ function next() {
 function finish() {
     const url = 'myuser.html';
     window.location = url;
+
+    alert("Your password is updated.");
 }
 
