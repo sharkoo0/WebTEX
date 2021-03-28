@@ -59,6 +59,8 @@ body {
 
 .wrapper.dashboard {
     background-color: #ffff;
+    flex-flow: column;
+    justify-content: normal;
 }
 
 .form-section {
