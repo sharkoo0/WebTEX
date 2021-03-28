@@ -136,6 +136,46 @@ input:valid {
     margin-right: auto;
     width: fit-content;
 }
+.content { 
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+}
+
+#picturre-download {
+	width:25px;
+	height:25px;
+    float: right;
+}
+
+#picturer-delete {
+	width:25px;
+	height:25px;
+    float: left;
+}
+
+#file-table{
+	color:gray;
+	margin-top:10px;
+	width: 100%;
+}
+
+#div-table{
+	color:gray;
+}
+
+table, td, th {
+	text-align:center;
+}
+
+table {
+  border-collapse: collapse;
+  width: 50%;
+}
+
+th {
+  height: 70px;
+}
 
 .prev {
     float: left;
