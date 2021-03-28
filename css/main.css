@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import "reset-css.css";
 
-html {
+body {
 	font-family: 'Montserrat', sans-serif;
 	background-color: #E4E6DA;
 }
@@ -10,29 +11,57 @@ html {
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: center;
-
+	height: 100vh;
+	align-content: center;
 }
 
-.login-section {
+.form-section {
 	text-align: center;
 	background-color: #ffff;
 	flex-wrap: wrap;
-	width: 300px;
+	width: 500px;
 	flex-direction: column;
-	padding: 70px
+	padding: 50px;
+	box-shadow: 0 3px 3px rgba(0,0,0,0.3);
+	border-radius: 5px;
 }
 
-.login-btn {
-	background-color: #49654D;
+.logo {
+	font-size:40px;
+	font-weight: 800;
 }
-.login-form {
-	text-align: center;
+
+.sign-text {
+	font-size:28px;
+	font-weight: 600;
+	margin-top: 30px;
+}
+
+.form-btn {
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 600;
+	background-color: #49654D;
+	border:2px solid #49654D;
+	padding: 20px 50px 20px 50px;
+	width: 100%;
+	border-radius: 5px;
+	font-size: 20px;
+	color: #ffff;
+	margin-bottom: 20px;
+}
+
+.form-btn:hover {
+	transition:  ease-in-out 200ms;
+	background-color: #8BA989;
+	border:2px solid #8BA989;
 }
 
 .input-container {
-	padding: 10px 10px 10px 10px;
+	padding: 20px 0px 30px 0px;
 }
 input {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 15px;
 	border: 0;
 	border-bottom:2px solid #999999;
 	outline:none;
@@ -43,7 +72,7 @@ input {
 
   input:focus,
   input:valid {
-  	/* transition: border-color 200ms ease-in-out; */
-    border-bottom:3px solid #49654D;
+  	transition: ease 250ms;
+    border-bottom:2px solid #49654D; 
   }
 
