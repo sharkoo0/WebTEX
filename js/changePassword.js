@@ -13,7 +13,7 @@ function next() {
 }
 
 function finish() {
-    const url = 'myuser.html';
+    const url = 'userDetails.html';
     window.location = url;
 
     alert("Your password is updated.");
