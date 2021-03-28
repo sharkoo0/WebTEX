@@ -4,9 +4,22 @@
 <head>
     <title>Change your user details</title>
     <link rel="stylesheet" type="text/css" href="../css/changeDetails.css">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
 </head>
 
 <body>
+    <!-- NAVBAR -->
+    <header>
+        <ul class="navigation">
+            <li>
+                <h1 class="logo">MyCloud</h1>
+            </li>
+            <li><input type="text" name="search-text-field" placeholder="Search in shared files" class="search"></li>
+            <li><button class="upload-btn">Upload</button></li>
+            <li><img src="../images/user.jpg" id="img-user"></li>
+        </ul>
+    </header>
+
     <nav>
         <ul>
             <li>
@@ -15,33 +28,34 @@
         </ul>
     </nav>
 
-    <section class="content">
-        <table>
-            <th>
-                <h1 class="change-pass"><b>Change your user details</b></h1>
-            </th>
-            <tr>
-                <td width="260" height="260" style="border-style:solid">
-                    <input id='picture' type="Image" src="../images/camera.png" class="camera-icon">
-                </td>
-                <td>
-                    <input type="username" placeholder="<username>" class="boxes">
-                    <br><br><br>
-                    <table>
-                        <th><input type="email" placeholder="<email>" class="boxes"></th>
-                        <th><input type="email" placeholder="<alternative email>" class="boxes"></th>
-                    </table>
-                    <br>
-                    <input type="phone" placeholder="<phone>" class="boxes">
-                    <br><br><br>
-                    <input type="address" placeholder="<address>" class="boxes">
-                    <br><br><br>
-                    <button id='finish' onclick="finish()">Finish</button>
-                </td>
-            </tr>
-        </table>
-    </section>
-
+    <main class="wrapper dashboard">
+        <section class="content">
+            <table>
+                <th>
+                    <h1 class="change-pass"><b>Change your user details</b></h1>
+                </th>
+                <tr>
+                    <td width="260" height="260" style="border-style:solid">
+                        <input id='picture' type="Image" src="../css/camera.png" class="camera-icon">
+                    </td>
+                    <td>
+                        <input type="username" placeholder="<username>" class="boxes">
+                        <br><br><br>
+                        <table>
+                            <th><input type="email" placeholder="<email>" class="boxes"></th>
+                            <th><input type="email" placeholder="<alternative email>" class="boxes"></th>
+                        </table>
+                        <br>
+                        <input type="phone" placeholder="<phone>" class="boxes">
+                        <br><br><br>
+                        <input type="address" placeholder="<address>" class="boxes">
+                        <br><br><br>
+                        <button id='finish' onclick="finish()">Finish</button>
+                    </td>
+                </tr>
+            </table>
+        </section>
+    </main>
 </body>
 
 </html>
