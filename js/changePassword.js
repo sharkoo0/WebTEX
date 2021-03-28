@@ -20,6 +20,6 @@ function finish() {
 }
 
 function back() {
-    const url = 'myuser.html';
+    const url = 'userDetails.html';
     window.location = url;
 }
