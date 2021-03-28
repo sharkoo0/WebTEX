@@ -1,127 +1,142 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import "reset-css.css";
-
 body {
-	font-family: 'Montserrat', sans-serif;
-	background-color: #E4E6DA;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #E4E6DA;
 }
 
 .navigation {
-  	display: flex;
-  	flex-flow: row wrap;
-  	justify-content: space-around;
-  
-  	list-style: none;
-  	margin: 0; 
-  	background: #ffff;
-  	padding: 5px 10px 5px 10px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    list-style: none;
+    margin: 0;
+    background: #ffff;
+    padding: 5px 10px 5px 10px;
 }
 
 .navigation li {
-	margin-top: 30px;
+    margin-top: 30px;
 }
+
 .navigation li:nth-child(2) {
-	width: 60%;
+    width: 60%;
 }
 
 .search {
-	margin-top: 15px;
+    margin-top: 15px;
 }
 
 .upload-btn {
-	font-family: 'Montserrat', sans-serif;
-	font-weight: 600;
-	background-color: #49654D;
-	border:2px solid #49654D;
-	border-radius: 5px;
-	font-size: 15px;
-	color: #ffff;
-	padding: 10px 40px 10px 40px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    background-color: #49654D;
+    border: 2px solid #49654D;
+    border-radius: 5px;
+    font-size: 15px;
+    color: #ffff;
+    padding: 10px 40px 10px 40px;
 }
 
 .upload-btn:hover {
-	transition:  ease-in-out 200ms;
-	background-color: #8BA989;
-	border:2px solid #8BA989;
+    transition: ease-in-out 200ms;
+    background-color: #8BA989;
+    border: 2px solid #8BA989;
 }
 
 #img-user {
-	border-radius: 50%;
-	width: 55px;
+    border-radius: 50%;
+    width: 55px;
 }
 
-
 .wrapper {
-
-	display: flex;
-	flex-flow: row wrap;
-	justify-content: center;
-	height: 100vh;
-	align-content: center;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    height: 100vh;
+    align-content: center;
 }
 
 .wrapper.dashboard {
-	background-color: #ffff;
+    background-color: #ffff;
 }
 
 .form-section {
-	text-align: center;
-	background-color: #ffff;
-	flex-wrap: wrap;
-	width: 500px;
-	flex-direction: column;
-	padding: 50px;
-	box-shadow: 0 3px 3px rgba(0,0,0,0.3);
-	border-radius: 5px;
+    text-align: center;
+    background-color: #ffff;
+    flex-wrap: wrap;
+    width: 500px;
+    flex-direction: column;
+    padding: 50px;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
 }
 
 .logo {
-	font-size:40px;
-	font-weight: 800;
+    font-size: 40px;
+    font-weight: 800;
 }
 
 .sign-text {
-	font-size:28px;
-	font-weight: 600;
-	margin-top: 30px;
+    font-size: 28px;
+    font-weight: 600;
+    margin-top: 30px;
 }
 
 .form-btn {
-	font-family: 'Montserrat', sans-serif;
-	font-weight: 600;
-	background-color: #49654D;
-	border:2px solid #49654D;
-	padding: 20px 50px 20px 50px;
-	width: 100%;
-	border-radius: 5px;
-	font-size: 20px;
-	color: #ffff;
-	margin-bottom: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    background-color: #49654D;
+    border: 2px solid #49654D;
+    padding: 20px 50px 20px 50px;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 20px;
+    color: #ffff;
+    margin-bottom: 20px;
 }
 
 .form-btn:hover {
-	transition:  ease-in-out 200ms;
-	background-color: #8BA989;
-	border:2px solid #8BA989;
+    transition: ease-in-out 200ms;
+    background-color: #8BA989;
+    border: 2px solid #8BA989;
 }
 
 .input-container {
-	padding: 20px 0px 30px 0px;
+    padding: 20px 0px 30px 0px;
 }
+
 input {
-	font-family: 'Montserrat', sans-serif;
-	font-size: 15px;
-	border: 0;
-	border-bottom:2px solid #999999;
-	outline:none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    border: 0;
+    border-bottom: 2px solid #999999;
+    outline: none;
     padding: 0;
     margin: 0;
     width: 100%;
 }
 
-  input:focus,
-  input:valid {
-  	transition: ease 250ms;
-    border-bottom:2px solid #49654D; 
-  }
+input:focus,
+input:valid {
+    transition: ease 250ms;
+    border-bottom: 2px solid #49654D;
+}
 
+
+/* CHANGE PASSWORD */
+
+.close {
+    align-self: flex-end;
+}
+
+.pass,
+.conf-pass {
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+}
+
+.prev {
+    float: left;
+}
