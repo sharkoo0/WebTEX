@@ -4,35 +4,23 @@
 <head>
     <title>Change your user details</title>
     <link rel="stylesheet" type="text/css" href="../css/myfiles.css">
+     <link rel="stylesheet" type="text/css" href="../css/main.css">
     <script src="../js/myfiles.js"></script>
 </head>
 
 <body>
-    <nav>
-        <table>
-            <td>
-                <h2 style="margin-right:100px;"><b>MyCloud</b></h2>
-            </td>
-            <td>
-                <div class="topnav">
-                    <input type="text" placeholder="Search in cloud..">
-                </div>
-            </td>
-            <th>
-                <button type="button" class="buttons">Shared with me</button>
-                </td>
-                <td>
-                    <button type="button" class="buttons">Upload</button>
-                </td>
-                <td>
-                    <input id='picture2' type="Image" src="../images/userpic.png" class="user-icon">
-                </td>
-        </table>
-        </ul>
-    </nav>
+<!-- NAVBAR -->
+   <header>
+        <ul class="navigation">
+            <li><h1 class="logo">MyCloud</h1></li>
+            <li><input type="text" name="search-text-field" value="Search in shared files" class="search"></li>
+            <li><button class="upload-btn">Upload</button></li>
+            <li><img src="../images/user.jpg" id="img-user"></li>
+        </ul>       
+    </header>
 
-
-
+<!-- MAIN SECTION -->
+<main class="wrapper dashboard">
     <section class="content">
         <table id="file-table">
             <div id="div-table" style="">
@@ -54,7 +42,11 @@
             </tr>
         </table>
     </section>
+</main>
 
+<footer>
+    <span>Creatd by Team 15</span>
+</footer>
 </body>
 
 </html>
