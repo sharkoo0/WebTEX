@@ -11,8 +11,9 @@
 <!-- NAVBAR -->
    <header>
         <ul class="navigation">
-            <li><h1 class="logo">MyCloud</h1></li>
-            <li><input type="text" name="search-text-field" value="Search in shared files" class="search"></li>
+            <li><img class="logo" src="../images/team-logo.jpg"></li>
+            <!-- <li><h1 class="logo">MyCloud</h1></li> -->
+            <li><input type="text" name="search-text-field" placeholder="Search..." class="search"></li>
             <li><a href="upload.html"><button class="upload-btn">Upload</button></a></li>
             <li><a href="userDetails.html"><img src="../images/user.jpg" id="img-user"></a></li>
         </ul>       
@@ -20,13 +21,15 @@
 
 <!-- MAIN SECTION -->
 <main class="wrapper dashboard">
-    <section>Buttons</section>
+    <section>
+        <a href="sharedFiles.html"><button class="upload-btn">Shared files</button></a>
+    </section>
     <section class="content">
+        <div id="div-table">
+            <h2 class="location">Files</h2>
+            <a href="#" class="create-folder">+Create folder</a>
+        </div>
         <table id="file-table">
-            <div id="div-table" style="">
-                <h2><b>Files</b></h2>
-                <a href="url" style="color:gray;">+Create folder</a>
-            </div>
             <tr>
                 <th>Name</th>
                 <th>Date created</th>
@@ -34,7 +37,7 @@
                 <th colspan="2">Actions</th>
             </tr>
             <tr>
-                <td>Test</td>
+                <td> <img src="../images/folder1.png" id="img-folder"/> Test1244444.txt</td>
                 <td>22/03/2021</td>
                 <td>420MB</td>
                 <td><input id='picturre-download' type="Image" src="../images/download.png" class="action-buttons"></td>
@@ -46,6 +49,7 @@
 
 <footer>
     <span>Creatd by Team 15</span>
+    <img class="logo" src="../images/team-logo.jpg">
 </footer>
 </body>
 
