@@ -306,3 +306,46 @@ input:valid {
     background-color: #8BA989;
     border: 2px solid #8BA989;
 }
+
+/* CHANGE DETAILS */
+
+.details-content { 
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 200px;
+}
+
+.user-details {
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+}
+
+.boxes {
+    height:30px;
+    float:left;
+    border:none;
+    border-bottom:solid;
+    border-width:1px;
+    border-color:green;
+    width: fit-content;
+}
+
+.email {
+    margin-left:50px;
+}
+
+.camera-icon {
+    width: 40px;
+    height: 40px;
+    margin-left:110px;
+}
+
+#finish {
+    width:350px;
+    height:30px;
+    background-color:#49654D;
+    color:#FFFFFF;
+
+}
