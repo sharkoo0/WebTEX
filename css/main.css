@@ -1,8 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import "reset-css.css";
+
 body {
     font-family: 'Montserrat', sans-serif;
     background-color: #E4E6DA;
+}
+
+header {
+    border-bottom: 1px solid #e4e6da;
 }
 
 .navigation {
@@ -12,19 +17,28 @@ body {
     list-style: none;
     margin: 0;
     background: #ffff;
-    padding: 5px 10px 5px 10px;
+    padding: 10px;
 }
 
 .navigation li {
-    margin-top: 30px;
+    margin-top: 10px;
 }
 
+.logo {
+    width: 100px;
+}
+
+.logo.form {
+    width: 200px;
+}
+
+/* search */
 .navigation li:nth-child(2) {
     width: 60%;
 }
 
 .search {
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
 .upload-btn {
@@ -46,7 +60,7 @@ body {
 
 #img-user {
     border-radius: 50%;
-    width: 55px;
+    width: 40px;
 }
 
 .wrapper {
@@ -57,10 +71,13 @@ body {
     align-content: center;
 }
 
+
+/* Style for myFiles,sharedFiles.html */
 .wrapper.dashboard {
     background-color: #ffff;
     flex-flow: column;
     justify-content: normal;
+    padding: 30px;
 }
 
 .wrapper.upload {
@@ -72,6 +89,7 @@ body {
     padding-bottom: 100px;
 }
 
+/* SIGN IN/UP SECTION */
 .form-section {
     text-align: center;
     background-color: #ffff;
@@ -81,11 +99,6 @@ body {
     padding: 50px;
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
     border-radius: 5px;
-}
-
-.logo {
-    font-size: 40px;
-    font-weight: 800;
 }
 
 .sign-text {
@@ -117,6 +130,8 @@ body {
     padding: 20px 0px 30px 0px;
 }
 
+
+/* style for all inputs */
 input {
     font-family: 'Montserrat', sans-serif;
     font-size: 15px;
@@ -148,6 +163,7 @@ input:valid {
     width: fit-content;
 }
 
+/* Table content*/
 .content {
     width: 100%;
     display: flex;
@@ -158,37 +174,47 @@ input:valid {
     width: 25px;
     height: 25px;
     float: right;
+    border-bottom: none;
 }
 
 #picturer-delete {
     width: 25px;
     height: 25px;
     float: left;
+    border-bottom: none;
 }
 
 #file-table {
-    color: gray;
     margin-top: 10px;
     width: 100%;
-}
-
-#div-table {
-    color: gray;
-}
-
-table,
-td,
-th {
-    text-align: center;
-}
-
-table {
     border-collapse: collapse;
-    width: 50%;
 }
 
-th {
-    height: 70px;
+#file-table th {
+    color: #aaafab;
+    font-weight: 600;
+    height: 40px;
+}
+
+#file-table td {
+    color: #4D4D4D;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+
+.location {
+    font-size: 36px;
+    font-weight: 600;
+}
+.create-folder {
+    font-weight: 600;
+    color: #aaafab;
+    text-decoration: none;
+}
+
+#file-table table, td, th {
+    text-align: left;
 }
 
 .prev {
@@ -198,24 +224,17 @@ th {
 
 /* SHARED FILES */
 
-#img-user {
-    height: 40px;
-    font-weight: 40px;
-}
 
 #img-folder {
-    height: 40px;
-    font-weight: 40px;
+    height: 20px;
 }
 
 #img-download {
     height: 40px;
-    font-weight: 40px;
 }
 
 #img-delete {
     height: 40px;
-    font-weight: 40px;
 }
 
 .menu {
@@ -227,18 +246,6 @@ th {
     align-items: baseline;
 }
 
-.search {
-    font-size: 20px;
-    font-weight: 500;
-    color: #b4b2b2;
-    border-radius: 5px;
-    min-height: 30px;
-    min-width: 100px;
-    margin: 0 auto;
-    position: relative;
-    width: 400px;
-}
-
 .table-section {
     display: grid;
     padding-left: 20%;
@@ -247,7 +254,7 @@ th {
 
 .header-table {
     font-size: 15px;
-    color: lightgray;
+    color: #aaafab;
 }
 
 
