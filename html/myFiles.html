@@ -12,7 +12,7 @@
    <header>
         <ul class="navigation">
             <li>
-                 <a href="myFiles.html"><img class="logo" src="../images/team-logo.jpg"></a>
+                <a href="myFiles.html"><img class="logo" src="../images/team-logo.jpg"></a>
             </li>
             <!-- <li><h1 class="logo">MyCloud</h1></li> -->
             <li><input type="text" name="search-text-field" placeholder="Search..." class="search"></li>
@@ -38,13 +38,18 @@
                 <th>Size</th>
                 <th colspan="2">Actions</th>
             </tr>
-            <tr>
+             <script>
+                for (var i = 1; i <=10; i++) {
+                    document.write('<tr><td> <img src="../images/file-solid.png" id="img-folder"/> Test1244444.txt</td><td>22/03/2021</td><td>420MB</td><td><input id="picturre-download" type="Image" src="../images/download-solid.png" class="action-buttons"></td><td><input id="picturer-delete" type="Image" src="../images/Vector.png" class="action-buttons"></td></tr>');
+                }
+            </script>
+            <!-- <tr>
                 <td> <img src="../images/folder1.png" id="img-folder"/> Test1244444.txt</td>
                 <td>22/03/2021</td>
                 <td>420MB</td>
                 <td><input id='picturre-download' type="Image" src="../images/download.png" class="action-buttons"></td>
                 <td><input id='picturer-delete' type="Image" src="../images/bin.png" class="action-buttons"></td>
-            </tr>
+            </tr> -->
         </table>
     </section>
 </main>
