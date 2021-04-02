@@ -1,0 +1,70 @@
+.main-form {
+    padding-block: 30px;
+    display: grid;
+    grid-template-areas: "1 1";
+    align-items: center;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.user-photo {
+    /* padding-block: 25px; */
+    display: grid;
+    grid-template-areas: "1", "1";
+    grid-template-rows: repeat(1, minmax(0, 1fr));
+    float: right;
+    /* display: flex;
+    justify-content: flex-end; */
+}
+
+.user {
+    height: 100%;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    float: right;
+    margin-bottom: 0px;
+}
+
+.user-details {
+    display: grid;
+    grid-template-areas: "1", "1", "1", "1", "1";
+    row-gap: 5px;
+    margin-left: 5%;
+}
+
+input {
+    height: 50%;
+    width: 50%;
+}
+
+.user-details>input {
+    margin-left: auto;
+    margin-right: auto;
+    float: left;
+    min-width: 300px;
+    height: 50px;
+}
+
+.finish {
+    width: 150px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.change-photo {
+    margin-left: auto;
+    margin-right: auto;
+    float: right;
+    margin-top: 50px;
+    width: 40%;
+    height: 30px;
+    background-color: #49654D;
+    color: #FFFFFF;
+}
+
+.buttons {
+    display: grid;
+    grid-template-areas: "1 1";
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
