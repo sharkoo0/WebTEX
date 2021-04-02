@@ -71,7 +71,6 @@ header {
     align-content: center;
 }
 
-
 /* Style for myFiles,sharedFiles.html */
 .wrapper.dashboard {
     background-color: #ffff;
@@ -130,7 +129,6 @@ header {
     padding: 20px 0px 30px 0px;
 }
 
-
 /* style for all inputs */
 input {
     font-family: 'Montserrat', sans-serif;
@@ -143,21 +141,17 @@ input {
     width: 100%;
 }
 
-input:focus,
-input:valid {
+input:focus, input:valid {
     transition: ease 250ms;
     border-bottom: 2px solid #49654D;
 }
 
-
 /* CHANGE PASSWORD */
-
 .close {
     align-self: flex-end;
 }
 
-.pass,
-.conf-pass {
+.pass, .conf-pass {
     margin-left: auto;
     margin-right: auto;
     width: fit-content;
@@ -171,14 +165,12 @@ input:valid {
 }
 
 .picturre-download {
-    width: 24px;
-/*     float: right; */
+    width: 24px;/*     float: right; */
     border-bottom: none;
 }
 
 .picturer-delete {
-    width: 20px;
-/*     float: left; */
+    width: 20px;/*     float: left; */
     border-bottom: none;
 }
 
@@ -203,21 +195,21 @@ input:valid {
 }
 
 .file-table tr td:nth-child(4) {
-    width:40px; 
-} 
-
+    width: 40px;
+}
 
 .location {
     font-size: 36px;
     font-weight: 600;
 }
+
 .create-folder {
     font-weight: 600;
     color: #aaafab;
     text-decoration: none;
 }
 
-#file-table table, td, th {
+.file-table table, td, th {
     text-align: left;
 }
 
@@ -225,10 +217,7 @@ input:valid {
     float: left;
 }
 
-
 /* SHARED FILES */
-
-
 .img-folder {
     height: 20px;
 }
@@ -261,9 +250,7 @@ input:valid {
     color: #aaafab;
 }
 
-
 /* UPLOAD */
-
 .upload-text {
     color: #49654D;
     padding-bottom: 5%;
@@ -312,8 +299,7 @@ input:valid {
 }
 
 /* CHANGE DETAILS */
-
-.details-content { 
+.details-content {
     margin-right: auto;
     margin-top: auto;
     margin-bottom: auto;
@@ -327,47 +313,41 @@ input:valid {
 }
 
 .boxes {
-    height:30px;
-    float:left;
-    border:none;
-    border-bottom:solid;
-    border-width:1px;
-    border-color:green;
+    height: 30px;
+    float: left;
+    border: none;
+    border-bottom: solid;
+    border-width: 1px;
+    border-color: green;
     width: fit-content;
 }
 
 .email {
-    margin-left:50px;
+    margin-left: 50px;
 }
 
 .camera-icon {
     width: 40px;
     height: 40px;
-    margin-left:110px;
+    margin-left: 110px;
 }
 
 .finish {
-    width:350px;
-    height:30px;
-    background-color:#49654D;
-    color:#FFFFFF;
-
+    width: 350px;
+    height: 30px;
+    background-color: #49654D;
+    color: #FFFFFF;
 }
 
 /* MEDIA QUERIES */
-
 @media 
-only screen and (max-width: 760px),
-(min-device-width: 768px) and (max-device-width: 1024px)  {
-
-    #file-table table, td, th {
+only screen and (max-width:760px), (min-device-width:768px) and (max-device-width:1024px) {
+    .file-table table, td, th {
         font-size: 10px;
     }
 
-    #file-table tr th:nth-child(2), td:nth-child(2)
-    ,th:nth-child(3), td:nth-child(3)
-    {
-        display:none;
+    .file-table tr th:nth-child(2), td:nth-child(2), th:nth-child(3), td:nth-child(3) {
+        display: none;
     }
 
 }
