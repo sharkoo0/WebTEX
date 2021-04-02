@@ -1,51 +1,57 @@
 <!DOCTYPE html>
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
     <title>MyCloud | Shared with me</title>
-
-    <!-- <link rel="stylesheet" type="text/css" href="../css/sharedFiles.css"> -->
     <link rel="stylesheet" type="text/css" href="../css/main.css">
 </head>
-
 <body>
     <!-- NAVBAR -->
     <header>
-        <ul class="navigation">
-            <li>
-                <h1 class="logo">MyCloud</h1>
-            </li>
-            <li><input type="text" name="search-text-field" value="Search in shared files" class="search"></li>
-            <li><button class="upload-btn">Upload</button></li>
-            <li><img src="../images/user.jpg" id="img-user"></li>
-        </ul>
+        <nav>
+            <ul class="navigation">
+                <li>
+                    <a href="myFiles.html"><img class="logo" src="../images/team-logo.jpg"></a>
+                </li>
+                <li><input type="text" name="search-text-field" placeholder="Search..." class="search"></li>
+                <li><button class="upload-btn">Upload</button></li>
+                <li><a href="userDetails.html"><img src="../images/user.jpg" class="img-user"></a></li>
+            </ul>
+        </nav>
     </header>
-
-
+    <!-- SHARED FILES -->
     <main class="wrapper dashboard">
-        <section class="table-section">
-            <table>
-                <tr>
-                    <h2>Shared files</h2>
-                </tr>
-                <tr class="header-table">
-                    <td colspan="2">Name</td>
-                    <td>Data Created</td>
-                    <td>Size</td>
-                    <td colspan="2">Actions</td>
-                </tr>
-                <tr>
-                    <td><img src="../images/folder1.png" id="img-folder" /></td>
-                    <td>Image.jpg</td>
-                    <td>2021-25-03</td>
-                    <td>0.5 MB</td>
-                    <td><img src="../images/download.png" id="img-download" /></td>
-                    <td><img src="../images/delete.png" id="img-delete" /></td>
-                </tr>
+        <section>
+            <a href="myFiles.html"><button class="upload-btn">My files</button></a>
+        </section>
+        <section class="content">
+            <div class="div-table">
+                <h2 class="location">Shared Files</h2>
+            </div>
+            <table class="file-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Date created</th>
+                        <th>Size</th>
+                        <th colspan="2">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td> <img src="../images/folder1.png" class="img-folder"/> Gest1244444.txt</td>
+                        <td>22/04/2021</td>
+                        <td>40MB</td>
+                        <td><input class='picturre-download' type="Image" src="../images/download.png" class="action-buttons"></td>
+                        <td><input class='picturer-delete' type="Image" src="../images/bin.png" class="action-buttons"></td>
+                    </tr>
+                </tbody>
             </table>
         </section>
     </main>
+    <footer>
+        <span>Creatd by Team 15</span>
+        <img class="logo" src="../images/team-logo.jpg">
+    </footer>
 </body>

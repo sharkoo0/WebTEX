@@ -1,8 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import "reset-css.css";
+
 body {
     font-family: 'Montserrat', sans-serif;
     background-color: #E4E6DA;
+}
+
+header {
+    border-bottom: 1px solid #e4e6da;
 }
 
 .navigation {
@@ -12,19 +17,28 @@ body {
     list-style: none;
     margin: 0;
     background: #ffff;
-    padding: 5px 10px 5px 10px;
+    padding: 10px;
 }
 
 .navigation li {
-    margin-top: 30px;
+    margin-top: 10px;
 }
 
+.logo {
+    width: 100px;
+}
+
+.logo.form {
+    width: 200px;
+}
+
+/* search */
 .navigation li:nth-child(2) {
     width: 60%;
 }
 
 .search {
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
 .upload-btn {
@@ -44,9 +58,9 @@ body {
     border: 2px solid #8BA989;
 }
 
-#img-user {
+.img-user {
     border-radius: 50%;
-    width: 55px;
+    width: 40px;
 }
 
 .wrapper {
@@ -57,8 +71,12 @@ body {
     align-content: center;
 }
 
+/* Style for myFiles,sharedFiles.html */
 .wrapper.dashboard {
     background-color: #ffff;
+    flex-flow: column;
+    justify-content: normal;
+    padding: 30px;
 }
 
 .wrapper.upload {
@@ -70,6 +88,7 @@ body {
     padding-bottom: 100px;
 }
 
+/* SIGN IN/UP SECTION */
 .form-section {
     text-align: center;
     background-color: #ffff;
@@ -79,11 +98,6 @@ body {
     padding: 50px;
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
     border-radius: 5px;
-}
-
-.logo {
-    font-size: 40px;
-    font-weight: 800;
 }
 
 .sign-text {
@@ -115,6 +129,7 @@ body {
     padding: 20px 0px 30px 0px;
 }
 
+/* style for all inputs */
 input {
     font-family: 'Montserrat', sans-serif;
     font-size: 15px;
@@ -126,94 +141,93 @@ input {
     width: 100%;
 }
 
-input:focus,
-input:valid {
+input:focus, input:valid {
     transition: ease 250ms;
     border-bottom: 2px solid #49654D;
 }
 
-
 /* CHANGE PASSWORD */
-
 .close {
     align-self: flex-end;
 }
 
-.pass,
-.conf-pass {
+.pass, .conf-pass {
     margin-left: auto;
     margin-right: auto;
     width: fit-content;
 }
 
+/* Table content*/
 .content {
     width: 100%;
     display: flex;
     flex-flow: column;
 }
 
-#picturre-download {
-    width: 25px;
-    height: 25px;
-    float: right;
+.picturre-download {
+    width: 24px;/*     float: right; */
+    border-bottom: none;
 }
 
-#picturer-delete {
-    width: 25px;
-    height: 25px;
-    float: left;
+.picturer-delete {
+    width: 20px;/*     float: left; */
+    border-bottom: none;
 }
 
-#file-table {
-    color: gray;
+.file-table {
     margin-top: 10px;
     width: 100%;
-}
-
-#div-table {
-    color: gray;
-}
-
-table,
-td,
-th {
-    text-align: center;
-}
-
-table {
     border-collapse: collapse;
-    width: 50%;
 }
 
-th {
-    height: 70px;
+.file-table th {
+    color: #aaafab;
+    font-weight: 600;
+    padding: 10px 0px 10px 0px;
+}
+
+.file-table td {
+    color: #4D4D4D;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+    border-top: 1px solid #e4e6da;
+    padding: 10px 0px 10px 0px;
+}
+
+.file-table tr td:nth-child(4) {
+    width: 40px;
+}
+
+.location {
+    font-size: 36px;
+    font-weight: 600;
+}
+
+.create-folder {
+    font-weight: 600;
+    color: #aaafab;
+    text-decoration: none;
+}
+
+.file-table table, td, th {
+    text-align: left;
 }
 
 .prev {
     float: left;
 }
 
-
 /* SHARED FILES */
-
-#img-user {
-    height: 40px;
-    font-weight: 40px;
+.img-folder {
+    height: 20px;
 }
 
-#img-folder {
+.img-download {
     height: 40px;
-    font-weight: 40px;
 }
 
-#img-download {
+.img-delete {
     height: 40px;
-    font-weight: 40px;
-}
-
-#img-delete {
-    height: 40px;
-    font-weight: 40px;
 }
 
 .menu {
@@ -225,18 +239,6 @@ th {
     align-items: baseline;
 }
 
-.search {
-    font-size: 20px;
-    font-weight: 500;
-    color: #b4b2b2;
-    border-radius: 5px;
-    min-height: 30px;
-    min-width: 100px;
-    margin: 0 auto;
-    position: relative;
-    width: 400px;
-}
-
 .table-section {
     display: grid;
     padding-left: 20%;
@@ -245,12 +247,10 @@ th {
 
 .header-table {
     font-size: 15px;
-    color: lightgray;
+    color: #aaafab;
 }
 
-
 /* UPLOAD */
-
 .upload-text {
     color: #49654D;
     padding-bottom: 5%;
@@ -264,7 +264,7 @@ th {
     border-radius: 5px;
 }
 
-#img-upload {
+.img-upload {
     width: 100px;
 }
 
@@ -296,4 +296,58 @@ th {
     transition: ease-in-out 200ms;
     background-color: #8BA989;
     border: 2px solid #8BA989;
+}
+
+/* CHANGE DETAILS */
+.details-content {
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 200px;
+}
+
+.user-details {
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+}
+
+.boxes {
+    height: 30px;
+    float: left;
+    border: none;
+    border-bottom: solid;
+    border-width: 1px;
+    border-color: green;
+    width: fit-content;
+}
+
+.email {
+    margin-left: 50px;
+}
+
+.camera-icon {
+    width: 40px;
+    height: 40px;
+    margin-left: 110px;
+}
+
+.finish {
+    width: 350px;
+    height: 30px;
+    background-color: #49654D;
+    color: #FFFFFF;
+}
+
+/* MEDIA QUERIES */
+@media 
+only screen and (max-width:760px), (min-device-width:768px) and (max-device-width:1024px) {
+    .file-table table, td, th {
+        font-size: 10px;
+    }
+
+    .file-table tr th:nth-child(2), td:nth-child(2), th:nth-child(3), td:nth-child(3) {
+        display: none;
+    }
+
 }
