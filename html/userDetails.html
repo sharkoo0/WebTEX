@@ -7,10 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../css/main.css">
     <link rel="stylesheet" type="text/css" href="../css/userDetails.css">
+
     <title>User Details</title>
 </head>
 
 <body>
+    <script src="../js/uploadButton.js"></script>
     <!-- NAVBAR -->
     <header>
         <nav>
@@ -21,7 +23,7 @@
                 <li>
                     <input type="text " name="search-text-field" placeholder="Search..." class="search">
                 </li>
-                <li><a href="upload.html"><button class="upload-btn">Upload</button></a></li>
+                <li><button class="upload-btn" onclick="upload()">Upload</button></li>
                 <li>
                     <a href="userDetails.html"><img src="../images/user.jpg" class="img-user"></a>
                 </li>
@@ -58,6 +60,19 @@
         <p>Creatd by Team 15</p>
         <img class="logo" src="../images/team-logo.jpg">
     </footer>
+
+    <form class="wrapper upload">
+        <section class="upload-section">
+            <h1 class="upload-text">Upload files</h1>
+            <section class="get-file-section">
+                <img src="../images/cloud-download.png" class="img-upload" />
+                <br/>
+                <h3 class="select-file">Select file</h3>
+                <br/>
+                <a href="myFiles.html"><button class="br-btn">Browse</button></a>
+            </section>
+        </section>
+    </form>
 </body>
 
 </html>

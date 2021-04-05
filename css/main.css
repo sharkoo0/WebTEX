@@ -82,14 +82,15 @@ header {
     padding: 30px;
 }
 
-.wrapper.upload {
+
+/* .wrapper.upload {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
     align-content: center;
     padding-top: 100px;
     padding-bottom: 100px;
-}
+} */
 
 
 /* SIGN IN/UP SECTION */

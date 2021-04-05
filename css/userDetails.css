@@ -68,3 +68,7 @@ label {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     margin-top: 10px;
 }
+
+.wrapper.upload {
+    display: none;
+}
