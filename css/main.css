@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import "reset-css.css";
-
 body {
     font-family: 'Montserrat', sans-serif;
     background-color: #E4E6DA;
@@ -32,7 +31,9 @@ header {
     width: 200px;
 }
 
+
 /* search */
+
 .navigation li:nth-child(2) {
     width: 60%;
 }
@@ -71,7 +72,9 @@ header {
     align-content: center;
 }
 
+
 /* Style for myFiles,sharedFiles.html */
+
 .wrapper.dashboard {
     background-color: #ffff;
     flex-flow: column;
@@ -88,7 +91,9 @@ header {
     padding-bottom: 100px;
 }
 
+
 /* SIGN IN/UP SECTION */
+
 .form-section {
     text-align: center;
     background-color: #ffff;
@@ -129,7 +134,9 @@ header {
     padding: 20px 0px 30px 0px;
 }
 
+
 /* style for all inputs */
+
 input {
     font-family: 'Montserrat', sans-serif;
     font-size: 15px;
@@ -141,23 +148,29 @@ input {
     width: 100%;
 }
 
-input:focus, input:valid {
+input:focus,
+input:valid {
     transition: ease 250ms;
     border-bottom: 2px solid #49654D;
 }
 
+
 /* CHANGE PASSWORD */
+
 .close {
     align-self: flex-end;
 }
 
-.pass, .conf-pass {
+.pass,
+.conf-pass {
     margin-left: auto;
     margin-right: auto;
     width: fit-content;
 }
 
+
 /* Table content*/
+
 .content {
     width: 100%;
     display: flex;
@@ -165,12 +178,14 @@ input:focus, input:valid {
 }
 
 .picturre-download {
-    width: 24px;/*     float: right; */
+    width: 24px;
+    /*     float: right; */
     border-bottom: none;
 }
 
 .picturer-delete {
-    width: 20px;/*     float: left; */
+    width: 20px;
+    /*     float: left; */
     border-bottom: none;
 }
 
@@ -209,7 +224,9 @@ input:focus, input:valid {
     text-decoration: none;
 }
 
-.file-table table, td, th {
+.file-table table,
+td,
+th {
     text-align: left;
 }
 
@@ -217,7 +234,9 @@ input:focus, input:valid {
     float: left;
 }
 
+
 /* SHARED FILES */
+
 .img-folder {
     height: 20px;
 }
@@ -250,7 +269,9 @@ input:focus, input:valid {
     color: #aaafab;
 }
 
+
 /* UPLOAD */
+
 .upload-text {
     color: #49654D;
     padding-bottom: 5%;
@@ -298,7 +319,9 @@ input:focus, input:valid {
     border: 2px solid #8BA989;
 }
 
+
 /* CHANGE DETAILS */
+
 .details-content {
     margin-right: auto;
     margin-top: auto;
@@ -339,15 +362,20 @@ input:focus, input:valid {
     color: #FFFFFF;
 }
 
+
 /* MEDIA QUERIES */
-@media 
-only screen and (max-width:760px), (min-device-width:768px) and (max-device-width:1024px) {
-    .file-table table, td, th {
+
+@media only screen and (max-width:760px),
+(min-device-width:768px) and (max-device-width:1024px) {
+    .file-table table,
+    td,
+    th {
         font-size: 10px;
     }
-
-    .file-table tr th:nth-child(2), td:nth-child(2), th:nth-child(3), td:nth-child(3) {
+    .file-table tr th:nth-child(2),
+    td:nth-child(2),
+    th:nth-child(3),
+    td:nth-child(3) {
         display: none;
     }
-
 }
