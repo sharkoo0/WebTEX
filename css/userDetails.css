@@ -65,6 +65,7 @@ label {
 .buttons {
     display: grid;
     grid-template-areas: "1 1";
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    margin-top: 10px;
+    grid-template-columns: repeat(auto, auto);
+    margin: 10px;
+    padding: 10px;
 }
