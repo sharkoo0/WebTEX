@@ -29,8 +29,8 @@
         </nav>
     </header>
 
-    <section class="wrapper dashboard">
-        <main class="main-form">
+    <main class="wrapper dashboard">
+        <section class="main-form">
             <form class="user-photo">
                 <img class="user" src="../images/user.jpg">
                 <button class="change-photo">Change photo</button>
@@ -39,23 +39,23 @@
                 <label>Names: </label>
                 <input class="userNames" placeholder="names">
                 <label>Email: </label>
-                <input class="userEmail" placeholder="email">
+                <input type="email" class="userEmail" placeholder="email">
                 <label>Alternative email: </label>
-                <input class="userAlt-email" placeholder="alternative email">
+                <input type="email" class="userAlt-email" placeholder="alternative email">
                 <label>Phone number: </label>
-                <input class="userPhone" placeholder="phone number">
+                <input class="userPhone" pattern="[0]{1}[7-9]{2}[0-9]{7}" placeholder="phone number">
                 <label>Address: </label>
                 <input class="userAddress" placeholder="address">
-                <form class="buttons">
+                <fieldset class="buttons">
                     <button class="finish">Change password</button>
                     <button class="finish">Save changes</button>
-                </form>
+                </fieldset>
             </form>
-        </main>
-    </section>
+        </section>
+    </main>
 
     <footer>
-        <span>Creatd by Team 15</span>
+        <p>Creatd by Team 15</p>
         <img class="logo" src="../images/team-logo.jpg">
     </footer>
 </body>
