@@ -1,5 +1,5 @@
 .main-form {
-    padding-block: 30px;
+    padding-block: 20px;
     display: grid;
     grid-template-areas: "1 1";
     align-items: center;
@@ -24,17 +24,22 @@
 
 .user-details {
     display: grid;
-    grid-template-areas: "1 1", "1 1", "1 1", "1 1", "1 1";
-    grid-template-columns: 30% 50%;
+    grid-template-areas: "1 1", "1 1", "1 1", "1 1", "1 1", "1 1";
+    grid-template-columns: 30% 40%;
+    row-gap: 2%;
     height: 100%;
     width: 100%;
+    align-items: center;
+    align-content: center;
+    margin-bottom: 0;
 }
 
-label {
+.info {
     margin-top: 20px;
     font-size: 15px;
     float: right;
     margin-right: auto;
+    margin-left: 5px;
 }
 
 .user-details>input {
@@ -45,7 +50,8 @@ label {
 
 .finish {
     width: 150px;
-    margin-top: 20px;
+    margin-top: 50px;
+    margin-bottom: 10px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -60,15 +66,4 @@ label {
     height: 30px;
     background-color: #49654D;
     color: #FFFFFF;
-}
-
-.buttons {
-    display: grid;
-    grid-template-areas: "1 1";
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    margin-top: 10px;
-}
-
-.wrapper.upload {
-    display: none;
 }
