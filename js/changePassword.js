@@ -23,3 +23,12 @@ function back() {
     const url = 'userDetails.html';
     window.location = url;
 }
+
+function changePassword() {
+    console.log("ashdfjka");
+
+    const modal = document.getElementsByClassName('wrapper change-password');
+    console.log(modal[0]);
+
+    modal[0].style.display = 'block';
+}

@@ -1,56 +1,91 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>MyCloud</title>
-        <link rel="stylesheet" type="text/css" href="../css/main.css"/>
-        <script src="../js/myfiles.js"></script>
-    </head>
-    <body>
-        <!-- NAVBAR -->
-        <header>
-            <nav>
-                <ul class="navigation">
-                    <li>
-                        <a href="myFiles.html"><img class="logo" src="../images/team-logo.jpg"></a>
-                    </li>
-                    <li><input type="text" name="search-text-field" placeholder="Search..." class="search"></li>
-                    <li><a href="upload.html"><button class="upload-btn">Upload</button></a></li>
-                    <li><a href="userDetails.html"><img src="../images/user.jpg" class="img-user"></a></li>
-                </ul>
-            </nav>
-        </header>
-        <!-- MAIN SECTION -->
-        <main class="wrapper dashboard">
-            <section>
-                <a href="sharedFiles.html"><button class="upload-btn">Shared files</button></a>
+
+<head>
+    <title>MyCloud</title>
+    <link rel="stylesheet" type="text/css" href="../css/main.css" />
+    <script src="../js/myfiles.js"></script>
+
+</head>
+
+<body>
+    <script src="../js/uploadButton.js"></script>
+    <!-- NAVBAR -->
+    <header>
+        <nav>
+            <ul class="navigation">
+                <li>
+                    <a href="myFiles.html"><img class="logo" src="../images/team-logo.jpg"></a>
+                </li>
+                <li><input type="text" name="search-text-field" placeholder="Search..." class="search"></li>
+                <li><button class="upload-btn" onclick="upload()">Upload</button></li>
+                <li>
+                    <a href="userDetails.html"><img src="../images/user.jpg" class="img-user"></a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <form class="wrapper upload">
+        <section class="upload-section">
+            <h1 class="upload-text">Upload files</h1>
+            <section class="get-file-section">
+                <img src="../images/cloud-download.png" class="img-upload" />
+                <br/>
+                <h3 class="select-file">Select file</h3>
+                <br/>
+                <a href="myFiles.html"><button class="br-btn">Browse</button></a>
             </section>
-            <section class="content">
-                <div class="div-table">
-                    <h2 class="location">Files</h2>
-                    <a href="#" class="create-folder">+Create folder</a>
-                </div>
-                <table class="file-table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Date created</th>
-                            <th>Size</th>
-                            <th colspan="2">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <script>
-                        for (var i = 1; i <=10; i++) {
-                        document.write('<tr><td> <img src="../images/file-solid.png" class="img-folder"/> Test1244444.txt</td><td>22/03/2021</td><td>420MB</td><td><input class="picturre-download" type="Image" src="../images/download-solid.png" class="action-buttons"></td><td><input class="picturer-delete" type="Image" src="../images/Vector.png" class="action-buttons"></td></tr>');
+        </section>
+    </form>
+
+    <!-- MAIN SECTION -->
+    <main class="wrapper dashboard">
+        <section>
+            <a href="sharedFiles.html"><button class="upload-btn">Shared files</button></a>
+        </section>
+        <section class="content">
+            <div class="div-table">
+                <h2 class="location">Files</h2>
+                <a href="#" class="create-folder">+Create folder</a>
+            </div>
+            <table class="file-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Date created</th>
+                        <th>Size</th>
+                        <th colspan="2">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <script>
+                        for (var i = 1; i <= 10; i++) {
+                            document.write('<tr><td> <img src="../images/file-solid.png" class="img-folder"/> Test1244444.txt</td><td>22/03/2021</td><td>420MB</td><td><input class="picturre-download" type="Image" src="../images/download-solid.png" class="action-buttons"></td><td><input class="picturer-delete" type="Image" src="../images/Vector.png" class="action-buttons"></td></tr>');
                         }
-                        </script>
-                    </tbody>
-                </table>
+                    </script>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <footer>
+        <span>Creatd by Team 15</span>
+        <img class="logo" src="../images/team-logo.jpg" />
+    </footer>
+
+    <form class="wrapper upload">
+        <section class="upload-section">
+            <h1 class="upload-text">Upload files</h1>
+            <section class="get-file-section">
+                <img src="../images/cloud-download.png" class="img-upload" />
+                <br/>
+                <h3 class="select-file">Select file</h3>
+                <br/>
+                <a href="myFiles.html"><button class="br-btn">Browse</button></a>
             </section>
-        </main>
-        <footer>
-            <span>Creatd by Team 15</span>
-            <img class="logo" src="../images/team-logo.jpg"/>
-        </footer>
-    </body>
+        </section>
+    </form>
+
+</body>
+
 </html>

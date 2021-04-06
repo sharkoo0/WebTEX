@@ -1,12 +1,15 @@
 <!DOCTYPE html>
+
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>MyCloud | Shared with me</title>
-    <link rel="stylesheet" type="text/css" href="../css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/main.css" />
 </head>
+
 <body>
+    <script src="../js/uploadButton.js"></script>
     <!-- NAVBAR -->
     <header>
         <nav>
@@ -15,11 +18,40 @@
                     <a href="myFiles.html"><img class="logo" src="../images/team-logo.jpg"></a>
                 </li>
                 <li><input type="text" name="search-text-field" placeholder="Search..." class="search"></li>
-                <li><button class="upload-btn">Upload</button></li>
-                <li><a href="userDetails.html"><img src="../images/user.jpg" class="img-user"></a></li>
+                <li><button class="upload-btn" onclick="upload()">Upload</button></li>
+                <li>
+                    <a href="userDetails.html"><img src="../images/user.jpg" class="img-user"></a>
+                </li>
             </ul>
         </nav>
     </header>
+
+    <form class="wrapper upload">
+        <section class="upload-section">
+            <h1 class="upload-text">Upload files</h1>
+            <section class="get-file-section">
+                <img src="../images/cloud-download.png" class="img-upload" />
+                <br/>
+                <h3 class="select-file">Select file</h3>
+                <br/>
+                <a href="myFiles.html"><button class="br-btn">Browse</button></a>
+            </section>
+        </section>
+    </form>
+
+    <form class="wrapper upload">
+        <section class="upload-section">
+            <h1 class="upload-text">Upload files</h1>
+            <section class="get-file-section">
+                <img src="../images/cloud-download.png" class="img-upload" />
+                <br/>
+                <h3 class="select-file">Select file</h3>
+                <br/>
+                <a href="myFiles.html"><button class="br-btn">Browse</button></a>
+            </section>
+        </section>
+    </form>
+
     <!-- SHARED FILES -->
     <main class="wrapper dashboard">
         <section>
@@ -40,11 +72,11 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td> <img src="../images/folder1.png" class="img-folder"/> Gest1244444.txt</td>
+                        <td> <img src="../images/folder1.png" class="img-folder" /> Gest1244444.txt</td>
                         <td>22/04/2021</td>
                         <td>40MB</td>
-                        <td><input class='picturre-download' type="Image" src="../images/download.png" class="action-buttons"/></td>
-                        <td><input class='picturer-delete' type="Image" src="../images/bin.png" class="action-buttons"/></td>
+                        <td><input class='picturre-download' type="Image" src="../images/download.png" class="action-buttons" /></td>
+                        <td><input class='picturer-delete' type="Image" src="../images/bin.png" class="action-buttons" /></td>
                     </tr>
                 </tbody>
             </table>
@@ -52,6 +84,8 @@
     </main>
     <footer>
         <span>Creatd by Team 15</span>
-        <img class="logo" src="../images/team-logo.jpg"/>
+        <img class="logo" src="../images/team-logo.jpg" />
     </footer>
+
+
 </body>
