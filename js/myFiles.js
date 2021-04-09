@@ -12,7 +12,11 @@ for (let i = 1; i <= 10; i++) {
     td3.innerHTML = '420MB';
     td4.innerHTML = '<input class="picturre-download" type="Image" src="../images/download-solid.png" class="action-buttons">';
     td5.innerHTML = '<input class="picturer-delete" type="Image" src="../images/Vector.png" class="action-buttons onclick="deteleFile()"">';
-    tr.appendChild(td1, td2, td3, td4, td5);
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    tr.appendChild(td3);
+    tr.appendChild(td4);
+    tr.appendChild(td5);
     tbody.appendChild(tr);
 }
 
