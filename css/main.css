@@ -100,7 +100,6 @@ header {
 /* SIGN IN/UP SECTION */
 
 .form-section {
-    /* display: flex; */
     text-align: center;
     background-color: #ffff;
     flex-wrap: wrap;
@@ -185,13 +184,11 @@ input:valid {
 
 .picturre-download {
     width: 24px;
-    /*     float: right; */
     border-bottom: none;
 }
 
 .picturer-delete {
     width: 20px;
-    /*     float: left; */
     border-bottom: none;
 }
 
