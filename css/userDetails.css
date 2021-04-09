@@ -24,7 +24,7 @@
 
 .user-details {
     display: grid;
-    grid-template-areas: "1 1", "1 1", "1 1", "1 1", "1 1", "1";
+    grid-template-areas: "1 1", "1 1", "1 1", "1 1", "1 1";
     grid-template-columns: 30% 40%;
     row-gap: 2%;
     height: 100%;
