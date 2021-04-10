@@ -25,4 +25,4 @@ function deleteFile() {
     deleteForm.style.display = 'block';
 }
 
-//Not finished
+//Not finished deleteFile()
