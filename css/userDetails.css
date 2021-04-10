@@ -1,3 +1,4 @@
+@import "main.css";
 .main-form {
     padding-block: 20px;
     display: grid;
@@ -54,6 +55,9 @@
     margin-bottom: 10px;
     margin-left: auto;
     margin-right: auto;
+    background-color: #49654D;
+    color: #FFFFFF;
+    padding: 10px;
 }
 
 .change-photo {
