@@ -30,7 +30,7 @@
         </nav>
     </header>
 
-    <form class="wrapper upload">
+    <form class="wrapper modal">
         <section class="upload-section">
             <h1 class="upload-text">Upload files</h1>
             <section class="get-file-section">
@@ -43,7 +43,7 @@
         </section>
     </form>
 
-    <form class="wrapper change-password">
+    <form class="wrapper modal">
         <section class="form-section">
             <label class="close">&times;</label>
             <label class="logo">MyCloud</label>
@@ -80,15 +80,19 @@
             </form>
         </section>
         <section class="buttons">
-            <button class="change-photo" id="change-photo" onclick="changePhoto()">Change photo</button>
-            <button class="finish" onclick="changePassword()">Change password</button>
+            <section class="upload-image">
+                <laber class="upload-file-container">
+                    Choose new photo...<input type="file" accept="image/jpg" />
+                </laber>
+            </section>
+            <button class="finish" onclick="changePassword() ">Change password</button>
             <button class="save">Save changes</button>
         </section>
     </main>
 
     <footer>
         <p>Creatd by Team 15</p>
-        <img class="logo" src="../images/team-logo.jpg" />
+        <img class="logo " src="../images/team-logo.jpg " />
     </footer>
 </body>
 
