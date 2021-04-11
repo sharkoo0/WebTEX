@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>MyCloud | Shared with me</title>
-    <link rel="stylesheet" type="text/css" href="../css/main.css" />
+    <link rel="stylesheet" type="text/css" href="../css/myFiles.css" />
     <script src="../js/uploadButton.js" defer></script>
 </head>
 
@@ -18,7 +19,9 @@
                 <li>
                     <a href="myFiles.html"><img class="logo" src="../images/team-logo.jpg"></a>
                 </li>
-                <li><input type="text" name="search-text-field" placeholder="Search..." class="search"></li>
+                <li>
+                    <input type="text " name="search-text-field" placeholder="Search..." class="search" />
+                </li>
                 <li><button class="upload-btn" onclick="upload()">Upload</button></li>
                 <li>
                     <a href="userDetails.html"><img src="../images/user.jpg" class="img-user"></a>
@@ -26,19 +29,6 @@
             </ul>
         </nav>
     </header>
-
-    <form class="wrapper upload">
-        <section class="upload-section">
-            <h1 class="upload-text">Upload files</h1>
-            <section class="get-file-section">
-                <img src="../images/cloud-download.png" class="img-upload" />
-                <br/>
-                <h3 class="select-file">Select file</h3>
-                <br/>
-                <a href="myFiles.html"><button class="br-btn">Browse</button></a>
-            </section>
-        </section>
-    </form>
 
     <form class="wrapper upload">
         <section class="upload-section">
@@ -87,6 +77,6 @@
         <span>Creatd by Team 15</span>
         <img class="logo" src="../images/team-logo.jpg" />
     </footer>
-
-
 </body>
+
+</html>

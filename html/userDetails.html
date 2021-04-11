@@ -5,7 +5,6 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="../css/main.css" />
     <link rel="stylesheet" type="text/css" href="../css/userDetails.css" />
     <title>User Details</title>
     <script src="../js/changePassword.js" defer></script>
@@ -13,7 +12,6 @@
 </head>
 
 <body>
-
     <!-- NAVBAR -->
     <header>
         <nav>
@@ -45,19 +43,6 @@
         </section>
     </form>
 
-    <form class="wrapper upload">
-        <section class="upload-section">
-            <h1 class="upload-text">Change profile photo</h1>
-            <section class="get-file-section">
-                <img src="../images/cloud-download.png" class="img-upload" />
-                <br/>
-                <h3 class="select-file">Select file</h3>
-                <br/>
-                <a href="myFiles.html"><button class="br-btn">Browse</button></a>
-            </section>
-        </section>
-    </form>
-
     <form class="wrapper change-password">
         <section class="form-section">
             <label class="close">&times;</label>
@@ -71,7 +56,7 @@
                     <input type="password" class="conf-pass" required placeholder="Re-enter your password*" />
                 </fieldset>
                 <br/>
-                <button class="form-btn" id="next" onclick="next()">Next</button>
+                <button class="next-btn" id="next" onclick="next()">Next</button>
             </section>
         </section>
     </form>

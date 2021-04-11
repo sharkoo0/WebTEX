@@ -3,7 +3,7 @@
 
 <head>
     <title>MyCloud</title>
-    <link rel="stylesheet" type="text/css" href="../css/main.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="../css/main.css" /> -->
     <link rel="stylesheet" type="text/css" href="../css/myFiles.css" />
     <script src="../js/myFiles.js" defer></script>
     <script src="../js/uploadButton.js" defer></script>
@@ -19,7 +19,9 @@
                 <li>
                     <a href="myFiles.html"><img class="logo" src="../images/team-logo.jpg"></a>
                 </li>
-                <li><input type="text" name="search-text-field" placeholder="Search..." class="search"></li>
+                <li>
+                    <input type="text " name="search-text-field" placeholder="Search..." class="search" />
+                </li>
                 <li><button class="upload-btn" onclick="upload()">Upload</button></li>
                 <li>
                     <a href="userDetails.html"><img src="../images/user.jpg" class="img-user"></a>
@@ -70,6 +72,7 @@
                     </tr>
                 </thead>
                 <tbody id="tbody">
+
                 </tbody>
             </table>
         </section>
