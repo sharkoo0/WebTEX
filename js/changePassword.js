@@ -23,3 +23,21 @@ function back() {
     const url = 'userDetails.html';
     window.location = url;
 }
+
+function changePassword() {
+    console.log("ashdfjka");
+
+    const modal = document.getElementsByClassName('wrapper modal');
+    console.log(modal[1]);
+
+    modal[1].style.display = 'block';
+}
+
+function changePhoto() {
+    console.log("ashdfjka");
+
+    const modal = document.getElementsByClassName('wrapper upload');
+    console.log(modal[1]);
+
+    modal[1].style.display = 'block';
+}

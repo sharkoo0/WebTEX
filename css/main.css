@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import "reset-css.css";
-
 body {
     font-family: 'Montserrat', sans-serif;
     background-color: #E4E6DA;
@@ -32,7 +31,9 @@ header {
     width: 200px;
 }
 
+
 /* search */
+
 .navigation li:nth-child(2) {
     width: 60%;
 }
@@ -42,7 +43,7 @@ header {
 }
 
 .navigation li:nth-child(3) {
-     margin-top: 20px;
+    margin-top: 20px;
 }
 
 .upload-btn {
@@ -55,7 +56,6 @@ header {
     color: #ffff;
     padding: 10px 40px 10px 40px;
     text-decoration: none;
-
 }
 
 .upload-btn:hover {
@@ -77,7 +77,21 @@ header {
     align-content: center;
 }
 
+.wrapper.modal {
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+    display: none;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
+
 /* Style for myFiles,sharedFiles.html */
+
 .wrapper.dashboard {
     background-color: #ffff;
     flex-flow: column;
@@ -85,16 +99,9 @@ header {
     padding: 30px;
 }
 
-.wrapper.upload {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    align-content: center;
-    padding-top: 100px;
-    padding-bottom: 100px;
-}
 
 /* style for all inputs */
+
 input {
     font-family: 'Montserrat', sans-serif;
     font-size: 15px;
@@ -106,13 +113,15 @@ input {
     width: 100%;
 }
 
-input:focus, input:valid {
+input:focus,
+input:valid {
     transition: ease 250ms;
     border-bottom: 2px solid #49654D;
 }
 
 
 /* Table content*/
+
 .content {
     width: 100%;
     display: flex;
@@ -164,7 +173,9 @@ input:focus, input:valid {
     text-decoration: none;
 }
 
-.file-table table, td, th {
+.file-table table,
+td,
+th {
     text-align: left;
 }
 
@@ -172,7 +183,9 @@ input:focus, input:valid {
     float: left;
 }
 
+
 /* SHARED FILES */
+
 .img-folder {
     height: 20px;
 }
@@ -205,12 +218,13 @@ input:focus, input:valid {
     color: #aaafab;
 }
 
+
 /* UPLOAD */
+
 .upload-text {
     color: #49654D;
     padding-bottom: 5%;
 }
-
 
 .upload-section {
     text-align: center;
@@ -218,14 +232,23 @@ input:focus, input:valid {
     padding: 50px;
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
     border-radius: 5px;
+    height: 50%;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .img-upload {
     width: 100px;
 }
 
+.select-file {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
 .get-file-section {
-    padding: 70px 70px 70px 70px;
+    padding: 25px 50px 25px 50px;
     display: flex;
     justify-content: center;
     align-content: center;
@@ -256,14 +279,18 @@ input:focus, input:valid {
 
 
 /* MEDIA QUERIES */
-@media 
-only screen and (max-width:760px), (min-device-width:768px) and (max-device-width:1024px) {
-    .file-table table, td, th {
+
+@media only screen and (max-width:760px),
+(min-device-width:768px) and (max-device-width:1024px) {
+    .file-table table,
+    td,
+    th {
         font-size: 10px;
     }
-
-    .file-table tr th:nth-child(2), td:nth-child(2), th:nth-child(3), td:nth-child(3) {
+    .file-table tr th:nth-child(2),
+    td:nth-child(2),
+    th:nth-child(3),
+    td:nth-child(3) {
         display: none;
     }
-
 }
