@@ -1,3 +1,4 @@
+@import "main.css";
 .main-form {
     padding-block: 20px;
     display: grid;
@@ -24,7 +25,7 @@
 
 .user-details {
     display: grid;
-    grid-template-areas: "1 1", "1 1", "1 1", "1 1", "1 1", "1 1";
+    grid-template-areas: "1 1", "1 1", "1 1", "1 1", "1 1";
     grid-template-columns: 30% 40%;
     row-gap: 2%;
     height: 100%;
@@ -49,24 +50,123 @@
 }
 
 .finish {
-    width: 150px;
-    margin-top: 50px;
-    margin-bottom: 10px;
-    margin-left: auto;
-    margin-right: auto;
+    display: inline;
     background-color: #49654D;
     color: #FFFFFF;
-    padding: 10px;
+    width: 150px;
+    margin-left: 25%;
+    margin-right: auto;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    float: right;
+    height: 30px;
+}
+
+.save {
+    display: inline;
+    width: 150px;
+    height: 30px;
+    background-color: #49654D;
+    color: #FFFFFF;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    margin-right: 50%;
+    float: right;
 }
 
 .change-photo {
-    margin-left: auto;
+    display: inline;
+    margin-left: 40%;
     margin-right: auto;
     float: right;
     margin-top: 40px;
     margin-bottom: 10px;
-    width: 40%;
+    width: 50%;
     height: 30px;
     background-color: #49654D;
     color: #FFFFFF;
+}
+
+.form-section {
+    text-align: center;
+    background-color: #ffff;
+    padding: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px;
+}
+
+.buttons {
+    display: grid;
+    grid-template-areas: "1 1 1";
+    align-items: center;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.change-photo:hover,
+.finish:hover,
+.save:hover,
+.next-btn:hover {
+    transition: ease-in-out 200ms;
+    background-color: #8BA989;
+    border: 2px solid #8BA989;
+}
+
+.close {
+    align-self: flex-end;
+}
+
+.pass,
+.conf-pass {
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+}
+
+.next-btn {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    background-color: #49654D;
+    border: 2px solid #49654D;
+    padding: 20px 50px 20px 50px;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    font-size: 20px;
+    color: #ffff;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.input-container {
+    padding: 20px 0px 30px 0px;
+}
+
+.sign-text {
+    font-size: 28px;
+    font-weight: 600;
+    margin-top: 30px;
+}
+
+.upload-image {
+    width: 50%;
+    display: inline;
+    margin-left: 40%;
+    margin-right: 40%;
+    margin-top: 5%;
+}
+
+.upload-file-container {
+    width: 100px;
+    height: 40px;
+    position: relative;
+    background-color: #FFFFFF;
+}
+
+.upload-file-container input {
+    width: 100px;
+    height: 40px;
+    position: absolute;
+    top: 0;
+    border: 0;
 }

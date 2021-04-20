@@ -1,26 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-        <title>MyCloud | Dashboard</title>
-        <link rel="stylesheet" type="text/css" href="../css/main.css"/>
-        <script src="../js/myfiles.js"></script>
-    </head>
-    <body>
-        <!-- NAVBAR -->
-        <header>
-            <nav>
-                <ul class="navigation">
-                    <li><a href="myFiles.html"><img class="logo" src="../images/team-logo.jpg"/></a></li>
-                    <li><input type="text" name="search-text-field" placeholder="Search..." class="search"/></li>
-                    <li><a href="upload.html" class="upload-btn">Upload</a></li>
-                    <li><a href="userDetails.html"><img src="../images/user.jpg" class="img-user"/></a></li>
-                </ul>
+<html>
+
+<head>
+    <title>MyCloud</title>
+    <link rel="stylesheet" type="text/css" href="../css/myFiles.css" />
+    <script src="../js/myFiles.js" defer></script>
+    <script src="../js/uploadButton.js" defer></script>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <nav>
+            <ul class="navigation">
+                <li>
+                    <a href="myFiles.html"><img class="logo" src="../images/team-logo.jpg"></a>
+                </li>
+                <li>
+                    <input type="text " name="search-text-field" placeholder="Search..." class="search" />
+                </li>
+                <li><a href="#" class="upload-btn" onclick="upload()">Upload</a></li>
+                <li>
+                    <a href="userDetails.html"><img src="../images/user.jpg" class="img-user"></a>
+                </li>
             </ul>
         </nav>
     </header>
+
+    <form class="wrapper modal">
+        <section class="upload-section">
+            <h1 class="upload-text">Upload files</h1>
+            <section class="get-file-section">
+                <img src="../images/cloud-download.png" class="img-upload" />
+                <h3 class="select-file">Select file</h3>
+                <a href="myFiles.html"><button class="br-btn">Browse</button></a>
+            </section>
+        </section>
+    </form>
+
+    <form class="wrapper delete-file">
+        <section class="delete-section">
+            <h1>Delete file</h1>
+            <h1>Are you sure that you want to delete this file?</h1>
+            <button class="cancel" onclick="cancel()">CANCEL</button>
+            <button class="delete" onclick="deleteFile()">DELETE</button>
+        </section>
+    </form>
+
     <!-- MAIN SECTION -->
     <main class="wrapper dashboard">
         <section>
@@ -40,12 +68,8 @@
                         <th colspan="2">Actions</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <script>
-                    for (var i = 1; i <=10; i++) {
-                    document.write('<tr><td> <img src="../images/file-solid.png" class="img-folder"/> Test1244444.txt</td><td>22/03/2021</td><td>420MB</td><td><input class="picturre-download" type="Image" src="../images/download-solid.png" class="action-buttons"></td><td><input class="picturer-delete" type="Image" src="../images/Vector.png" class="action-buttons"></td></tr>');
-                    }
-                    </script>
+                <tbody id="tbody">
+
                 </tbody>
             </table>
         </section>

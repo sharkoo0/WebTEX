@@ -2,11 +2,12 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" type="text/css" href="../css/main.css" />
-        <link rel="stylesheet" type="text/css" href="../css/userDetails.css" />
-        <title>User Details</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="../css/userDetails.css" />
+    <title>User Details</title>
+    <script src="../js/changePassword.js" defer></script>
+    <script src="../js/uploadButton.js" defer></script>
     </head>
     <body>
         <script src="../js/uploadButton.js"></script>
@@ -16,50 +17,76 @@
                 <ul class="navigation">
                     <li><a href="myFiles.html"><img class="logo" src="../images/team-logo.jpg"/></a></li>
                     <li><input type="text" name="search-text-field" placeholder="Search..." class="search"/></li>
-                    <li><a href="upload.html" class="upload-btn">Upload</a></li>
+                    <li><a href="#" class="upload-btn"  onclick="upload()">Upload</a></li>
                     <li><a href="userDetails.html"><img src="../images/user.jpg" class="img-user"/></a></li>
                 </ul>
             </ul>
         </nav>
     </header>
-    <!-- <form class="wrapper upload">
+
+
+    <form class="wrapper modal">
         <section class="upload-section">
             <h1 class="upload-text">Upload files</h1>
             <section class="get-file-section">
                 <img src="../images/cloud-download.png" class="img-upload" />
-                <br/>
                 <h3 class="select-file">Select file</h3>
-                <br/>
                 <a href="myFiles.html"><button class="br-btn">Browse</button></a>
             </section>
         </section>
     </form>
-    -->
+
+
+    <form class="wrapper modal">
+        <section class="form-section">
+            <label class="close">&times;</label>
+            <label class="logo">MyCloud</label>
+            <h3 class="sign-text">Change password </h3>
+            <section>
+                <fieldset class="input-container">
+                    <input type="password" class="pass" required placeholder="Enter your password*" />
+                </fieldset>
+                <fieldset class="input-container">
+                    <input type="password" class="conf-pass" required placeholder="Re-enter your password*" />
+                </fieldset>
+                <button class="next-btn" id="next" onclick="next()">Next</button>
+            </section>
+        </section>
+    </form>
+
     <main class="wrapper dashboard">
         <section class="main-form">
             <form class="user-photo">
                 <img class="user" src="../images/user.jpg" />
-                <button class="change-photo">Change photo</button>
             </form>
             <form class="user-details">
                 <label class="info">Names: </label>
-                <input class="userNames" placeholder="names"/>
+                <input class="userNames" placeholder="names">
                 <label class="info">Email: </label>
-                <input type="email" class="userEmail" placeholder="email"/>
+                <input type="email" class="userEmail" placeholder="email">
                 <label class="info">Alternative email: </label>
-                <input type="email" class="userAlt-email" placeholder="alternative email"/>
+                <input type="email" class="userAlt-email" placeholder="alternative email">
                 <label class="info">Phone number: </label>
-                <input class="userPhone" pattern="[0]{1}[7-9]{2}[0-9]{7}" placeholder="phone number"/>
+                <input class="userPhone" pattern="[0]{1}[7-9]{2}[0-9]{7}" placeholder="phone number">
                 <label class="info">Address: </label>
-                <input class="userAddress" placeholder="address"/>
-                <button class="finish">Change password</button>
-                <button class="finish">Save changes</button>
+                <input class="userAddress" placeholder="address">
             </form>
         </section>
+        <section class="buttons">
+            <section class="upload-image">
+                <laber class="upload-file-container">
+                    Choose new photo...<input type="file" accept="image/jpg" />
+                </laber>
+            </section>
+            <button class="finish" onclick="changePassword() ">Change password</button>
+            <button class="save">Save changes</button>
+        </section>
     </main>
+
     <footer>
         <p>Creatd by Team 15</p>
-        <img class="logo" src="../images/team-logo.jpg" />
+        <img class="logo " src="../images/team-logo.jpg " />
     </footer>
 </body>
+
 </html>

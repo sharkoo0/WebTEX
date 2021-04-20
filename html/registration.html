@@ -1,43 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-        <title>Sign Up | MyCloud</title>
-        <link rel="stylesheet" type="text/css" href="../css/auth.css"/>
-        <link rel="stylesheet" type="text/css" href="../css/main.css"/>
-    </head>
-    <body>
-        <main class="wrapper">
-            <section class="form-section">
-                <img class="logo form" src="../images/team-logo.jpg"/>
-                <h3 class="sign-text">Sign up </h3>
-                <form>
-                    <div class="input-container">
-                        <input type="email" name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="E-mail*"/>
-                    </div>
-                    <div class="input-container">
-                        <input type="text" class="first-name" name="first-name" required placeholder="First Name*"/>
-                    </div>
-                    <div class="input-container">
-                        <input type="text" class="second-name" name="second-name" required placeholder="Second Name*"/>
-                    </div>
-                    <div class="input-container">
-                        <input type="password" class="password" name="password" required minlength="6" placeholder="Password*"/>
-                    </div>
-                    <div class="input-container">
-                        <input type="password" class="confirm-password" name="confirm-password" required minlength="6" placeholder="Confirm password*"/>
-                    </div>
-                    <div>
-                        <span>Enter your birthdate*</span>
-                        <input type="date" value="1999-03-01"/>
-                    </div>
-                    <br/>
-                    <button class="form-btn" formaction="myFiles.html">Sign up</button>
-                </form>
-                <span>Have an Account? <a href="login.html">Sign in now!</a></span>
-            </section>
-        </main>
-    </body>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Sign Up | MyCloud</title>
+    <link rel="stylesheet" type="text/css" href="../css/auth.css" />
+</head>
+
+<body>
+    <main class="wrapper">
+        <section class="form-section">
+            <img class="logo form" src="../images/team-logo.jpg" />
+            <h3 class="sign-text">Sign up </h3>
+            <form>
+                <div class="input-container">
+                    <input type="email" name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="E-mail*" />
+                </div>
+                <div class="input-container">
+                    <input type="text" class="first-name" name="first-name" required placeholder="First Name*" />
+                </div>
+                <div class="input-container">
+                    <input type="text" class="second-name" name="second-name" required placeholder="Second Name*" />
+                </div>
+                <div class="input-container">
+                    <input type="password" class="password" name="password" required minlength="6" placeholder="Password*" />
+                </div>
+                <div class="input-container">
+                    <input type="password" class="confirm-password" name="confirm-password" required minlength="6" placeholder="Confirm password*" />
+                </div>
+                <div>
+                    <span>Enter your birthdate*</span>
+                    <input type="date" value="1999-03-01" />
+                </div>
+                <button class="form-btn" formaction="myFiles.html">Sign up</button>
+            </form>
+            <span>Have an Account? <a href="login.html">Sign in now!</a></span>
+        </section>
+    </main>
+</body>
+
 </html>
