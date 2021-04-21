@@ -8,6 +8,7 @@
     <title>MyCloud | Shared with me</title>
     <link rel="stylesheet" type="text/css" href="../css/myFiles.css" />
     <script src="../js/uploadButton.js" defer></script>
+    <script src="../js/myFiles.js" defer></script>
 </head>
 
 <body>
@@ -17,7 +18,7 @@
             <ul class="navigation">
                 <li><a href="myFiles.html"><img class="logo" src="../images/team-logo.jpg" /></a></li>
                 <li><input type="text" name="search-text-field" placeholder="Search..." class="search" /></li>
-                <li><a href="#" class="upload-btn" onclick="upload()">Upload</a></li>
+                <li><a href="#" class="style-btn" onclick="upload()">Upload</a></li>
                 <li><a href="userDetails.html"><img src="../images/user.jpg" class="img-user" /></a></li>
             </ul>
             </ul>
@@ -36,8 +37,8 @@
 
     <!-- SHARED FILES -->
     <main class="wrapper dashboard">
-        <section>
-            <a href="myFiles.html"><button class="upload-btn">My files</button></a>
+        <section class="dashboard-buttons">
+            <a href="myFiles.html" class="style-btn">My files</a>
         </section>
         <section class="content">
             <div class="div-table">
@@ -52,16 +53,17 @@
                         <th colspan="2">Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="tbody">
                     <tr>
-                        <td> <img src="../images/folder1.png" class="img-folder" /> Gest1244444.txt</td>
+                        <td> <img src="../images/folder-solid.png" class="img-folder" /> Photos</td>
                         <td>22/04/2021</td>
                         <td>40MB</td>
-                        <td><input class="picturre-download" type="Image" src="../images/download.png"
+                        <td><input class="picturre-download" type="Image" src="../images/download-solid.png"
                                 class="action-buttons" /></td>
-                        <td><input class="picturer-delete" type="Image" src="../images/bin.png"
+                        <td><input class="picturer-delete" type="Image" src="../images/Vector.png"
                                 class="action-buttons" /></td>
                     </tr>
+
                 </tbody>
             </table>
         </section>
