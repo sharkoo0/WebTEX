@@ -46,7 +46,7 @@ header {
     margin-top: 20px;
 }
 
-.upload-btn {
+.style-btn {
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     background-color: #49654D;
@@ -58,7 +58,7 @@ header {
     text-decoration: none;
 }
 
-.upload-btn:hover {
+.style-btn:hover {
     transition: ease-in-out 200ms;
     background-color: #8BA989;
     border: 2px solid #8BA989;
@@ -275,6 +275,10 @@ th {
     transition: ease-in-out 200ms;
     background-color: #8BA989;
     border: 2px solid #8BA989;
+}
+
+.dashboard-buttons {
+    margin-bottom: 30px;
 }
 
 

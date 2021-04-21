@@ -1,6 +1,6 @@
 @import "main.css";
+
 .main-form {
-    padding-block: 20px;
     display: grid;
     grid-template-areas: "1 1";
     align-items: center;
@@ -21,6 +21,7 @@
     margin-right: auto;
     float: right;
     margin-bottom: 0px;
+    border-radius: 50%;
 }
 
 .user-details {
@@ -51,41 +52,23 @@
 
 .finish {
     display: inline;
-    background-color: #49654D;
-    color: #FFFFFF;
-    width: 150px;
+    font-size: 12px;
+    background-color: #ffffff;
+    color: #49654D;
+    width: 200px;
     margin-left: 25%;
-    margin-right: auto;
     margin-top: 40px;
     margin-bottom: 10px;
-    float: right;
-    height: 30px;
 }
 
 .save {
     display: inline;
-    width: 150px;
-    height: 30px;
-    background-color: #49654D;
-    color: #FFFFFF;
+    width: 200px;
     margin-top: 40px;
     margin-bottom: 10px;
     margin-right: 50%;
-    float: right;
 }
 
-.change-photo {
-    display: inline;
-    margin-left: 40%;
-    margin-right: auto;
-    float: right;
-    margin-top: 40px;
-    margin-bottom: 10px;
-    width: 50%;
-    height: 30px;
-    background-color: #49654D;
-    color: #FFFFFF;
-}
 
 .form-section {
     text-align: center;
@@ -154,19 +137,50 @@
     margin-left: 40%;
     margin-right: 40%;
     margin-top: 5%;
+
+}
+
+input[type="file"] {
+    display: none;
 }
 
 .upload-file-container {
-    width: 100px;
-    height: 40px;
-    position: relative;
+    color: #49654D;
+    display: inline-block;
     background-color: #FFFFFF;
+    cursor: pointer;
 }
 
-.upload-file-container input {
-    width: 100px;
-    height: 40px;
-    position: absolute;
-    top: 0;
-    border: 0;
+@media only screen and (max-width:760px),
+(min-device-width:768px) and (max-device-width:1024px) {
+
+    .main-form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .upload-image {
+        display: flex;
+    }
+
+    .buttons {
+        display: flex;
+        flex-direction: column;
+        
+    }
+
+    .finish{
+        margin-top: 10px;
+        margin-left: 0;
+        font-size:medium;
+        width: 240px;
+    }
+
+    .upload-image {
+        
+        margin-left: 0;
+        margin-right:0;
+        margin-top: 50px;
+    
+    }
 }

@@ -1,34 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
+    <head>
+        <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="../css/userDetails.css" />
     <title>User Details</title>
     <script src="../js/changePassword.js" defer></script>
     <script src="../js/uploadButton.js" defer></script>
-</head>
-
-<body>
-    <!-- NAVBAR -->
-    <header>
-        <nav>
-            <ul class="navigation">
-                <li>
-                    <a href="myFiles.html"><img class="logo" src="../images/team-logo.jpg"></a>
-                </li>
-                <li>
-                    <input type="text " name="search-text-field" placeholder="Search..." class="search" />
-                </li>
-                <li><button class="upload-btn" onclick="upload()">Upload</button></li>
-                <li>
-                    <a href="userDetails.html"><img src="../images/user.jpg" class="img-user"></a>
-                </li>
+    </head>
+    <body>
+        <script src="../js/uploadButton.js" defer></script>
+        <!-- NAVBAR -->
+        <header>
+            <nav>
+                <ul class="navigation">
+                    <li><a href="myFiles.html"><img class="logo" src="../images/team-logo.jpg"/></a></li>
+                    <li><input type="text" name="search-text-field" placeholder="Search..." class="search"/></li>
+                    <li><a href="#" class="style-btn"  onclick="upload()">Upload</a></li>
+                    <li><a href="userDetails.html"><img src="../images/user.jpg" class="img-user"/></a></li>
+                </ul>
             </ul>
         </nav>
     </header>
+
 
     <form class="wrapper modal">
         <section class="upload-section">
@@ -40,6 +35,7 @@
             </section>
         </section>
     </form>
+
 
     <form class="wrapper modal">
         <section class="form-section">
@@ -78,12 +74,13 @@
         </section>
         <section class="buttons">
             <section class="upload-image">
-                <laber class="upload-file-container">
-                    Choose new photo...<input type="file" accept="image/jpg" />
-                </laber>
+                <label for="file-upload" class="upload-file-container style-btn">
+                    Choose new photo...
+                </label>
+                <input id="file-upload" type="file"  accept="image/jpg" />
             </section>
-            <button class="finish" onclick="changePassword() ">Change password</button>
-            <button class="save">Save changes</button>
+            <button class="finish style-btn" onclick="changePassword() ">Change password</button>
+            <button class="save style-btn">Save changes</button>
         </section>
     </main>
 
