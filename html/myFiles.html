@@ -1,86 +1,85 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>MyCloud</title>
-    <link rel="stylesheet" type="text/css" href="../css/myFiles.css" />
-    <script src="../js/myFiles.js" defer></script>
-    <script src="../js/uploadButton.js" defer></script>
-  </head>
 
-  <body>
-    <!-- NAVBAR -->
-    <header>
-      <nav>
-        <ul class="navigation">
-          <li>
-            <a href="myFiles.html"
-              ><img class="logo" src="../images/team-logo.jpg"
-            /></a>
-          </li>
-          <li>
-            <input
-              type="text "
-              name="search-text-field"
-              placeholder="Search..."
-              class="search"
-            />
-          </li>
-          <li><a href="#" class="style-btn" onclick="upload()">Upload</a></li>
-          <li>
-            <a href="userDetails.html"
-              ><img src="../images/user.jpg" class="img-user"
-            /></a>
-          </li>
-        </ul>
-      </nav>
-    </header>
+<head>
+  <title>MyCloud</title>
+  <link rel="stylesheet" type="text/css" href="../css/myFiles.css" />
+  <script src="../js/myFiles.js" defer></script>
+  <script src="../js/uploadButton.js" defer></script>
+</head>
 
-    <form class="wrapper modal">
-      <section class="upload-section">
-        <h1 class="upload-text">Upload files</h1>
-        <section class="get-file-section">
-          <img src="../images/cloud-download.png" class="img-upload" />
-          <h3 class="select-file">Select file</h3>
-          <a href="myFiles.html"><button class="br-btn">Browse</button></a>
-        </section>
-      </section>
-    </form>
+<body>
+  <!-- NAVBAR -->
+  <header>
+    <nav>
+      <ul class="navigation">
+        <li>
+          <a href="myFiles.html"><img class="logo" src="../images/team-logo.jpg" /></a>
+        </li>
+        <li class="search-container">
+          <input type="text " name="search-text-field" placeholder="Search..." class="search" />
+        </li>
+        <li class="upload-btn-container">
+          <a href="#" class="style-btn" onclick="upload()">Upload</a>
+        </li>
+        <li class="user-dropdown">
+          <a href="#"><img src="../images/user.jpg" class="img-user" /></a>
+          <ul class="dropdown">
+            <li><a href="userDetails.html">Account</a></li>
+            <li><a href="login.html">Log out</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </header>
 
-    <form class="wrapper delete-file">
-      <section class="delete-section">
-        <h1>Delete file</h1>
-        <h1>Are you sure that you want to delete this file?</h1>
-        <button class="cancel" onclick="cancel()">CANCEL</button>
-        <button class="delete" onclick="deleteFile()">DELETE</button>
+  <form class="wrapper modal">
+    <section class="upload-section">
+      <h1 class="upload-text">Upload files</h1>
+      <section class="get-file-section">
+        <img src="../images/cloud-download.png" class="img-upload" />
+        <h3 class="select-file">Select file</h3>
+        <a href="myFiles.html"><button class="br-btn">Browse</button></a>
       </section>
-    </form>
+    </section>
+  </form>
 
-    <!-- MAIN SECTION -->
-    <main class="wrapper dashboard">
-      <section class="dashboard-buttons">
-        <a href="sharedFiles.html" class="style-btn">Shared files</a>
-      </section>
-      <section class="content">
-        <div class="div-table">
-          <h2 class="location">Files</h2>
-          <a href="#" class="create-folder">+Create folder</a>
-        </div>
-        <table class="file-table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Date created</th>
-              <th>Size</th>
-              <th colspan="2">Actions</th>
-            </tr>
-          </thead>
-          <tbody id="tbody"></tbody>
-        </table>
-      </section>
-    </main>
-    <footer>
-      <p>Creatd by Team 15</p>
-      <img class="logo" src="../images/team-logo.jpg" />
-    </footer>
-  </body>
+  <form class="wrapper delete-file">
+    <section class="delete-section">
+      <h1>Delete file</h1>
+      <h1>Are you sure that you want to delete this file?</h1>
+      <button class="cancel" onclick="cancel()">CANCEL</button>
+      <button class="delete" onclick="deleteFile()">DELETE</button>
+    </section>
+  </form>
+
+  <!-- MAIN SECTION -->
+  <main class="wrapper dashboard">
+    <section class="dashboard-buttons">
+      <a href="sharedFiles.html" class="style-btn">Shared files</a>
+    </section>
+    <section class="content">
+      <div class="div-table">
+        <h2 class="location">Files</h2>
+        <a href="#" class="create-folder">+Create folder</a>
+      </div>
+      <table class="file-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Date created</th>
+            <th>Size</th>
+            <th colspan="2">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </section>
+  </main>
+  <footer>
+    <p>Creatd by Team 15</p>
+    <img class="logo" src="../images/team-logo.jpg" />
+  </footer>
+</body>
+
 </html>
