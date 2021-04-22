@@ -1,8 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import "reset-css.css";
+
 body {
-    font-family: 'Montserrat', sans-serif;
-    background-color: #E4E6DA;
+    font-family: "Montserrat", sans-serif;
+    background-color: #e4e6da;
 }
 
 header {
@@ -19,8 +20,72 @@ header {
     padding: 10px;
 }
 
-.navigation li {
-    margin-top: 10px;
+.navigation {
+    padding-top: 20px;
+}
+
+/*dropdown*/
+
+.dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    background: #8ba989a6;
+    border-radius: 5px;
+    left: auto;
+    margin-right: 45px;
+}
+
+.dropdown li {
+    padding: 21px;
+    margin: 0;
+}
+
+.dropdown a {
+    text-decoration: none;
+    padding: 22px;
+    color: #fff;
+    font-weight: 500;
+    white-space: pre;
+}
+
+.dropdown li:hover {
+    transition: ease-in-out 200ms;
+    background-color: #8ba989;
+    border-radius: 5px;
+}
+
+.user-dropdown:hover>.dropdown {
+    display: block;
+}
+
+/* mobile-menu */
+.hambuger {
+    display: none;
+}
+
+.mobile-menu {
+    display: none;
+    text-align: center;
+    background-color: #8ba989a6;
+}
+
+.mobile-menu li {
+    padding: 22px;
+}
+
+.mobile-menu a {
+    text-decoration: none;
+    padding: 22px;
+    color: #fff;
+    font-weight: 500;
+}
+
+.mobile-menu li:hover {
+    transition: ease-in-out 200ms;
+    background-color: #8ba989;
+    border-radius: 5px;
 }
 
 .logo {
@@ -31,10 +96,9 @@ header {
     width: 200px;
 }
 
-
 /* search */
 
-.navigation li:nth-child(2) {
+.search-container {
     width: 60%;
 }
 
@@ -42,15 +106,15 @@ header {
     margin-top: 20px;
 }
 
-.navigation li:nth-child(3) {
+.upload-btn-container {
     margin-top: 20px;
 }
 
 .style-btn {
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-weight: 600;
-    background-color: #49654D;
-    border: 2px solid #49654D;
+    background-color: #49654d;
+    border: 2px solid #49654d;
     border-radius: 5px;
     font-size: 15px;
     color: #ffff;
@@ -60,13 +124,14 @@ header {
 
 .style-btn:hover {
     transition: ease-in-out 200ms;
-    background-color: #8BA989;
-    border: 2px solid #8BA989;
+    background-color: #8ba989;
+    border: 2px solid #8ba989;
 }
 
 .img-user {
     border-radius: 50%;
-    width: 40px;
+    width: 50px;
+    border: solid 2px #49654d;
 }
 
 .wrapper {
@@ -89,7 +154,6 @@ header {
     padding-bottom: 5%;
 }
 
-
 /* Style for myFiles,sharedFiles.html */
 
 .wrapper.dashboard {
@@ -99,11 +163,10 @@ header {
     padding: 30px;
 }
 
-
 /* style for all inputs */
 
 input {
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-size: 15px;
     border: 0;
     border-bottom: 2px solid #999999;
@@ -116,9 +179,8 @@ input {
 input:focus,
 input:valid {
     transition: ease 250ms;
-    border-bottom: 2px solid #49654D;
+    border-bottom: 2px solid #49654d;
 }
-
 
 /* Table content*/
 
@@ -151,7 +213,7 @@ input:valid {
 }
 
 .file-table td {
-    color: #4D4D4D;
+    color: #4d4d4d;
     font-weight: 600;
     overflow-wrap: anywhere;
     border-top: 1px solid #e4e6da;
@@ -182,7 +244,6 @@ th {
 .prev {
     float: left;
 }
-
 
 /* SHARED FILES */
 
@@ -218,11 +279,10 @@ th {
     color: #aaafab;
 }
 
-
 /* UPLOAD */
 
 .upload-text {
-    color: #49654D;
+    color: #49654d;
     padding-bottom: 5%;
 }
 
@@ -260,10 +320,10 @@ th {
 }
 
 .br-btn {
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-weight: 500;
-    background-color: #49654D;
-    border: 2px solid #49654D;
+    background-color: #49654d;
+    border: 2px solid #49654d;
     padding: 5px 15px 5px 15px;
     border-radius: 5px;
     font-size: 20px;
@@ -273,28 +333,47 @@ th {
 
 .br-btn:hover {
     transition: ease-in-out 200ms;
-    background-color: #8BA989;
-    border: 2px solid #8BA989;
+    background-color: #8ba989;
+    border: 2px solid #8ba989;
 }
 
 .dashboard-buttons {
     margin-bottom: 30px;
 }
 
-
 /* MEDIA QUERIES */
 
-@media only screen and (max-width:760px),
-(min-device-width:768px) and (max-device-width:1024px) {
+@media only screen and (max-width: 768px),
+(min-device-width: 768px) and (max-device-width: 1024px) {
+
     .file-table table,
     td,
     th {
         font-size: 10px;
     }
+
     .file-table tr th:nth-child(2),
     td:nth-child(2),
     th:nth-child(3),
     td:nth-child(3) {
         display: none;
+    }
+
+    .upload-btn-container {
+        display: none;
+    }
+
+    .user-dropdown {
+        display: none;
+    }
+
+    .hambuger {
+        padding-top: 20px;
+        display: block;
+    }
+
+    .hambuger img {
+        width: 30px;
+        height: auto;
     }
 }
