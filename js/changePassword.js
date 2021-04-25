@@ -25,7 +25,6 @@ function back() {
 }
 
 function changePassword() {
-
     const modal = document.getElementsByClassName('wrapper modal');
     console.log(modal[1]);
 
@@ -33,7 +32,6 @@ function changePassword() {
 }
 
 function changePhoto() {
-
     const modal = document.getElementsByClassName('wrapper upload');
     console.log(modal[1]);
 
