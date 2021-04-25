@@ -31,9 +31,6 @@ header {
     width: 200px;
 }
 
-
-/* search */
-
 .navigation li:nth-child(2) {
     width: 60%;
 }
@@ -77,9 +74,6 @@ header {
     align-content: center;
 }
 
-
-/* Style for myFiles,sharedFiles.html */
-
 .wrapper.dashboard {
     background-color: #ffff;
     flex-flow: column;
@@ -95,9 +89,6 @@ header {
     padding-top: 100px;
     padding-bottom: 100px;
 }
-
-
-/* style for all inputs */
 
 input {
     font-family: 'Montserrat', sans-serif;
@@ -115,9 +106,6 @@ input:valid {
     transition: ease 250ms;
     border-bottom: 2px solid #49654D;
 }
-
-
-/* Table content*/
 
 .content {
     width: 100%;
@@ -180,9 +168,6 @@ th {
     float: left;
 }
 
-
-/* SHARED FILES */
-
 .img-folder {
     height: 20px;
 }
@@ -214,9 +199,6 @@ th {
     font-size: 15px;
     color: #aaafab;
 }
-
-
-/* UPLOAD */
 
 .upload-text {
     color: #49654D;
@@ -266,9 +248,6 @@ th {
     background-color: #8BA989;
     border: 2px solid #8BA989;
 }
-
-
-/* MEDIA QUERIES */
 
 @media only screen and (max-width:760px),
 (min-device-width:768px) and (max-device-width:1024px) {

@@ -1,0 +1,3 @@
+server/app/dist
+server/app/node_modules
+server/app/.env
