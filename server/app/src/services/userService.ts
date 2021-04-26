@@ -1,4 +1,5 @@
 import { User } from '../models/userModel'
+import models from '../../config/dbConnection'
 
 class UserService {
     users: User[] = [{
@@ -31,7 +32,14 @@ class UserService {
             resolve(true);
         });
     }
+
+    createUser = async () => {
+        const user = new models.User(this.users[0]);
+    }
 }
 
+
+
 export default new UserService();
+
 

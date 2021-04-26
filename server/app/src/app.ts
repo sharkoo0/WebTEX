@@ -1,6 +1,7 @@
 import Express from 'express';
 import Cors from 'cors';
 import { userRouter } from './routes/user'
+import models, { connectDB } from '../config/dbConnection'
 
 const app = Express();
 require('dotenv').config();
@@ -15,6 +16,10 @@ app.get('/', (req, res) => {
     res.send('zadara');
 });
 
-app.listen(port, () => {
-    console.log(`Server running on port ${port}!`);
+connectDB().then(async () => {
+    app.listen(port, () => {
+        console.log(`Server running on port ${port}!`);
+    });
+}).catch((error: Error) => {
+    console.log(error);
 });
