@@ -30,7 +30,6 @@ class UserService {
             } 
             resolve(true);
         });
-        
     }
 }
 
