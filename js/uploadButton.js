@@ -1,6 +1,4 @@
 function upload() {
-    console.log("something")
-
     const modal = document.getElementsByClassName('wrapper modal');
     console.log(modal[0]);
 

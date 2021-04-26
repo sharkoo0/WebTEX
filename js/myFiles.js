@@ -54,3 +54,4 @@ function deleteFile() {
     const deleteForm = document.getElementsByClassName('wrapper delete-file')[0];
     deleteForm.style.display = 'block';
 }
+

@@ -1,5 +1,4 @@
 @import "main.css";
-
 .main-form {
     display: grid;
     grid-template-areas: "1 1";
@@ -69,7 +68,6 @@
     margin-right: 50%;
 }
 
-
 .form-section {
     text-align: center;
     background-color: #ffff;
@@ -137,7 +135,6 @@
     margin-left: 40%;
     margin-right: 40%;
     margin-top: 5%;
-
 }
 
 input[type="file"] {
@@ -153,34 +150,26 @@ input[type="file"] {
 
 @media only screen and (max-width:760px),
 (min-device-width:768px) and (max-device-width:1024px) {
-
     .main-form {
         display: flex;
         flex-direction: column;
     }
-
     .upload-image {
         display: flex;
     }
-
     .buttons {
         display: flex;
         flex-direction: column;
-        
     }
-
-    .finish{
+    .finish {
         margin-top: 10px;
         margin-left: 0;
-        font-size:medium;
+        font-size: medium;
         width: 240px;
     }
-
     .upload-image {
-        
         margin-left: 0;
-        margin-right:0;
+        margin-right: 0;
         margin-top: 50px;
-    
     }
 }
