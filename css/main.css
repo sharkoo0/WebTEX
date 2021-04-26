@@ -186,16 +186,11 @@ input:valid {
     display: flex;
     flex-flow: column;
 }
-
-.picturre-download {
+.action-buttons {
     width: 24px;
     border-bottom: none;
 }
 
-.picturer-delete {
-    width: 20px;
-    border-bottom: none;
-}
 
 .file-table {
     margin-top: 10px;
