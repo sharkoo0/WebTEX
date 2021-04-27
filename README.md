@@ -30,3 +30,4 @@
 
 ## Branch naming
 `feature/add-login-page-<your_name>`
+
