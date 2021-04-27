@@ -1,0 +1,367 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import "reset-css.css";
+body {
+    font-family: "Montserrat", sans-serif;
+    background-color: #e4e6da;
+}
+
+header {
+    border-bottom: 1px solid #e4e6da;
+}
+
+.navigation {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    list-style: none;
+    margin: 0;
+    background: #ffff;
+    padding: 10px;
+}
+
+.navigation {
+    padding-top: 20px;
+}
+
+.dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    background: #8ba989a6;
+    border-radius: 5px;
+    left: auto;
+    margin-right: 45px;
+}
+
+.dropdown li {
+    padding: 21px;
+    margin: 0;
+}
+
+.dropdown a {
+    text-decoration: none;
+    padding: 22px;
+    color: #fff;
+    font-weight: 500;
+    white-space: pre;
+}
+
+.dropdown li:hover {
+    transition: ease-in-out 200ms;
+    background-color: #8ba989;
+    border-radius: 5px;
+}
+
+.user-dropdown:hover>.dropdown {
+    display: block;
+}
+
+.hambuger {
+    display: none;
+}
+
+.mobile-menu {
+    display: none;
+    text-align: center;
+    background-color: #8ba989a6;
+}
+
+.mobile-menu li {
+    padding: 22px;
+}
+
+.mobile-menu a {
+    text-decoration: none;
+    padding: 22px;
+    color: #fff;
+    font-weight: 500;
+}
+
+.mobile-menu li:hover {
+    transition: ease-in-out 200ms;
+    background-color: #8ba989;
+    border-radius: 5px;
+}
+
+.logo {
+    width: 100px;
+}
+
+.logo.form {
+    width: 200px;
+}
+
+.search-container {
+    width: 60%;
+}
+
+.search {
+    margin-top: 20px;
+}
+
+.upload-btn-container {
+    margin-top: 20px;
+}
+
+.style-btn {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    background-color: #49654d;
+    border: 2px solid #49654d;
+    border-radius: 5px;
+    font-size: 15px;
+    color: #ffff;
+    padding: 10px 40px 10px 40px;
+    text-decoration: none;
+}
+
+.style-btn:hover {
+    transition: ease-in-out 200ms;
+    background-color: #8ba989;
+    border: 2px solid #8ba989;
+}
+
+.img-user {
+    border-radius: 50%;
+    width: 50px;
+    border: solid 2px #49654d;
+}
+
+.wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    height: 100vh;
+    align-content: center;
+}
+
+.wrapper.modal {
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+    display: none;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
+.wrapper.dashboard {
+    background-color: #ffff;
+    flex-flow: column;
+    justify-content: normal;
+    padding: 30px;
+}
+
+.wrapper.upload {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-content: center;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+input {
+    font-family: "Montserrat", sans-serif;
+    font-size: 15px;
+    border: 0;
+    border-bottom: 2px solid #999999;
+    outline: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+input:focus,
+input:valid {
+    transition: ease 250ms;
+    border-bottom: 2px solid #49654d;
+}
+
+.content {
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+}
+
+.picturre-download {
+    width: 24px;
+    border-bottom: none;
+}
+
+.picturer-delete {
+    width: 20px;
+    border-bottom: none;
+}
+
+.file-table {
+    margin-top: 10px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.file-table th {
+    color: #aaafab;
+    font-weight: 600;
+    padding: 10px 0px 10px 0px;
+}
+
+.file-table td {
+    color: #4d4d4d;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+    border-top: 1px solid #e4e6da;
+    padding: 10px 0px 10px 0px;
+}
+
+.file-table tr td:nth-child(4) {
+    width: 40px;
+}
+
+.location {
+    font-size: 36px;
+    font-weight: 600;
+}
+
+.create-folder {
+    font-weight: 600;
+    color: #aaafab;
+    text-decoration: none;
+}
+
+.file-table table,
+td,
+th {
+    text-align: left;
+}
+
+.prev {
+    float: left;
+}
+
+.img-folder {
+    height: 20px;
+}
+
+.img-download {
+    height: 40px;
+}
+
+.img-delete {
+    height: 40px;
+}
+
+.menu {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    padding-left: 2%;
+    padding-right: 2%;
+    align-items: baseline;
+}
+
+.table-section {
+    display: grid;
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+.header-table {
+    font-size: 15px;
+    color: #aaafab;
+}
+
+.upload-text {
+    color: #49654d;
+    padding-bottom: 5%;
+}
+
+.upload-section {
+    text-align: center;
+    background-color: #ffff;
+    padding: 50px;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    height: 50%;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.img-upload {
+    width: 100px;
+}
+
+.select-file {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.get-file-section {
+    padding: 25px 50px 25px 50px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    border: 3px solid;
+    border-color: #aaafab;
+    border-style: dashed;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.br-btn {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    background-color: #49654d;
+    border: 2px solid #49654d;
+    padding: 5px 15px 5px 15px;
+    border-radius: 5px;
+    font-size: 20px;
+    color: #ffff;
+    margin-bottom: 20px;
+}
+
+.br-btn:hover {
+    transition: ease-in-out 200ms;
+    background-color: #8ba989;
+    border: 2px solid #8ba989;
+}
+
+@media only screen and (max-width:760px),
+(min-device-width:768px) and (max-device-width:1024px) {
+    .dashboard-buttons {
+        margin-bottom: 30px;
+    }
+}
+
+@media only screen and (max-width: 768px),
+(min-device-width: 768px) and (max-device-width: 1024px) {
+    .file-table table,
+    td,
+    th {
+        font-size: 10px;
+    }
+    .file-table tr th:nth-child(2),
+    td:nth-child(2),
+    th:nth-child(3),
+    td:nth-child(3) {
+        display: none;
+    }
+    .upload-btn-container {
+        display: none;
+    }
+    .user-dropdown {
+        display: none;
+    }
+    .hambuger {
+        padding-top: 20px;
+        display: block;
+    }
+    .hambuger img {
+        width: 30px;
+        height: auto;
+    }
+}
