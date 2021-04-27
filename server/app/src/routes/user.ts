@@ -2,7 +2,7 @@ import Express from 'express';
 import { User } from '../models/userModel';
 import UserService from '../services/userService';
 
-const userRouter = Express();
+const userRouter = Express.Router();
 
 userRouter.get('/', (req, res) => {
     res.json(UserService.users);
@@ -20,8 +20,9 @@ userRouter.post('/', async(req, res) => {
     } catch(error) {
         res.sendStatus(400);
     }
-    
 });
+
+
 
 export {userRouter};
 

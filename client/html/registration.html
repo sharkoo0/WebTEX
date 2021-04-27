@@ -7,14 +7,35 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Sign Up | MyCloud</title>
     <link rel="stylesheet" type="text/css" href="../css/auth.css" />
+    <script src="../js/reg.js" defer></script>
 </head>
+
+<script>
+    async function sendReq(event) {
+        alert('here!');
+        console.log(event.target.elements);
+        const response = await fetch('http://localhost:3000/user', {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            redirect: 'follow',
+            body: JSON.stringify(event.target.elements)
+        });
+        console.log(response.json());
+        return response.json();
+    }
+</script>
 
 <body>
     <main class="wrapper">
         <section class="form-section">
             <img class="logo form" src="../images/team-logo.jpg" />
             <h3 class="sign-text">Sign up </h3>
-            <form>
+            <form onsubmit="sendReq(event)">
                 <div class="input-container">
                     <input type="email" name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="E-mail*" />
                 </div>
@@ -34,9 +55,10 @@
                     <span>Enter your birthdate*</span>
                     <input type="date" value="1999-03-01" />
                 </div>
-                <button class="form-btn" formaction="myFiles.html">Sign up</button>
+                <button type="submit" class=" form-btn ">Sign up</button>
+                <!-- formaction="myFiles.html " -->
             </form>
-            <span>Have an Account? <a href="login.html">Sign in now!</a></span>
+            <span>Have an Account? <a href="login.html ">Sign in now!</a></span>
         </section>
     </main>
 </body>
