@@ -27,3 +27,7 @@
  * [Fonts](https://fonts.google.com/)
  * [CSS](https://css-tricks.com/snippets/css/a-guide-to-flexbox)
  * [Icons](https://fontawesome.com/icons?d=gallery&p=2)
+
+## Branch naming
+`feature/add-login-page-<your_name>`
+
