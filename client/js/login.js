@@ -1,7 +1,5 @@
 function sendReq(event) {
-    alert('here!');
-    console.log(event.target.elements);
-    const response = await fetch('http://localhost:3000/user', {
+    const response = await fetch('http://localhost:3000/login', {
         headers: {
             'Content-Type': 'application/json'
         },
@@ -9,9 +7,9 @@ function sendReq(event) {
         mode: 'cors',
         cache: 'no-cache',
         credentials: 'same-origin',
-        redirect: 'follow',
+        // redirect: 'follow',
         body: JSON.stringify(event.target.elements)
     });
-    console.log(response.json());
+    console.log("RESPONSE: " + response);
     return response.json();
-}
+};
