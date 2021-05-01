@@ -10,6 +10,7 @@ loginRouter.get('/', (req, res) => {
 
 loginRouter.post('/', (req, res) => {
   const body: User = req.body;
+  console.log(req.body);
   if (body) {
     UserService.login(body.email, body.password).then(() => {
       res.sendStatus(200);

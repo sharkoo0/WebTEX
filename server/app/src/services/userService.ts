@@ -14,7 +14,15 @@ class UserService {
         email: 'goshu1@goshu1.goshu1',
         firstName: 'goshko1',
         lastName: 'goshkov1'
-    }];
+    },
+    {
+        username: 'test',
+        password: '123456',
+        email: 'test@abv.bg',
+        firstName: 'test',
+        lastName: 'testov'
+    }
+];
 
     constructor() {
 
@@ -42,7 +50,7 @@ class UserService {
     private exists(email: string, password: string) {
         return new Promise( (resolve, reject) => {
             for (let i = 0; i < this.users.length; i++) {
-                console.log(this.users[i])
+                //console.log(this.users[i].email);
                 if(this.users[i].email == email && this.users[i].password == password) {
                     resolve(true);
                 }
@@ -52,6 +60,7 @@ class UserService {
     }
 
     login = async (email: string, password: string) => {
+        console.log(email);
         return this.exists(email, password);
     }
     
