@@ -2,6 +2,7 @@ import Express from 'express';
 import Cors from 'cors';
 import { userRouter } from './routes/user';
 import { loginRouter } from './routes/login';
+import { saveRouter } from './routes/save';
 import models, { connectDB } from '../config/dbConnection';
 import path from 'path';
 import { Mongoose } from 'mongoose';
@@ -18,6 +19,8 @@ app.use('/login', loginRouter);
 app.get('/', (req, res) => {
   res.sendFile("../../../client1/html/index.html");
 });
+
+app.use('/save', saveRouter);
 
 // app.get('/', (req, res) => {
 //   res.sendFile(

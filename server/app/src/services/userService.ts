@@ -1,4 +1,5 @@
 import { User } from '../models/userModel'
+import { userDetails } from '../models/userModel'
 import models from '../../config/dbConnection'
 
 class UserService {
@@ -22,6 +23,31 @@ class UserService {
         firstName: 'test',
         lastName: 'testov'
     }
+];
+
+    userDetails: userDetails[] = [{
+        id: 0,
+        names:'test',
+        email: 'test@abv.bg',
+        altEmail: 'test1@abv.bg',
+        phone: '099322991',
+        address: 'adres1',
+        photo: 'C:\\fakepath\\back.jpg',
+        newPassword: '',
+        confNewPassword: ''
+    },
+    {
+        id: 1,
+        names:'test',
+        email: 'test@abv.bg',
+        altEmail: 'test2@abv.bg',
+        phone: '099322991',
+        address: 'adres2',
+        photo: 'myphoto1.jpeg',
+        newPassword: '',
+        confNewPassword: ''
+    }
+
 ];
 
     constructor() {
@@ -63,9 +89,25 @@ class UserService {
         console.log(email);
         return this.exists(email, password);
     }
+
+    change = async (id:number, email: string, phone: string, altEmail:string, address: string,photo:string, newPassword:string, confNewPassword:string) => {
+        for (let i = 0; i < this.userDetails.length; i++) {
+            if(this.userDetails[i].id == id) {
+                // this.userDetails[i].names = names;
+                this.userDetails[i].email = email;
+                this.userDetails[i].phone = phone;
+                this.userDetails[i].altEmail = altEmail;
+                this.userDetails[i].address = address;
+                this.userDetails[i].photo = photo;
+                this.userDetails[i].newPassword = newPassword;
+                this.userDetails[i].confNewPassword = confNewPassword;
+
+            }
+        }
+        console.log(this.userDetails);
+    }
     
 }
-
 
 
 export default new UserService();
