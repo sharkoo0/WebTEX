@@ -9,6 +9,7 @@
     <title>User Details</title>
     <script src="../js/changePassword.js" defer></script>
     <script src="../js/nav.js" defer></script>
+    <script src="../js/profileUpdate.js" defer></script>
 </head>
 
 <body>
@@ -56,17 +57,16 @@
 
     <form class="wrapper modal">
         <section class="form-section">
-            <label class="close">&times;</label>
-            <label class="logo">MyCloud</label>
             <h3 class="sign-text">Change password</h3>
             <section>
                 <fieldset class="input-container">
-                    <input type="password" class="pass" required placeholder="Enter your password*" />
+                    <input type="password" id="pass" name="newPass" required placeholder="Enter your new password*" />
                 </fieldset>
                 <fieldset class="input-container">
-                    <input type="password" class="conf-pass" required placeholder="Re-enter your password*" />
+                    <input type="password" id="conf-pass" name="confirm" required placeholder="Re-enter your new password*" />
                 </fieldset>
-                <button class="next-btn" id="next" onclick="next()">Next</button>
+                <button type="button" class="next-btn" id="next" onclick="nextStep()">Next</button>
+                <button type="reset" class="style-btn" id="cancel" onclick="cancelChange()">Cancel</button>
             </section>
         </section>
     </form>
@@ -76,17 +76,18 @@
             <form class="user-photo">
                 <img class="user" src="../images/user.jpg" />
             </form>
-            <form class="user-details">
+            <form class="user-details" id="user-details">
+                <input type="hidden"  name="id" value="0">
                 <label class="info">Names: </label>
-                <input class="userNames" placeholder="names" />
+                <input class="userNames" name="names" placeholder="names" />
                 <label class="info">Email: </label>
-                <input type="email" class="userEmail" placeholder="email" />
+                <input type="email" class="userEmail" name="email" placeholder="email" />
                 <label class="info">Alternative email: </label>
-                <input type="email" class="userAlt-email" placeholder="alternative email" />
+                <input type="email" class="userAlt-email"  name="altEmail" placeholder="alternative email" />
                 <label class="info">Phone number: </label>
-                <input class="userPhone" pattern="[0]{1}[7-9]{2}[0-9]{7}" placeholder="phone number" />
+                <input class="userPhone" pattern="[0]{1}[7-9]{2}[0-9]{7}" name="phone" placeholder="phone number" />
                 <label class="info">Address: </label>
-                <input class="userAddress" placeholder="address" />
+                <input class="userAddress" name="address" placeholder="address" />
             </form>
         </section>
         <section class="buttons">
@@ -94,12 +95,12 @@
                 <label for="file-upload" class="upload-file-container style-btn">
                     Choose new photo...
                 </label>
-                <input id="file-upload" type="file" accept="image/jpg" />
+                <input id="file-upload" type="file" accept="image/jpg" name="photo"/>
             </section>
             <button class="finish style-btn" onclick="changePassword() ">
                 Change password
             </button>
-            <button class="save style-btn">Save changes</button>
+            <button class="save style-btn" onclick="sendReq(event)" >Save changes</button>
         </section>
     </main>
 
