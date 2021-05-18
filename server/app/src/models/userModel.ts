@@ -16,5 +16,4 @@ export interface userDetails {
     photo: string;
     newPassword: string;
     confNewPassword: string;
-
 }
