@@ -50,6 +50,7 @@
                 <h3 class="select-file">Select file</h3>
                 <a href="myFiles.html"><button class="br-btn">Browse</button></a>
             </section>
+            <button type="reset" class="style-btn cancel" id="cancel" onclick="cancelUpdate()">Cancel</button>
         </section>
     </form>
 
@@ -67,21 +68,24 @@
                         <th>Name</th>
                         <th>Date created</th>
                         <th>Size</th>
-                        <th colspan="2">Actions</th>
+                        <th colspan="3">Actions</th>
                     </tr>
                 </thead>
                 <tbody id="tbody">
-                    <tr>
+                    <tr class = "data-row">
                         <td>
                             <img src="../images/folder-solid.png" class="img-folder" /> Photos
                         </td>
                         <td>22/04/2021</td>
                         <td>40MB</td>
                         <td>
-                            <input class="picturre-download" type="Image" src="../images/download-solid.png" class="action-buttons" />
+                            <input  type="Image" src="../images/download-solid.png" class="action-buttons" />
                         </td>
                         <td>
-                            <input class="picturer-delete" type="Image" src="../images/Vector.png" class="action-buttons" />
+                            <input  type="Image" src="../images/Vector.png" class="action-buttons" />
+                        </td>
+                        <td>
+                            <input type="Image" src="../images/share.png" class="action-buttons" />
                         </td>
                     </tr>
                 </tbody>
