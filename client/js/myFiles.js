@@ -21,6 +21,19 @@ for (let i = 1; i <= 10; i++) {
 }
 
 function deleteFile() {
-    const deleteForm = document.getElementsByClassName('wrapper delete-file')[0];
-    deleteForm.style.display = 'block';
+    // const deleteForm = document.getElementsByClassName('wrapper delete-file')[0];
+    // deleteForm.style.display = 'block';
+    // const response = await fetch('http://localhost:3000/files/delete', {
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     method: 'DELETE',
+    //     mode: 'cors',
+    //     cache: 'no-cache',
+    //     credentials: 'same-origin',
+    //     redirect: 'follow',
+    //     body: {
+    //         path: ""
+    //     }
+    // });
 }

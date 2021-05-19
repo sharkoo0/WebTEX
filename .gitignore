@@ -2,3 +2,4 @@ server/app/node_modules
 server/app/.env
 client/node_modules
 server/app/dist
+info/*

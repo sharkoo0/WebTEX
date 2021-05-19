@@ -1,7 +1,6 @@
 import Express from 'express';
 import Cors from 'cors';
 import { saveRouter } from './routes/save';
-import { uploadRouter } from './routes/upload';
 import { authRouter } from './routes/auth';
 import { filesRouter } from './routes/files';
 import models, { connectDB } from '../config/dbConnection';

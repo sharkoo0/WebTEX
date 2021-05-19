@@ -38,8 +38,8 @@ const register = async (req: Express.Request, res: Express.Response) => {
   }
 };
 
-authRouter.post('/logout', logout);
-authRouter.post('/login', login);
-authRouter.post('/register', register);
+authRouter.post('/logout', logout); //localhost:3000/app/auth/logout
+authRouter.post('/login', login); //localhost:3000/app/auth/login
+authRouter.post('/register', register); //localhost:3000/app/auth/register
 
 export { authRouter };
