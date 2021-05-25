@@ -1,3 +1,13 @@
+function deleteFile() {
+    const deleteForm = document.getElementsByClassName('wrapper delete-file');
+    deleteForm[0].style.display = 'block';
+}
+
+function cancelDel() {
+    const modal = document.getElementsByClassName('wrapper delete-file');
+    modal[0].style.display = 'none';
+}
+
 const tbody = document.getElementById('tbody');
 
 for (let i = 1; i <= 10; i++) {
@@ -13,8 +23,8 @@ for (let i = 1; i <= 10; i++) {
     td2.innerHTML = '22/03/2021';
     td3.innerHTML = '420MB';
     td4.innerHTML = '<input  type="Image" src="../images/download-solid.png" class="action-buttons">';
-    td5.innerHTML = '<input  type="Image" src="../images/Vector.png" class="action-buttons onclick="deteleFile()"">';
-    td6.innerHTML = '<input  type="Image" src="../images/share.png" class="action-buttons">';
+    td5.innerHTML = '<input  type="Image" src="../images/Vector.png" class="action-buttons" onclick="deleteFile()">';
+    td6.innerHTML = '<input  type="Image" src="../images/share.png" class="action-buttons" onclick="share()">';
     tr.appendChild(td1);
     tr.appendChild(td2);
     tr.appendChild(td3);
@@ -24,10 +34,20 @@ for (let i = 1; i <= 10; i++) {
     tbody.appendChild(tr);
 }
 
-function deleteFile() {
-    const deleteForm = document.getElementsByClassName('wrapper delete-file')[0];
-    deleteForm.style.display = 'block';
+
+
+function share() {
+    const modal = document.getElementsByClassName('wrapper share');
+    // console.log(modal[0]);
+
+    modal[0].style.display = 'block';
 }
+
+function cancelShare() {
+    const modal = document.getElementsByClassName('wrapper share');
+    modal[0].style.display = 'none';
+}
+
 
 function createFolderModal() {
     const modal = document.getElementsByClassName('wrapper modal');

@@ -56,23 +56,33 @@
     </form>
 
     <form class="wrapper modal">
-        <section class="create-folder-section">
+        <section class="modal-section create-foldern">
             <h1 class="create-folder-text">Create Folder</h1>
             <section>
                 <input type="text" name="new-folder" placeholder="Enter folder name..."/>
                 <button class="style-btn">Create</button>
-                <button type="reset" class="style-btn cancel"  id="cancel" onclick="cancelCreateFolder()">Cancel</button>
+                <button type="reset" class="style-btn cancel" onclick="cancelCreateFolder()">Cancel</button>
             </section>
         </section>
     </form>
     
+    <form class="wrapper modal share">
+        <section class="modal-section share">
+            <h1 class="create-folder-text">Share</h1>
+            <section>
+                <input type="text" name="new-folder" placeholder="Enter email..."/>
+                <button class="style-btn">Share</button>
+                <button type="reset" class="style-btn cancel" onclick="cancelShare()">Cancel</button>
+            </section>
+        </section>
+    </form>
 
-    <form class="wrapper delete-file">
-        <section class="delete-section">
+    <form class="wrapper modal delete-file">
+        <section class="modal-section">
             <h1>Delete file</h1>
             <h1>Are you sure that you want to delete this file?</h1>
-            <button class="cancel" onclick="cancel()">CANCEL</button>
-            <button class="delete" onclick="deleteFile()">DELETE</button>
+            <button type="reset" class="style-btn cancel" onclick="cancelDel()">Cancel</button>
+            <button class="style-btn delete-btn" onclick="deleteFile()">DELETE</button>
         </section>
     </form>
 
