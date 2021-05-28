@@ -23,7 +23,7 @@ async function sendReq(event) {
         headers: {
             'Content-Type': 'application/json'
         },
-        method: 'POST',
+        method: 'PUT',
         mode: 'cors',
         cache: 'no-cache',
         credentials: 'same-origin',

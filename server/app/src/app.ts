@@ -1,6 +1,7 @@
 import Express from 'express';
 import Cors from 'cors';
 import { saveRouter } from './routes/save';
+import { createRouter } from './routes/create-folder';
 import { uploadRouter } from './routes/upload';
 import { authRouter } from './routes/auth';
 import { filesRouter } from './routes/files';
@@ -24,7 +25,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/save', saveRouter);
-
+app.use('/create-folder', createRouter) ;
 connectDB()
   .then(async () => {
     app.listen(port, () => {

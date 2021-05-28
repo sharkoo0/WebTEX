@@ -8,7 +8,7 @@ saveRouter.get('/', (req, res) => {
   res.send('save changes');
 });
 
-saveRouter.post('/', (req, res) => {
+saveRouter.put('/', (req, res) => {
   const body: userDetails = req.body;
   console.log(req.body);
   if (body) {
