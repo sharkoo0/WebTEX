@@ -23,7 +23,7 @@ async function sendReq(event) {
         headers: {
             'Content-Type': 'application/json'
         },
-        method: 'POST',
+        method: 'PUT',
         mode: 'cors',
         cache: 'no-cache',
         credentials: 'same-origin',
@@ -34,3 +34,23 @@ async function sendReq(event) {
     // return response.json();
 
 };
+
+
+const fileselector = document.getElementById('file-upload');
+fileselector.addEventListener('change',(event)=>{
+    const output = document.getElementById('output');
+    output.src = '';
+    const file = event.target.files[0];
+    if(file.type && !file.type.startsWith('image/')){
+        console.log('File is not an image.', file.type,file);
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.addEventListener('load', (event)=> {
+      
+        output.src = event.target.result;
+    });
+    reader.readAsDataURL(file);
+});
+

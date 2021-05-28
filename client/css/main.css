@@ -252,20 +252,8 @@ th {
     text-align: left;
 }
 
-.prev {
-    float: left;
-}
-
-.img-folder {
-    height: 20px;
-}
-
-.img-download {
-    height: 40px;
-}
-
-.img-delete {
-    height: 40px;
+.action-buttons:focus {
+    border-bottom: none;
 }
 
 .menu {
@@ -342,6 +330,36 @@ th {
     transition: ease-in-out 200ms;
     background-color: #8ba989;
     border: 2px solid #8ba989;
+}
+
+
+.modal-section {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: #ffff;
+    padding: 50px;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    height: 50%;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.delete-btn {
+    background-color: #ff4e4e;
+    color: #fff;
+    font-size: 15px;
+    text-decoration: none;
+    border: none;
+    margin-top: 10px;
+}
+
+.delete-btn:hover {
+    transition: ease-in-out 200ms;
+    background-color: #c22020;
+    border: none;
 }
 
 @media only screen and (max-width:760px),

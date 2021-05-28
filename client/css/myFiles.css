@@ -17,21 +17,7 @@
     padding-left: 20%;
 }
 
-.create-folder-section {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    background-color: #ffff;
-    padding: 50px;
-    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
-    border-radius: 5px;
-    height: 50%;
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.create-folder-section input {
+.modal-section.create-folder input {
     margin-bottom: 20px;
     margin-top: 20px;
 }
