@@ -51,8 +51,21 @@
                 <h3 class="select-file">Select file</h3>
                 <a href="myFiles.html"><button class="br-btn">Browse</button></a>
             </section>
+            <button type="reset" class="style-btn cancel" id="cancel" onclick="cancelUpdate()">Cancel</button>
         </section>
     </form>
+
+    <form class="wrapper modal">
+        <section class="create-folder-section">
+            <h1 class="create-folder-text">Create Folder</h1>
+            <section>
+                <input type="text" name="new-folder" placeholder="Enter folder name..."/>
+                <button class="style-btn">Create</button>
+                <button type="reset" class="style-btn cancel"  id="cancel" onclick="cancelCreateFolder()">Cancel</button>
+            </section>
+        </section>
+    </form>
+    
 
     <form class="wrapper delete-file">
         <section class="delete-section">
@@ -70,7 +83,7 @@
         <section class="content">
             <div class="div-table">
                 <h2 class="location">Files</h2>
-                <a href="#" class="create-folder">+Create folder</a>
+                <a href="#" class="create-folder" onclick="createFolderModal()" >+Create folder</a>
             </div>
             <table class="file-table">
                 <thead>

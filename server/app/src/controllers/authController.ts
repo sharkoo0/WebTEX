@@ -38,13 +38,6 @@ const register = async (req: Express.Request, res: Express.Response) => {
     const createdUser = await user.save();
     console.log(createdUser);
     res.status(200).send(createdUser);
-
-    // if (newUser) {
-    //   const user = await UserService.addUser(newUser);
-    //   res.json(user);
-    // } else {
-    //   res.sendStatus(400);
-    // }
   } catch (error) {
     console.error(error);
     res.status(400).json({error: error});
