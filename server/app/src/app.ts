@@ -27,12 +27,6 @@ app.get('/get', (req, res) => {
  UserSchema.find().then(user => res.json(user));
 });
 
-<<<<<<< HEAD
-
-=======
-app.use('/save', saveRouter);
-app.use('/create-folder', createRouter) ;
->>>>>>> origin/feature/server-creation-adi
 connectDB()
   .then(async () => {
     app.listen(port, () => {
