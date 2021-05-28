@@ -1,45 +1,23 @@
 import Express from 'express';
 import { User } from '../models/userModel';
 import UserService from '../services/userService';
-
+import {login, logout, register} from "../controllers/authController";
+import UserSchema from '../schemas/userSchema';
 const authRouter = Express.Router();
-
-const logout = async (req: Express.Request, res: Express.Response) => {
-  res.clearCookie('sessionId');
-  res.json({ logout: true });
-};
-
-const login = async (req: Express.Request, res: Express.Response) => {
-  const body: User = req.body;
-  console.log(req.body);
-  if (body) {
-    UserService.login(body.email, body.password)
-      .then(() => {
-        res.sendStatus(200);
-      })
-      .catch((error) => {
-        res.sendStatus(401);
-        console.log(error);
-      });
-  }
-};
-
-const register = async (req: Express.Request, res: Express.Response) => {
-  try {
-    const newUser: User = req.body;
-    if (newUser) {
-      const user = await UserService.addUser(newUser);
-      res.json(user);
-    } else {
-      res.sendStatus(400);
-    }
-  } catch (error) {
-    res.sendStatus(400);
-  }
-};
 
 authRouter.post('/logout', logout); //localhost:3000/app/auth/logout
 authRouter.post('/login', login); //localhost:3000/app/auth/login
 authRouter.post('/register', register); //localhost:3000/app/auth/register
+
+authRouter.get('/:id', (req, res) => {
+  const id = req.params.id;
+  UserSchema.findById(id).exec().then(doc => {
+    console.log(doc);
+    res.status(200).json(doc);
+  }).catch(err => {
+    console.log(err);
+    res.status(500).json(err); 
+  });
+});
 
 export { authRouter };

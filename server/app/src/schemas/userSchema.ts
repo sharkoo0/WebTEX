@@ -1,25 +1,68 @@
 import mongoose from 'mongoose';
+import { File } from '../models/fileModel';
 
 const userSchema = new mongoose.Schema(
     {
+        _id: mongoose.Schema.Types.ObjectId,
         username: {
-            type: String
+            type: String,
+            required: true,
+            transform: true,
+            trim: true,
+            minLength: 6,
+            maxLength: 25
         }, 
         password: {
-            type: String
+            type: String,
+            required: true,
+            transform: true,
+            trim: true,
+            match: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,1024}$/
         },
         email: {
-            type: String
+            type: String,
+            required: true,
+            transform: true,
+            trim: true,
+            match: /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/
         },
-        fisrtName: {
-            type: String
+        firstName: {
+            type: String,
+            required: true,
+            transform: true,
+            trim: true,
+            maxLengt: 25
         },
         lastName: {
+            type: String,
+            required: true,
+            transform: true,
+            trim: true,
+            maxLengt: 25
+        },
+        photoPath: {
             type: String
-        }
+        },
+        altEmail: {
+            type: String,
+            match: /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/
+        },
+        birthdate: {
+            type: String,
+            // required: true,
+            // transform: true,
+            // min: 1970-1-1,
+            // max: Date.now()
+        },
+        // files: {
+        //     type: FileModel
+        // },
+        // sharedFiles: {
+        //     type: FileModel
+        // }
     }
 );
 
-const User = mongoose.model('User', userSchema);    
+const UserSchema = mongoose.model('User', userSchema);    
 
-export default User;
+export default UserSchema;
