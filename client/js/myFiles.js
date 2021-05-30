@@ -34,7 +34,6 @@ for (let i = 1; i <= 10; i++) {
     tbody.appendChild(tr);
 }
 
-<<<<<<< HEAD
 function deleteFile() {
     const deleteForm = document.getElementsByClassName('wrapper delete-file')[0];
     deleteForm.style.display = 'block';
@@ -51,22 +50,12 @@ function deleteFile() {
     //         path: ""
     //     }
     // });
-=======
-
-
-function share() {
-    const modal = document.getElementsByClassName('wrapper share');
-    // console.log(modal[0]);
-
-    modal[0].style.display = 'block';
->>>>>>> origin/feature/server-creation-adi
 }
 
 function cancelShare() {
     const modal = document.getElementsByClassName('wrapper share');
     modal[0].style.display = 'none';
 }
-
 
 function createFolderModal() {
     const modal = document.getElementsByClassName('wrapper modal');
@@ -80,6 +69,12 @@ function cancelCreateFolder() {
     modal[1].style.display = 'none';
 }
 
+function share() {
+    const modal = document.getElementsByClassName('wrapper share');
+    // console.log(modal[0]);
+
+    modal[0].style.display = 'block';
+}
 
 async function sendReq(event) {
     let myForm = document.getElementById('user-details');
