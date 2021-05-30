@@ -2,7 +2,7 @@ import Express from 'express';
 import Cors from 'cors';
 import { saveRouter } from './routes/save';
 import { authRouter } from './routes/auth';
-import { filesRouter } from './routes/files';
+// import { filesRouter } from './routes/files';
 import models, { connectDB } from '../config/dbConnection';
 import path from 'path';
 import { Mongoose } from 'mongoose';
@@ -16,7 +16,7 @@ app.use(Cors({ origin: '*' }));
 app.use(Express.json());
 
 app.use('/auth', authRouter);
-app.use('/files', filesRouter);
+// app.use('/files', filesRouter);
 app.use('/save', saveRouter);
 
 // app.get('/', (req, res) => {

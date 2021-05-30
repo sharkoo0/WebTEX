@@ -4,6 +4,10 @@ export interface User {
     email: string;
     firstName: string;
     lastName: string;
+    photoPath: string;
+    altEmail: string;
+    birthdate: string;
+    phone: string;
 }
 
 export interface userDetails {

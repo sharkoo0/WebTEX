@@ -27,17 +27,24 @@ const login = async (req: Express.Request, res: Express.Response) => {
 const register = async (req: Express.Request, res: Express.Response) => {
   try {
     const newUser: User = req.body;
-    const user = new UserSchema({
-      _id: new mongoose.Types.ObjectId(),
-      username: newUser.username,
-      password: newUser.password,
-      email: newUser.email,
-      firstName: newUser.firstName,
-      lastName: newUser.lastName,
-    });
-    const createdUser = await user.save();
-    console.log(createdUser);
-    res.status(200).send(createdUser);
+    // const user = new UserSchema({
+    //   _id: new mongoose.Types.ObjectId(),
+    //   username: newUser.username,
+    //   password: newUser.password,
+    //   email: newUser.email,
+    //   firstName: newUser.firstName,
+    //   lastName: newUser.lastName,
+    // });
+    // const createdUser = await UserService.addUser(newUser);
+    // console.log(createdUser);
+    UserService.addUser(newUser).then((user) => {
+      console.log(user);
+      res.status(200).json(user);
+    }).catch(err => {
+      console.log(err);
+      res.status(400).json({error: err});
+    })
+    // res.status(200).send(createdUser);
   } catch (error) {
     console.error(error);
     res.status(400).json({error: error});

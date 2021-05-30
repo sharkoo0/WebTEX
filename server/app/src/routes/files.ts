@@ -1,17 +1,17 @@
-import Express from 'express';
-import Multer from 'multer';
-import fs from 'fs';
-import fileService from '../services/fileService';
-import  FileSchema from '../schemas/fileSchema';
-import { Upload, uploadFiles, deleteFiles } from '../controllers/fileController';
+// import Express from 'express';
+// import Multer from 'multer';
+// import fs from 'fs';
+// // import fileService from '../services/fileService';
+// import  FileSchema from '../schemas/fileSchema';
+// import { Upload, uploadFiles, deleteFiles } from '../controllers/fileController';
 
-const filesRouter = Express.Router();
+// const filesRouter = Express.Router();
 
-filesRouter.post('/upload', Upload.array('file-to-upload'), uploadFiles);
-filesRouter.delete('/delete', deleteFiles);
+// filesRouter.post('/upload', Upload.array('file-to-upload'), uploadFiles);
+// filesRouter.delete('/delete', deleteFiles);
 
-filesRouter.get('/', (req, res) => {
-  FileSchema.find().then(file => res.json(file));
-});
+// filesRouter.get('/', (req, res) => {
+//   FileSchema.find().then(file => res.json(file));
+// });
 
-export { filesRouter };
+// export { filesRouter };
