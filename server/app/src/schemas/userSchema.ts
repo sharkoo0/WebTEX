@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { File } from '../models/fileModel';
+// import { File } from '../models/fileModel';
 
 const userSchema = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,

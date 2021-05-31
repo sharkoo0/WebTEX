@@ -8,23 +8,32 @@ class UserService {
   constructor() {}
 
   async addUser(user: User) {
-    await this.isCorrect(user);
-    await this.exists(user.email).then(async () => {const newUser = new UserSchema({
-        _id: new mongoose.Types.ObjectId(),
-        username: user.username,
-        password: user.password,
-        email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        photoPath: user.photoPath, 
-        altEmail: user.altEmail,
-        birthdate: user.birthdate,
-        phone: user.phone
-      });
-      await newUser.save();
-    }).catch((err) => {
-        console.log(err)
-    });
+    return new Promise((resolve, reject) => {
+        this.isCorrect(user);
+        this.notExists(user.email)
+          .then(async () => {
+            const newUser = new UserSchema({
+              _id: new mongoose.Types.ObjectId(),
+              username: user.username,
+              password: user.password,
+              email: user.email,
+              firstName: user.firstName,
+              lastName: user.lastName,
+              photoPath: user.photoPath,
+              altEmail: user.altEmail,
+              birthdate: user.birthdate,
+              phone: user.phone,
+         
+            });
+            await newUser.save();
+            resolve(true);
+          })
+          .catch((err) => {
+            console.log(err);
+            reject("User already exists");
+          });
+    })
+    
   }
 
   private isCorrect({ username, password, email, firstName, lastName }: User) {
@@ -40,18 +49,27 @@ class UserService {
     // const user = new models.User(this.users[0]);
   };
 
-  private exists = (email: string, password?: string) => {
+  private notExists = (email: string) => {
     return new Promise(async (resolve, reject) => {
       const user = await UserSchema.findOne({ email: email }).exec();
-      if(user) {
-          resolve(true);
+      if (user) {
+        reject("User already exists");
       }
-      reject("User doesn't exists");
+      resolve(true);
     });
-  }
+  };
 
-  login = async (email: string, password: string) => {
-    return this.exists(email, password);
+  login = async (email: string, p: string) => {
+    return new Promise((resolve, reject) => {
+        this.notExists(email).then(() => {
+            reject("The user doesn't exists");
+        }).catch(() => {
+            const user = UserSchema.findOne({ email: email }).exec();
+            user.then((u) => {
+                resolve(u?.get("password") === p);
+            })
+        })
+    });
   };
 
   change = async (
@@ -77,19 +95,20 @@ class UserService {
     //       }
     //     }
     //     console.log(this.userDetails);
-    const user = UserSchema.findOneAndUpdate({id: id}, {
+    const user = UserSchema.findOneAndUpdate(
+      { id: id },
+      {
         email: email,
         phone: phone,
         altEmail: altEmail,
         address: address,
         photoPath: photo,
-        password: newPassword
-    })
+        password: newPassword,
+      }
+    );
   };
 
-  addFile = async (username: String) => {
-
-  };
+  addFile = async (username: String) => {};
 }
 
 export default new UserService();

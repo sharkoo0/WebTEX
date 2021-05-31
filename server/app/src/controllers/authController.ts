@@ -27,6 +27,7 @@ const login = async (req: Express.Request, res: Express.Response) => {
 const register = async (req: Express.Request, res: Express.Response) => {
   try {
     const newUser: User = req.body;
+    console.log(newUser);
     // const user = new UserSchema({
     //   _id: new mongoose.Types.ObjectId(),
     //   username: newUser.username,
@@ -37,15 +38,13 @@ const register = async (req: Express.Request, res: Express.Response) => {
     // });
     // const createdUser = await UserService.addUser(newUser);
     // console.log(createdUser);
-    UserService.addUser(newUser).then((user) => {
-      console.log(user);
-      res.status(200).json(user);
+    UserService.addUser(newUser).then(() => {
+      res.status(200).json(newUser);
     }).catch(err => {
-      console.log(err);
       res.status(400).json({error: err});
     })
-    // res.status(200).send(createdUser);
-  } catch (error) {
+
+    } catch (error) {
     console.error(error);
     res.status(400).json({error: error});
   }
