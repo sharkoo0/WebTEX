@@ -23,7 +23,6 @@ class UserService {
               altEmail: user.altEmail,
               birthdate: user.birthdate,
               phone: user.phone,
-         
             });
             await newUser.save();
             resolve(true);
@@ -53,21 +52,34 @@ class UserService {
     return new Promise(async (resolve, reject) => {
       const user = await UserSchema.findOne({ email: email }).exec();
       if (user) {
+        // throw new Error("user already exist");
         reject("User already exists");
       }
       resolve(true);
     });
   };
 
+  private exists = (email: string) => {
+    return new Promise(async (resolve, reject) => {
+      const user = await UserSchema.findOne({ email: email }).exec();
+      if (user) {
+        resolve(true);
+      }
+      reject("User not exists");
+    });
+  };
+
   login = async (email: string, p: string) => {
+    console.log("hello madafaka")
     return new Promise((resolve, reject) => {
-        this.notExists(email).then(() => {
-            reject("The user doesn't exists");
-        }).catch(() => {
-            const user = UserSchema.findOne({ email: email }).exec();
+        this.exists(email).then(() => {
+          const user = UserSchema.findOne({ email: email }).exec();
             user.then((u) => {
-                resolve(u?.get("password") === p);
+              console.log("zadara")
+                resolve(true);
             })
+        }).catch(() => {
+          reject("The user doesn't exists");
         })
     });
   };

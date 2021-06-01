@@ -1,6 +1,6 @@
 import { User } from "./userModel";
 
-export interface IFile {
+export interface File {
   name: string;
   mimetype: string;
   destination: string;
