@@ -40,7 +40,7 @@ const register = async (req: Express.Request, res: Express.Response) => {
   // });
   // const createdUser = await UserService.addUser(newUser);
   // console.log(createdUser);
-  UserService.addUser(newUser)
+  await UserService.addUser(newUser)
     .then(() => {
       fs.mkdir('../../info/' + newUser.username, (err) => {
         console.log(err);
