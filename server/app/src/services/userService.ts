@@ -23,7 +23,6 @@ class UserService {
               altEmail: user.altEmail,
               birthdate: user.birthdate,
               phone: user.phone,
-         
             });
             await newUser.save();
             resolve(true);
@@ -53,21 +52,34 @@ class UserService {
     return new Promise(async (resolve, reject) => {
       const user = await UserSchema.findOne({ email: email }).exec();
       if (user) {
+        // throw new Error("user already exist");
         reject("User already exists");
       }
       resolve(true);
     });
   };
 
+  private exists = (email: string) => {
+    return new Promise(async (resolve, reject) => {
+      const user = await UserSchema.findOne({ email: email }).exec();
+      if (user) {
+        resolve(true);
+      }
+      reject("User not exists");
+    });
+  };
+
   login = async (email: string, p: string) => {
+    console.log("hello madafaka")
     return new Promise((resolve, reject) => {
-        this.notExists(email).then(() => {
-            reject("The user doesn't exists");
-        }).catch(() => {
-            const user = UserSchema.findOne({ email: email }).exec();
+        this.exists(email).then(() => {
+          const user = UserSchema.findOne({ email: email }).exec();
             user.then((u) => {
-                resolve(u?.get("password") === p);
+              console.log("zadara")
+                resolve(true);
             })
+        }).catch(() => {
+          reject("The user doesn't exists");
         })
     });
   };
@@ -82,19 +94,6 @@ class UserService {
     newPassword?: string,
     confNewPassword?: string
   ) => {
-    //     for (let i = 0; i < this.userDetails.length; i++) {
-    //       if (this.userDetails[i].id == id) {
-    //         // this.userDetails[i].names = names;
-    //         this.userDetails[i].email = email;
-    //         this.userDetails[i].phone = phone;
-    //         this.userDetails[i].altEmail = altEmail;
-    //         this.userDetails[i].address = address;
-    //         this.userDetails[i].photo = photo;
-    //         this.userDetails[i].newPassword = newPassword;
-    //         this.userDetails[i].confNewPassword = confNewPassword;
-    //       }
-    //     }
-    //     console.log(this.userDetails);
     const user = UserSchema.findOneAndUpdate(
       { id: id },
       {

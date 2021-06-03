@@ -1,8 +1,9 @@
-import Express from 'express';
+import Express, { json } from 'express';
 import { User } from '../models/userModel';
 import UserService from '../services/userService';
 import UserSchema from '../schemas/userSchema';
 import mongoose from 'mongoose';
+import fs from 'fs';
 
 const logout = async (req: Express.Request, res: Express.Response) => {
   res.clearCookie('sessionId');
@@ -11,43 +12,45 @@ const logout = async (req: Express.Request, res: Express.Response) => {
 
 const login = async (req: Express.Request, res: Express.Response) => {
   const body: User = req.body;
-  console.log(req.body);
-  if (body) {
-    UserService.login(body.email, body.password)
-      .then(() => {
-        res.sendStatus(200);
-      })
-      .catch((error) => {
-        res.sendStatus(401);
-        console.log(error);
-      });
-  }
+  console.log('login' + body);
+
+  UserService.login(body.email, body.password)
+    .then(() => {
+      console.log('Zdrasti, az sam vashta lelq');
+      
+      res.status(200).json({ message: 'Zdrasti, az sam vashta lelq' });
+      res.redirect('/');
+    })
+    .catch((error) => {
+      res.status(401).json({"error": error});
+    });
 };
 
 const register = async (req: Express.Request, res: Express.Response) => {
-  try {
-    const newUser: User = req.body;
-    console.log(newUser);
-    // const user = new UserSchema({
-    //   _id: new mongoose.Types.ObjectId(),
-    //   username: newUser.username,
-    //   password: newUser.password,
-    //   email: newUser.email,
-    //   firstName: newUser.firstName,
-    //   lastName: newUser.lastName,
-    // });
-    // const createdUser = await UserService.addUser(newUser);
-    // console.log(createdUser);
-    UserService.addUser(newUser).then(() => {
+  const newUser: User = req.body;
+  console.log(req.body);
+  console.log(newUser);
+  // const user = new UserSchema({
+  //   _id: new mongoose.Types.ObjectId(),
+  //   username: newUser.username,
+  //   password: newUser.password,
+  //   email: newUser.email,
+  //   firstName: newUser.firstName,
+  //   lastName: newUser.lastName,
+  // });
+  // const createdUser = await UserService.addUser(newUser);
+  // console.log(createdUser);
+  UserService.addUser(newUser)
+    .then(() => {
+      fs.mkdir('../../info/' + newUser.username, (err) => {
+        console.log(err);
+      });
       res.status(200).json(newUser);
-    }).catch(err => {
-      res.status(400).json({error: err});
+      res.redirect('/');
     })
-
-    } catch (error) {
-    console.error(error);
-    res.status(400).json({error: error});
-  }
+    .catch((err) => { 
+      res.status(400).json({ "error": err });
+    });
 };
 
 export { login, logout, register };

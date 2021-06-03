@@ -5,9 +5,9 @@ async function sendReq(event) {
     let confNewPass =  document.getElementById('conf-pass').value;
     
     const formData = new FormData(myForm);
-    formData.append('photo',profilePhoto);
-    formData.append('newPassword',newPass);
-    formData.append('confNewPassword',confNewPass);
+    formData.append('photoPath',profilePhoto);
+    formData.append('password',newPass);
+    formData.append('confPassword',confNewPass);
 
     
     var meggedObj = {};
