@@ -10,8 +10,11 @@ const filesRouter = Express.Router();
 filesRouter.post('/upload', Upload.array('file-to-upload'), uploadFiles);
 filesRouter.delete('/delete', deleteFiles);
 
-filesRouter.get('/', (req, res) => {
-  FileSchema.find().then(file => res.json(file));
+filesRouter.get('/get', (req, res) => {
+  // FileSchema.find().then(file => res.json(file));
+  const filename = req.body.filename;
+  console.log(filename);
+  res.json(filename)
 });
 
 export { filesRouter };
