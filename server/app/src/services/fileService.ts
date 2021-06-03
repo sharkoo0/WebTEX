@@ -1,5 +1,6 @@
 import { File } from '../models/fileModel';
 import models from '../../config/dbConnection';
+import fs from 'fs';
 
 class FileService {
   files: File[] = [
@@ -14,15 +15,16 @@ class FileService {
 
   constructor() {}
 
-  async addFile(file: File) {
+  async addFile(file: File, path: string) {
     await this.isCorrect(file);
+    // fs.writeFile(file.path, File);
     this.files.push(file);
     return file;
   };
 
-  async addFiles(files: any) {
+  async addFiles(files: any, path: string) {
     files.forEach((el: File) => {
-      this.addFile(el);
+      this.addFile(el, path);
     });
 
     return files;

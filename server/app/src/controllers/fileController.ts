@@ -3,17 +3,18 @@ import Multer from 'multer';
 import fs from 'fs';
 import fileService from '../services/fileService';
 import FileSchema from '../schemas/fileSchema';
+import { isParenthesizedExpression } from 'typescript';
 
 let name = "";
 const genFolderName = (folderName: String) => {
   return new String('../../info/' + folderName);
 };
 
-function storageUpload(){
+function storageUpload(path: string){
   const storage = Multer.diskStorage({
     destination: (req, file, cb) => {
       console.log(name);
-      cb(null, '../../info/');
+      cb(null, '../../info/' + path);
     },
     filename: (req, file, cb) => {
       cb(null, file.originalname);
@@ -22,26 +23,32 @@ function storageUpload(){
   return storage;
 };
 
-const Upload = Multer({
-  storage: storageUpload()
-});
+let Upload = Multer();
 
 const uploadFiles = async (req: Express.Request, res: Express.Response) => {
   try {
     const newFiles = req.files;
-    const file = new FileSchema({
-      name: "hfjsdkfhks",
-      mimetype: "jfklsdjf",
-      destination: "fjsdk",
-      path: "fhaskd",
-      size: 123456,
-      owner: "fhasjk"
+    console.log(typeof(newFiles))
+    console.log(req.params.username)
+    Upload = Multer({
+      storage: storageUpload(req.params.username)
     });
-    file.save();
+
     console.log((newFiles));
     if(newFiles) {
-      const files = await fileService.addFiles(newFiles);
-      res.json(files);
+      const file = new FileSchema({
+        file: newFiles,
+        // name: ,
+        // mimetype: "jfklsdjf",
+        // destination: "fjsdk",
+        // path: "fhaskd",
+        // size: 123456,
+        owner: req.params.username
+      });
+      file.save();
+  
+      const files = await fileService.addFiles(newFiles, '../../info/' + req.params.username);
+      res.json(newFiles);
     } else {
       res.sendStatus(400);
     }

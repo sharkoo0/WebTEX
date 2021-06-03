@@ -3,6 +3,7 @@ import { User } from '../models/userModel';
 import UserService from '../services/userService';
 import UserSchema from '../schemas/userSchema';
 import mongoose from 'mongoose';
+import fs from 'fs';
 
 const logout = async (req: Express.Request, res: Express.Response) => {
   res.clearCookie('sessionId');
@@ -41,6 +42,9 @@ const register = async (req: Express.Request, res: Express.Response) => {
   // console.log(createdUser);
   UserService.addUser(newUser)
     .then(() => {
+      fs.mkdir('../../info/' + newUser.username, (err) => {
+        console.log(err);
+      });
       res.status(200).json(newUser);
       res.redirect('/');
     })
