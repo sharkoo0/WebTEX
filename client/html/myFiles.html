@@ -55,13 +55,13 @@
         </section>
     </form>
 
-    <form class="wrapper modal">
+    <form class="wrapper modal"  method="POST" id="create-folder">
         <section class="modal-section create-foldern">
             <h1 class="create-folder-text">Create Folder</h1>
             <section>
-                <input type="text" name="new-folder" placeholder="Enter folder name..."/>
-                <button class="style-btn">Create</button>
-                <button type="reset" class="style-btn cancel" onclick="cancelCreateFolder()">Cancel</button>
+                    <input type="text" name="new-folder" id="new-folder" placeholder="Enter folder name..."/>
+                    <button class="style-btn" onclick="sendReq(event)">Create</button>
+                    <button type="reset" class="style-btn cancel" onclick="cancelCreateFolder()">Cancel</button>
             </section>
         </section>
     </form>
