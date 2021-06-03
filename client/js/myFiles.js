@@ -79,12 +79,11 @@ async function sendReq(event) {
     let newFolder =  document.getElementById('new-folder').value;
     
     const formData = new FormData(myForm);
-    formData.append('new-folder',newFolder);
+    formData.append('name',newFolder);
 
     var meggedObj = {};
 
     for (var pair of formData.entries()) {
-        console.log(pair[1]);
         meggedObj[pair[0]] = pair[1];
     }
 
