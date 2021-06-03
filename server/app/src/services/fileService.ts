@@ -13,18 +13,18 @@ class FileService {
     await this.isCorrect(file);
     const currentFile = {
       name: file.name,
-      path: path,
+      path: path + file.name,
       size: file.size,
       mimetype: file.mimetype,
     };
     // fs.writeFile(file.path, File);
     // fs.move('../../info/' + file.name, '../../info/' + username + '/' + file.name);
     const update = { $push: { files: currentFile } };
-    const currentUser = UserSchema.find({ username: username });
+    const currentUser = UserSchema.find({ username: username }).exec();
     return new Promise((resolve, reject) => {
       this.notExists(file.name, username)
         .then(async () => {
-          await UserSchema.updateOne({ username: username }, update);
+          await UserSchema.updateOne({ username: username }, update).exec();
         })
         .catch((err) => console.log('ERROR: ' + err));
     });

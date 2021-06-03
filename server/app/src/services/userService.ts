@@ -10,7 +10,7 @@ class UserService {
   async addUser(user: User) {
     return new Promise((resolve, reject) => {
         this.isCorrect(user);
-        this.notExists(user.email)
+        this.notExists(user.username)
           .then(async () => {
             const newUser = new UserSchema({
               _id: new mongoose.Types.ObjectId(),
@@ -48,9 +48,9 @@ class UserService {
     // const user = new models.User(this.users[0]);
   };
 
-  private notExists = (email: string) => {
+  private notExists = (username: string) => {
     return new Promise(async (resolve, reject) => {
-      const user = await UserSchema.findOne({ email: email }).exec();
+      const user = await UserSchema.findOne({ username: username }).exec();
       if (user) {
         // throw new Error("user already exist");
         reject("User already exists");
