@@ -94,19 +94,6 @@ class UserService {
     newPassword?: string,
     confNewPassword?: string
   ) => {
-    //     for (let i = 0; i < this.userDetails.length; i++) {
-    //       if (this.userDetails[i].id == id) {
-    //         // this.userDetails[i].names = names;
-    //         this.userDetails[i].email = email;
-    //         this.userDetails[i].phone = phone;
-    //         this.userDetails[i].altEmail = altEmail;
-    //         this.userDetails[i].address = address;
-    //         this.userDetails[i].photo = photo;
-    //         this.userDetails[i].newPassword = newPassword;
-    //         this.userDetails[i].confNewPassword = confNewPassword;
-    //       }
-    //     }
-    //     console.log(this.userDetails);
     const user = UserSchema.findOneAndUpdate(
       { id: id },
       {
