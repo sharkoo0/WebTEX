@@ -78,16 +78,16 @@ function share() {
 
 async function sendReq(event) {
     let myForm = document.getElementById('user-details');
-    let profilePhoto =  document.getElementById('file-upload').value;
-    let newPass =  document.getElementById('pass').value;
-    let confNewPass =  document.getElementById('conf-pass').value;
-    
-    const formData = new FormData(myForm);
-    formData.append('photo',profilePhoto);
-    formData.append('newPassword',newPass);
-    formData.append('confNewPassword',confNewPass);
+    let profilePhoto = document.getElementById('file-upload').value;
+    let newPass = document.getElementById('pass').value;
+    let confNewPass = document.getElementById('conf-pass').value;
 
-    
+    const formData = new FormData(myForm);
+    formData.append('photo', profilePhoto);
+    formData.append('newPassword', newPass);
+    formData.append('confNewPassword', confNewPass);
+
+
     var meggedObj = {};
 
     for (var pair of formData.entries()) {
@@ -105,10 +105,10 @@ async function sendReq(event) {
         mode: 'cors',
         cache: 'no-cache',
         credentials: 'same-origin',
-        // redirect: 'follow',
+        redirect: 'follow',
         body: JSON.stringify(meggedObj)
     });
 
     // return response.json();
-
+    location.href = 'myFiles.html';
 };

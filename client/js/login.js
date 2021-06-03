@@ -21,7 +21,7 @@ async function sendReq(event) {
         mode: 'cors',
         cache: 'no-cache',
         credentials: 'same-origin',
-        // redirect: 'follow',
+        redirect: 'follow',
         body: JSON.stringify(meggedObj)
     });
     console.log(JSON.stringify(meggedObj));
