@@ -5,40 +5,47 @@ import mongoose from 'mongoose';
 
 
 class FolderService {
-    folders: Folder[] = [
-        {
-            name: 'string',
-            destination: '../../../../info',
-            path: '../../../../info/goshu',
-            size: 10,
-        },
-    ];
-
     constructor() { }
 
-    createFolder = async () => {
-        const folder = new models.Folder(this.folders[0]);
-      }
+    async addFolder(name: string) {
 
-    // async addFolder(folder: Folder) {
-    //     return new Promise((resolve, reject) => {
-    //         async () => {
-    //                 const newFolder = new FolderSchema({
-    //                     _id: new mongoose.Types.ObjectId(),
-    //                     name: folder.name,
-    //                     destinaton: user.password,
-    //                 });
-    //                 await newFolder.save();
-    //                 resolve(true);
-    //             }
-    //     })
+        return new Promise((resolve, reject) => {
+            this.notExists(name)
+            .then(async () => {
+                const newFolder = new FolderSchema({
+                    _id: new mongoose.Types.ObjectId(),
+                    name: name,
+                    destinaton: "test",
+                    path: "test",
+                    size: 10,
+                });
+                await newFolder.save();
+                console.log(newFolder);
+                resolve(true);
 
-    // }
+            })
+            .catch((err) => {
+                console.log(err);
+                reject("folder already exists");
+              });
 
+        });
+    }
+
+
+    private notExists = (name: string) => {
+        return new Promise(async (resolve, reject) => {
+          const folder = await FolderSchema.findOne({ name: name }).exec();
+          if (folder) {
+            // throw new Error("user already exist");
+            reject("Folder already exists");
+          }
+          resolve(true);
+        });
+      };
+    
 
 }
-
-
 
 
 export default new FolderService();
