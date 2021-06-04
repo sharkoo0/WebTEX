@@ -2,11 +2,12 @@ import { File } from '../models/fileModel';
 import models from '../../config/dbConnection';
 import UserSchema from '../schemas/userSchema';
 import fs from 'fs-extra';
+import mongoose from 'mongoose'
 
 class FileService {
   constructor() {}
 
-  async addFile(file: File, path: string) {
+  async addFile(file: File, path: string, names: string) {
     const username = path.substr(path.lastIndexOf('/') + 1);
     console.log('filename')
     console.log(file.name)
@@ -29,9 +30,12 @@ class FileService {
     });
   }
 
-  async addFiles(files: Array<any>, path: string) {
-    files.forEach(async (el: File) => {
-      await this.addFile(el, path);
+  async addFiles(files: Array<any>, path: string, names: Array<string>) {
+    let counter = 0;
+    files.forEach((el: File) => {
+      this.addFile(el, path, names[counter]);
+      console.log('counter' + counter)
+      counter++;
     });
 
     return files;
