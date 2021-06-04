@@ -30,7 +30,7 @@ app.use('/create-folder',createFolderRouter);
 app.use(authMiddleware);
 
 app.get('/get', (req, res) => {
- UserSchema.find().then(user => res.json(user));
+ UserSchema.find().then((user: any) => res.json(user));
 });
 
 connectDB()

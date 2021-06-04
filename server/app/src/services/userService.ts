@@ -74,7 +74,7 @@ class UserService {
     return new Promise((resolve, reject) => {
         this.exists(email).then(() => {
           const user = UserSchema.findOne({ email: email }).exec();
-            user.then((u) => {
+            user.then((u: any) => {
               console.log("zadara")
                 resolve(true);
             })
