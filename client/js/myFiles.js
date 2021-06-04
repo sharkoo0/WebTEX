@@ -59,8 +59,6 @@ function cancelShare() {
 
 function createFolderModal() {
     const modal = document.getElementsByClassName('wrapper modal');
-    // console.log(modal[0]);
-
     modal[1].style.display = 'block';
 }
 
@@ -100,7 +98,5 @@ async function sendReq(event) {
         redirect: 'follow',
         body: JSON.stringify(meggedObj)
     });
-
-    // return response.json();
     location.href = 'myFiles.html';
 };

@@ -13,12 +13,8 @@ const logout = async (req: Express.Request, res: Express.Response) => {
 
 const login = async (req: Express.Request, res: Express.Response) => {
   const body: User = req.body;
-  console.log('login' + req.body);
-
   await UserService.login(body.email, body.password)
-    .then(() => {
-      console.log('IN');
-      
+    .then(() => {      
       const token = jwt.sign({
         name: body.email,
       }, 'TOPSECRETCODE', {
@@ -36,18 +32,6 @@ const login = async (req: Express.Request, res: Express.Response) => {
 
 const register = async (req: Express.Request, res: Express.Response) => {
   const newUser: User = req.body;
-  console.log(req.body);
-  console.log(newUser);
-  // const user = new UserSchema({
-  //   _id: new mongoose.Types.ObjectId(),
-  //   username: newUser.username,
-  //   password: newUser.password,
-  //   email: newUser.email,
-  //   firstName: newUser.firstName,
-  //   lastName: newUser.lastName,
-  // });
-  // const createdUser = await UserService.addUser(newUser);
-  // console.log(createdUser);
   await UserService.addUser(newUser)
     .then(() => {
       fs.mkdir('../../info/' + newUser.username, (err) => {

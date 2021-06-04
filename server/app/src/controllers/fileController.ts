@@ -30,18 +30,14 @@ let Upload = Multer({
 const uploadFiles = async (req: Express.Request, res: Express.Response) => {
   try {
     const newFiles = req.files as Array<any>;
-    if(req.body.username) {
-      console.log(req.body.username);
-    } else {
+    if(!req.body.username) {
       res.status(401).json("error: Invalid username");
     }
 
     let names: Array<string> = [];
     newFiles.forEach((el) => {
-      console.log(el.originalname);
       names.push(el.originalname);
     })
-    console.log(names)
 
     if(newFiles) {  
       newFiles.forEach(el => {
@@ -58,7 +54,6 @@ const uploadFiles = async (req: Express.Request, res: Express.Response) => {
       fileService.addFiles(newFiles, '../../info/' + req.body.username, names).then(() => {
         res.status(201).json(newFiles);
       }).catch(err => res.json({'error': err}));
-      // res.json();
     } else {
       res.sendStatus(400);
     }

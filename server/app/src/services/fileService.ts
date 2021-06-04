@@ -9,9 +9,6 @@ class FileService {
 
   async addFile(file: File, path: string, names: string) {
     const username = path.substr(path.lastIndexOf('/') + 1);
-    console.log('filename')
-    console.log(file.name)
-    console.log(file)
     await this.isCorrect(file);
     const currentFile = {
       name: file.name,
@@ -34,7 +31,6 @@ class FileService {
     let counter = 0;
     files.forEach((el: File) => {
       this.addFile(el, path, names[counter]);
-      console.log('counter' + counter)
       counter++;
     });
 
@@ -63,7 +59,6 @@ class FileService {
       const user = await UserSchema.findOne({username: username}).select('files').exec();
       if (user) {
         const file = user.get('files', null, { getters: false});
-        console.log(file);
         if (file) {
           file.forEach((el: any) => {
             if(el.name === filename) {
@@ -72,27 +67,9 @@ class FileService {
             }
           });
           resolve(true);
-          //   reject('File already exists in this directory');
-          // }
-          // forEach((element: any) => {
-          //   console.log('in for');
-          //   console.log(element.filename);
-          //   if (element.filename === filename) {
-          //     reject('File already exists in this directory');
-          //   }
-          // });
-          // file.forEach(el => {
-          //   console.log('in for');
-          //   console.log(el.filename);
-          //   if (el.filename === filename) {
-          //     reject('File already exists in this directory');
-          //   }
-          // });
-          console.log('end of if')
         } else {
           resolve(true);
-        }
-        
+        }        
       }
       reject('Incorrect user');
     });

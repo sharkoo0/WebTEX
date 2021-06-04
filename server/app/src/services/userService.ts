@@ -26,7 +26,6 @@ class UserService {
               birthdate: user.birthdate,
               phone: user.phone,
             });
-            console.log("here")
             await newUser.save();
             resolve(true);
           })

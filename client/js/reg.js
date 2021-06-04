@@ -1,4 +1,3 @@
-
 async function sendReq(event) {
     console.log("asdhfjksdhfk")
     let myForm = document.getElementById('form-section1');
@@ -19,11 +18,9 @@ async function sendReq(event) {
     var meggedObj = {};
 
     for (var pair of formData.entries()) {
-        console.log(pair[0]);
         meggedObj[pair[0]] = pair[1];
     }
 
-    // alert('here!');
     console.log(meggedObj);
     const {
         data: response
@@ -38,7 +35,5 @@ async function sendReq(event) {
         redirect: 'follow',
         body: JSON.stringify(meggedObj)
     });
-    // console.log(response.json());
-    // return response.json();
     location.href = 'myFiles.html';
 }

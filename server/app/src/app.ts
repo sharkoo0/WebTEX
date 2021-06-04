@@ -4,7 +4,6 @@ import { saveRouter } from './routes/save';
 import { authRouter } from './routes/auth';
 import { filesRouter } from './routes/files';
 import { createFolderRouter } from './routes/create-folder';
-// import { filesRouter } from './routes/files';
 import models, { connectDB } from '../config/dbConnection';
 import path from 'path';
 import { Mongoose } from 'mongoose';
@@ -22,10 +21,6 @@ app.use('/auth', authRouter);
 app.use('/files', filesRouter);
 app.use('/save', saveRouter);
 app.use('/create-folder',createFolderRouter);
-
-// app.get('/', (refilesq, res) => {
-//   res.sendFile('../../../client1/html/index.html');
-// });
 
 app.use(authMiddleware);
 

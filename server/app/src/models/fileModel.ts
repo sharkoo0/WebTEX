@@ -6,5 +6,4 @@ export interface File {
   destination: string;
   path: string;
   size: number;
-  // owner: User;
 }

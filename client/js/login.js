@@ -23,7 +23,5 @@ async function sendReq(event) {
         redirect: 'follow',
         body: JSON.stringify(meggedObj)
     });
-    // console.log(JSON.stringify(meggedObj));
-    // return response.json();
     location.href = 'myFiles.html';
 };

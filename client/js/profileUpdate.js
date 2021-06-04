@@ -15,7 +15,6 @@ async function sendReq(event) {
     var meggedObj = {};
 
     for (var pair of formData.entries()) {
-        console.log(pair[1]);
         meggedObj[pair[0]] = pair[1];
     }
 
@@ -33,8 +32,6 @@ async function sendReq(event) {
         body: JSON.stringify(meggedObj)
     });
     location.href = 'userDetails.html';
-    // return response.json();
-
 };
 
 
@@ -50,7 +47,6 @@ fileselector.addEventListener('change',(event)=>{
 
     const reader = new FileReader();
     reader.addEventListener('load', (event)=> {
-      
         output.src = event.target.result;
     });
     reader.readAsDataURL(file);

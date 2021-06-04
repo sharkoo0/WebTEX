@@ -5,15 +5,12 @@ import FolderService from '../services/folderService';
 
 const postMethod = async (req: Express.Request, res: Express.Response) => {
   const newFolder: Folder = req.body;
-  console.log(req.body);
   if (newFolder) {
     await FolderService.addFolder(newFolder.name).then(() => {
-      console.log(newFolder.name);
       res.sendStatus(200);
     }).catch(error => {
-      // res.redirect('/');
-      res.sendStatus(401);
       console.log(error);
+      res.sendStatus(401);
     })
   }
 };
