@@ -69,7 +69,8 @@ class UserService {
     return new Promise((resolve, reject) => {
         this.exists(email).then(() => {
           const user = UserSchema.findOne({ email: email }).exec();
-            user.then((u) => {
+            user.then((u: any) => {
+              console.log("zadara")
                 resolve(true);
             })
         }).catch(() => {
@@ -89,7 +90,7 @@ class UserService {
     newPassword?: string,
     confNewPassword?: string
   ) => {
-    const user = await UserSchema.findOne({username: username}).exec().then(async (u) => {
+    const user = await UserSchema.findOne({username: username}).exec().then(async (u: any) => {
       if(u && !newPassword) {
         const pass = await UserSchema.findOne({username: username}).select('password').exec();
         newPassword = pass?.get('password');        
