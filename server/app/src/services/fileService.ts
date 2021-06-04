@@ -2,14 +2,15 @@ import { File } from '../models/fileModel';
 import models from '../../config/dbConnection';
 import UserSchema from '../schemas/userSchema';
 import fs from 'fs-extra';
+import mongoose from 'mongoose'
 
 class FileService {
   constructor() {}
 
-  async addFile(file: File, path: string) {
+  async addFile(file: File, path: string, names: string) {
     const username = path.substr(path.lastIndexOf('/') + 1);
-    // console.log(username)
-    // console.log(file.name)
+    const db = mongoose.connection.db.collection('users');
+    const temp = await db.findOne({ username: username});
     await this.isCorrect(file);
     const currentFile = {
       name: file.name,
@@ -17,8 +18,7 @@ class FileService {
       size: file.size,
       mimetype: file.mimetype,
     };
-    // fs.writeFile(file.path, File);
-    // fs.move('../../info/' + file.name, '../../info/' + username + '/' + file.name);
+    temp.files.push(currentFile);
     const update = { $push: { files: currentFile } };
     const currentUser = UserSchema.find({ username: username }).exec();
     return new Promise((resolve, reject) => {
@@ -43,12 +43,16 @@ class FileService {
     //     }
     //   }
     // )
+
     return file;
   }
 
-  async addFiles(files: Array<any>, path: string) {
-    files.forEach(async (el: File) => {
-      await this.addFile(el, path);
+  async addFiles(files: Array<any>, path: string, names: Array<string>) {
+    let counter = 0;
+    files.forEach((el: File) => {
+      this.addFile(el, path, names[counter]);
+      console.log('counter' + counter)
+      counter++;
     });
 
     return files;
@@ -65,57 +69,12 @@ class FileService {
           0,
           path.substr(path.indexOf('./info/'), path.length).indexOf('/')
         );
-      // if(user !== owner.username) {
-      //   reject('Incorrect owner');
-      // }
       resolve(true);
     });
   }
 
-  createFile = async () => {
-    // const file = new models.File(this.files[0]);
-  };
-
   deleteFile = async (path: string) => {};
 
-  private notExists = async (filename: string, username: string) => {
-    const currentUser = UserSchema.find({ username: username });
-    return new Promise(async (resolve, reject) => {
-      // const user = await UserSchema.findOne({ username: username }, { files: { name: filename}}).exec();
-      const user = await UserSchema.findOne({username: username}).select('files').exec();
-      console.log(typeof(user));
-      // user?.$where({name: filename});
-      if (user) {
-        const file = user.collection.find({ files: { 'name': filename } });
-        if (file) {
-          console.log('in if');
-          console.log(file.toArray.length)
-          console.log(file.toArray.name)
-          //   reject('File already exists in this directory');
-          // }
-          // forEach((element: any) => {
-          //   console.log('in for');
-          //   console.log(element.filename);
-          //   if (element.filename === filename) {
-          //     reject('File already exists in this directory');
-          //   }
-          // });
-          // file.forEach(el => {
-          //   console.log('in for');
-          //   console.log(el.filename);
-          //   if (el.filename === filename) {
-          //     reject('File already exists in this directory');
-          //   }
-          // });
-          console.log('end of if')
-        } else {
-          resolve(true);
-        }
-        
-      }
-      reject('Incorrect user');
-    });
-  };
 }
 
 export default new FileService();
