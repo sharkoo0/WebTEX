@@ -4,6 +4,8 @@ import models from '../../config/dbConnection';
 import UserSchema from '../schemas/userSchema';
 import mongoose from 'mongoose';
 
+mongoose.set('useFindAndModify', false);
+
 class UserService {
   constructor() {}
 
@@ -32,7 +34,6 @@ class UserService {
             reject("User already exists");
           });
     })
-    
   }
 
   private isCorrect({ username, password, email, firstName, lastName }: User) {
@@ -44,15 +45,10 @@ class UserService {
     });
   }
 
-  createUser = async () => {
-    // const user = new models.User(this.users[0]);
-  };
-
   private notExists = (username: string) => {
     return new Promise(async (resolve, reject) => {
       const user = await UserSchema.findOne({ username: username }).exec();
       if (user) {
-        // throw new Error("user already exist");
         reject("User already exists");
       }
       resolve(true);
@@ -70,12 +66,10 @@ class UserService {
   };
 
   login = async (email: string, p: string) => {
-    console.log("hello madafaka")
     return new Promise((resolve, reject) => {
         this.exists(email).then(() => {
           const user = UserSchema.findOne({ email: email }).exec();
             user.then((u) => {
-              console.log("zadara")
                 resolve(true);
             })
         }).catch(() => {
@@ -86,6 +80,7 @@ class UserService {
 
   change = async (
     id: number,
+    username: string,
     email?: string,
     phone?: string,
     altEmail?: string,
@@ -94,17 +89,23 @@ class UserService {
     newPassword?: string,
     confNewPassword?: string
   ) => {
-    const user = UserSchema.findOneAndUpdate(
-      { id: id },
-      {
-        email: email,
-        phone: phone,
-        altEmail: altEmail,
-        address: address,
-        photoPath: photo,
-        password: newPassword,
+    const user = await UserSchema.findOne({username: username}).exec().then(async (u) => {
+      if(u && !newPassword) {
+        const pass = await UserSchema.findOne({username: username}).select('password').exec();
+        newPassword = pass?.get('password');        
       }
-    );
+      await UserSchema.findOneAndUpdate(
+        { username: username },
+        {
+          email: email,
+          phone: phone,
+          altEmail: altEmail,
+          address: address,
+          photoPath: photo,
+          password: newPassword,
+        }
+      )
+    })
   };
 
   addFile = async (username: String) => {};

@@ -12,17 +12,17 @@ const logout = async (req: Express.Request, res: Express.Response) => {
 
 const login = async (req: Express.Request, res: Express.Response) => {
   const body: User = req.body;
-  console.log('login' + body);
+  console.log('login' + req.body);
 
-  UserService.login(body.email, body.password)
+  await UserService.login(body.email, body.password)
     .then(() => {
-      console.log('Zdrasti, az sam vashta lelq');
-      
+      console.log('Zdrasti, az sam vashta lelq1');
+      // res.redirect('/');
+
       res.status(200).json({ message: 'Zdrasti, az sam vashta lelq' });
-      res.redirect('/');
     })
     .catch((error) => {
-      res.status(401).json({"error": error});
+      res.status(401).json({ error: error });
     });
 };
 
@@ -45,11 +45,12 @@ const register = async (req: Express.Request, res: Express.Response) => {
       fs.mkdir('../../info/' + newUser.username, (err) => {
         console.log(err);
       });
-      res.status(200).json(newUser);
       res.redirect('/');
+      res.status(200).json(newUser);
+      
     })
-    .catch((err) => { 
-      res.status(400).json({ "error": err });
+    .catch((err) => {
+      res.status(400).json({ error: err });
     });
 };
 

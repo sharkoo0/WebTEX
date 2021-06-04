@@ -8,17 +8,16 @@ class FileService {
 
   async addFile(file: File, path: string) {
     const username = path.substr(path.lastIndexOf('/') + 1);
-    // console.log(username)
-    // console.log(file.name)
+    console.log('filename')
+    console.log(file.name)
+    console.log(file)
     await this.isCorrect(file);
     const currentFile = {
       name: file.name,
-      path: path + file.name,
+      path: path + '/' + file.name,
       size: file.size,
       mimetype: file.mimetype,
     };
-    // fs.writeFile(file.path, File);
-    // fs.move('../../info/' + file.name, '../../info/' + username + '/' + file.name);
     const update = { $push: { files: currentFile } };
     const currentUser = UserSchema.find({ username: username }).exec();
     return new Promise((resolve, reject) => {
@@ -28,22 +27,6 @@ class FileService {
         })
         .catch((err) => console.log('ERROR: ' + err));
     });
-
-    // console.log(currentUser);
-    // const user = UserSchema.findOneAndUpdate(
-    //   {username: path.substr(path.lastIndexOf('/') + 1)},
-    //   {
-    //     $addToSet: {
-    //       files: {
-    //         "name": file.name,
-    //         "path": path,
-    //         "size": file.size,
-    //         "mimetype": file.mimetype
-    //       }
-    //     }
-    //   }
-    // )
-    return file;
   }
 
   async addFiles(files: Array<any>, path: string) {
@@ -65,32 +48,26 @@ class FileService {
           0,
           path.substr(path.indexOf('./info/'), path.length).indexOf('/')
         );
-      // if(user !== owner.username) {
-      //   reject('Incorrect owner');
-      // }
       resolve(true);
     });
   }
 
-  createFile = async () => {
-    // const file = new models.File(this.files[0]);
-  };
-
   deleteFile = async (path: string) => {};
 
   private notExists = async (filename: string, username: string) => {
-    const currentUser = UserSchema.find({ username: username });
     return new Promise(async (resolve, reject) => {
-      // const user = await UserSchema.findOne({ username: username }, { files: { name: filename}}).exec();
       const user = await UserSchema.findOne({username: username}).select('files').exec();
-      console.log(typeof(user));
-      // user?.$where({name: filename});
       if (user) {
-        const file = user.collection.find({ files: { 'name': filename } });
+        const file = user.get('files', null, { getters: false});
+        console.log(file);
         if (file) {
-          console.log('in if');
-          console.log(file.toArray.length)
-          console.log(file.toArray.name)
+          file.forEach((el: any) => {
+            if(el.name === filename) {
+              console.log("File already exists")
+              reject("File already exists")
+            }
+          });
+          resolve(true);
           //   reject('File already exists in this directory');
           // }
           // forEach((element: any) => {

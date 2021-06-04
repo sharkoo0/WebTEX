@@ -3,11 +3,13 @@ async function sendReq(event) {
     let profilePhoto =  document.getElementById('file-upload').value;
     let newPass =  document.getElementById('pass').value;
     let confNewPass =  document.getElementById('conf-pass').value;
-    
+    let email = document.getElementById('email');
+
     const formData = new FormData(myForm);
     formData.append('photoPath',profilePhoto);
     formData.append('password',newPass);
     formData.append('confPassword',confNewPass);
+    formData.append('username',email)
 
     
     var meggedObj = {};
@@ -27,10 +29,10 @@ async function sendReq(event) {
         mode: 'cors',
         cache: 'no-cache',
         credentials: 'same-origin',
-        // redirect: 'follow',
+        redirect: 'follow',
         body: JSON.stringify(meggedObj)
     });
-
+    location.href = 'userDetails.html';
     // return response.json();
 
 };

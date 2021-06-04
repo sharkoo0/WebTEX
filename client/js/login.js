@@ -7,7 +7,6 @@ async function sendReq(event) {
     formData.append('username',username);
     formData.append('password',password);
 
-
     var meggedObj = {};
     for (var pair of formData.entries()) {
         meggedObj[pair[0]]= pair[1];
@@ -24,7 +23,7 @@ async function sendReq(event) {
         redirect: 'follow',
         body: JSON.stringify(meggedObj)
     });
-    console.log(JSON.stringify(meggedObj));
+    // console.log(JSON.stringify(meggedObj));
     // return response.json();
     location.href = 'myFiles.html';
 };

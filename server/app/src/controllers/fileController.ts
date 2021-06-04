@@ -36,13 +36,19 @@ const uploadFiles = async (req: Express.Request, res: Express.Response) => {
       res.status(401).json("error: Invalid username");
     }
     
-
     if(newFiles) {  
       newFiles.forEach(el => {
-        fs.move('../../info/' + el.filename, '../../info/' + req.body.username + '/' + el.filename);
+        fs.move('../../info/' + el.filename, '../../info/' + req.body.username + '/' + el.filename).then(() => {
+          console.log("File moved")
+          // res.status(200).json("message: File uploaded");
+        }).catch((err: Error) => {
+          console.log(err);
+          // res.status(400).json(err.message);
+        });
       })
+    
   
-      fileService.addFiles(newFiles, '../../info/' + req.body.username).then(() => {
+      await fileService.addFiles(newFiles, '../../info/' + req.body.username).then(() => {
         res.status(201).json(newFiles);
       }).catch(err => res.json({'error': err}));
       // res.json();

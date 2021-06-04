@@ -6,7 +6,7 @@ const postMethod = async (req: Express.Request, res: Express.Response) => {
   const body: userDetails = req.body;
   console.log(req.body);
   if (body) {
-    await UserService.change(body.id,body.email, body.phone,body.altEmail, body.address, body.photo,body.newPassword,body.confNewPassword).then(() => {
+    await UserService.change(body.id,body.username,body.email, body.phone,body.altEmail, body.address, body.photo,body.newPassword,body.confNewPassword).then(() => {
       res.sendStatus(200);
     }).catch(error => {
       // res.redirect('/');
