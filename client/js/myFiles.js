@@ -71,27 +71,19 @@ function cancelCreateFolder() {
 
 function share() {
     const modal = document.getElementsByClassName('wrapper share');
-    // console.log(modal[0]);
-
     modal[0].style.display = 'block';
 }
 
 async function sendReq(event) {
-    let myForm = document.getElementById('user-details');
-    let profilePhoto =  document.getElementById('file-upload').value;
-    let newPass =  document.getElementById('pass').value;
-    let confNewPass =  document.getElementById('conf-pass').value;
+    let myForm = document.getElementById('create-folder');
+    let newFolder =  document.getElementById('new-folder').value;
     
     const formData = new FormData(myForm);
-    formData.append('photo',profilePhoto);
-    formData.append('newPassword',newPass);
-    formData.append('confNewPassword',confNewPass);
+    formData.append('name',newFolder);
 
-    
     var meggedObj = {};
 
     for (var pair of formData.entries()) {
-        console.log(pair[1]);
         meggedObj[pair[0]] = pair[1];
     }
 
@@ -101,14 +93,14 @@ async function sendReq(event) {
         headers: {
             'Content-Type': 'application/json'
         },
-        method: 'PUT',
+        method: 'POST',
         mode: 'cors',
         cache: 'no-cache',
         credentials: 'same-origin',
-        // redirect: 'follow',
+        redirect: 'follow',
         body: JSON.stringify(meggedObj)
     });
 
     // return response.json();
-
+    location.href = 'myFiles.html';
 };

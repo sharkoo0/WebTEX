@@ -3,10 +3,13 @@ import Cors from 'cors';
 import { saveRouter } from './routes/save';
 import { authRouter } from './routes/auth';
 import { filesRouter } from './routes/files';
+import { createFolderRouter } from './routes/create-folder';
+// import { filesRouter } from './routes/files';
 import models, { connectDB } from '../config/dbConnection';
 import path from 'path';
 import { Mongoose } from 'mongoose';
 import UserSchema from './schemas/userSchema';
+import { authMiddleware } from './middleware/auth';
 
 const app = Express();
 require('dotenv').config();
@@ -18,13 +21,16 @@ app.use(Express.json());
 app.use('/auth', authRouter);
 app.use('/files', filesRouter);
 app.use('/save', saveRouter);
+app.use('/create-folder',createFolderRouter);
 
-// app.get('/', (req, res) => {
+// app.get('/', (refilesq, res) => {
 //   res.sendFile('../../../client1/html/index.html');
 // });
 
+app.use(authMiddleware);
+
 app.get('/get', (req, res) => {
- UserSchema.find().then(user => res.json(user));
+ UserSchema.find().then((user: any) => res.json(user));
 });
 
 connectDB()

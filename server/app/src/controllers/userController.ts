@@ -8,6 +8,7 @@ const postMethod = async (req: Express.Request, res: Express.Response) => {
   if (body) {
     await UserService.change(body.id,body.email, body.phone,body.altEmail, body.address, body.photo,body.newPassword,body.confNewPassword).then(() => {
       res.sendStatus(200);
+      res.render('../client/html/userDetails.html', {msg: 'Express'})
     }).catch(error => {
       // res.redirect('/');
       res.sendStatus(401);
