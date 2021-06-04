@@ -14,16 +14,21 @@ const logout = async (req: Express.Request, res: Express.Response) => {
 const login = async (req: Express.Request, res: Express.Response) => {
   const body: User = req.body;
   await UserService.login(body.email, body.password)
-    .then(() => {      
-      const token = jwt.sign({
-        name: body.email,
-      }, 'TOPSECRETCODE', {
-        expiresIn: '10h'
-      });
+    .then(() => {
+      const token = jwt.sign(
+        {
+          name: body.email,
+        },
+        'TOPSECRETCODE',
+        {
+          expiresIn: '10h',
+        }
+      );
       console.log(token);
       res.setHeader('Authorization', token);
       // res.status(200).json(body);
-      res.redirect(200, '/');
+      res.status(200).json({"token: ":token})
+      // res.render('../client/html/myFiles.html', {msg: 'Express'})
     })
     .catch((error) => {
       res.status(401).json({ error: error });
@@ -37,14 +42,18 @@ const register = async (req: Express.Request, res: Express.Response) => {
       fs.mkdir('../../info/' + newUser.username, (err) => {
         console.log(err);
       });
-      const token = jwt.sign({
-        name: newUser.email,
-      }, 'TOPSECRETCODE', {
-        expiresIn: '10h'
-      });
+      const token = jwt.sign(
+        {
+          name: newUser.email,
+        },
+        'TOPSECRETCODE',
+        {
+          expiresIn: '10h',
+        }
+      );
       res.setHeader('Authorization', token);
-      // res.status(200).json(newUser);
-      res.redirect(200, '/');
+      res.status(200).json(newUser);
+      // res.redirect(200, '/');
     })
     .catch((err) => {
       res.status(400).json({ error: err });

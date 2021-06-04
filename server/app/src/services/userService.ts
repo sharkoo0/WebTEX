@@ -30,7 +30,7 @@ class UserService {
             resolve(true);
           })
           .catch((err) => {
-            console.log(err);
+            console.log(`ERROR: ${err}`);
             reject("User already exists");
           });
     })
@@ -70,7 +70,6 @@ class UserService {
         this.exists(email).then(() => {
           const user = UserSchema.findOne({ email: email }).exec();
             user.then((u: any) => {
-              console.log("zadara")
                 resolve(true);
             })
         }).catch(() => {
