@@ -2,6 +2,11 @@ import Express from 'express';
 import { userDetails } from '../models/userModel';
 import UserService from '../services/userService';
 
-const createRouter = Express.Router();
+import { postMethod, getMethod } from '../controllers/folderController';
 
-export { createRouter };
+const createFolderRouter = Express.Router();
+
+createFolderRouter.get('/', getMethod);
+createFolderRouter.post('/', postMethod);
+
+export { createFolderRouter };

@@ -4,6 +4,7 @@ import UserService from '../services/userService';
 import UserSchema from '../schemas/userSchema';
 import mongoose from 'mongoose';
 import fs from 'fs';
+import jwt from 'jsonwebtoken';
 
 const logout = async (req: Express.Request, res: Express.Response) => {
   res.clearCookie('sessionId');
@@ -16,10 +17,17 @@ const login = async (req: Express.Request, res: Express.Response) => {
 
   UserService.login(body.email, body.password)
     .then(() => {
-      console.log('Zdrasti, az sam vashta lelq');
+      console.log('IN');
       
-      res.status(200).json({ message: 'Zdrasti, az sam vashta lelq' });
-      res.redirect('/');
+      const token = jwt.sign({
+        name: body.email,
+      }, 'TOPSECRETCODE', {
+        expiresIn: '10h'
+      });
+      console.log(token);
+      res.setHeader('Authorization', token);
+      // res.status(200).json(body);
+      res.redirect(200, '/');
     })
     .catch((error) => {
       res.status(401).json({"error": error});
@@ -45,8 +53,14 @@ const register = async (req: Express.Request, res: Express.Response) => {
       fs.mkdir('../../info/' + newUser.username, (err) => {
         console.log(err);
       });
-      res.status(200).json(newUser);
-      res.redirect('/');
+      const token = jwt.sign({
+        name: newUser.email,
+      }, 'TOPSECRETCODE', {
+        expiresIn: '10h'
+      });
+      res.setHeader('Authorization', token);
+      // res.status(200).json(newUser);
+      res.redirect(200, '/');
     })
     .catch((err) => { 
       res.status(400).json({ "error": err });
