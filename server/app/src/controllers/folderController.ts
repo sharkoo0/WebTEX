@@ -8,7 +8,7 @@ const postMethod = async (req: Express.Request, res: Express.Response) => {
   console.log(req.body);
   if (newFolder) {
     await FolderService.addFolder(newFolder.name).then(() => {
-      console.log(newFolder.name);
+      res.json(newFolder);
       res.sendStatus(200);
     }).catch(error => {
       // res.redirect('/');

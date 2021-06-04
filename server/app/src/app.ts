@@ -9,6 +9,7 @@ import models, { connectDB } from '../config/dbConnection';
 import path from 'path';
 import { Mongoose } from 'mongoose';
 import UserSchema from './schemas/userSchema';
+import { authMiddleware } from './middleware/auth';
 
 const app = Express();
 require('dotenv').config();
@@ -25,6 +26,8 @@ app.use('/create-folder',createFolderRouter);
 // app.get('/', (refilesq, res) => {
 //   res.sendFile('../../../client1/html/index.html');
 // });
+
+app.use(authMiddleware);
 
 app.get('/get', (req, res) => {
  UserSchema.find().then(user => res.json(user));

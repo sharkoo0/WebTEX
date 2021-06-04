@@ -4,6 +4,7 @@ import UserService from '../services/userService';
 import UserSchema from '../schemas/userSchema';
 import mongoose from 'mongoose';
 import fs from 'fs';
+import jwt from 'jsonwebtoken';
 
 const logout = async (req: Express.Request, res: Express.Response) => {
   res.clearCookie('sessionId');
@@ -18,6 +19,12 @@ const login = async (req: Express.Request, res: Express.Response) => {
     .then(() => {
       console.log('Zdrasti, az sam vashta lelq');
       
+      const token = jwt.sign({
+        name: body.email,
+      }, 'TOPSECRETCODE', {
+        expiresIn: '10h'
+      });
+      res.setHeader('Authorization', token)
       res.status(200).json({ message: 'Zdrasti, az sam vashta lelq' });
       res.redirect('/');
     })
