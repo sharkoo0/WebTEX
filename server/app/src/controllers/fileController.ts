@@ -32,6 +32,7 @@ const uploadFiles = async (req: Express.Request, res: Express.Response) => {
     const newFiles = req.files as Array<any>;
     if(!req.body.username) {
       res.status(401).json("error: Invalid username");
+      return;
     }
 
     let names: Array<string> = [];
@@ -39,23 +40,44 @@ const uploadFiles = async (req: Express.Request, res: Express.Response) => {
       names.push(el.originalname);
     })
 
+    let folder = req.body.folder;
     if(newFiles) {  
       newFiles.forEach(el => {
-        fs.move('../../info/' + el.filename, '../../info/' + req.body.username + '/' + el.filename).then(() => {
-          console.log("File moved")
-          // res.status(200).json("message: File uploaded");
-        }).catch((err: Error) => {
-          console.log(err);
-          // res.status(400).json(err.message);
-        });
+        if(folder){
+          const path = '../../info/' + req.body.username + '/' + req.body.folder + '/' + el.filename;
+          fs.move('../../info/' + el.filename, path).then(() => {
+            console.info("File moved")
+            fileService.addFiles(newFiles, path, names, req.body.username).then(() => {
+              res.status(201).json(newFiles);
+              return;
+            }).catch(err => {
+              res.json({'error': err})
+              return;
+            });
+          }).catch((err: Error) => {
+            console.log(err);
+            res.status(400).json(err.message);
+            return;
+          });
+        } else {
+          const path = '../../info/' + req.body.username + '/' + el.filename;
+          fs.move('../../info/' + el.filename, path).then(() => {
+            console.log("File moved")
+            fileService.addFiles(newFiles, path, names, req.body.username).then(() => {
+              res.status(201).json(newFiles);
+              return;
+            }).catch(err => {
+              res.json({'error': err})
+              return;
+            });
+          }).catch((err: Error) => {
+            console.log(err);
+            res.status(400).json(err.message);
+            return;
+          });
+        }
+        
       })
-    
-  
-      fileService.addFiles(newFiles, '../../info/' + req.body.username, names).then(() => {
-        res.status(201).json(newFiles);
-      }).catch(err => res.json({'error': err}));
-    } else {
-      res.sendStatus(400);
     }
   } catch(error) {
     res.send(error);
@@ -66,12 +88,13 @@ const deleteFiles = async (req: Express.Request, res: Express.Response) => {
   let { path } = req.body;
   path = path.split('\\').join('/');
   try {
-    fileService.deleteFile(path);
+    fileService.deleteFile(path, req.body.username);
     fs.unlink(path, function(err) {
       if (err) {
         res.status(500).send(err);
+        return;
       } else {
-        res.send("Successfully deleted the file.");
+        res.status(200).send("Successfully deleted the file.");
         console.log("Successfully deleted the file.");
       }
     });

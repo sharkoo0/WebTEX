@@ -7,6 +7,7 @@ export async function authMiddleware(req: Request, res: Response, next: NextFunc
   const token = req.headers.authorization;
   if(!token) {
     res.sendStatus(401);
+    return;
   } else {
     // process.env.PRIVATE_KEY
     try {

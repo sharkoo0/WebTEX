@@ -57,14 +57,12 @@ const userSchema = new mongoose.Schema({
       type: String
   },
   files: [{
-      type: String,
       name: String,
       path: String,
       size: Number,
       mimetype: String
   }],
   sharedFiles: [{
-      type: String,
       name: String,
       path: String,
       size: Number,

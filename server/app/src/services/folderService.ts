@@ -20,7 +20,6 @@ class FolderService {
                 });
                 await newFolder.save();
                 resolve(true);
-
             })
             .catch((err) => {
                 console.log(err);

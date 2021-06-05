@@ -7,30 +7,31 @@ import mongoose from 'mongoose'
 class FileService {
   constructor() {}
 
-  async addFile(file: File, path: string, names: string) {
-    const username = path.substr(path.lastIndexOf('/') + 1);
+  async addFile(file: File, path: string, name: string, username:string) {
     await this.isCorrect(file);
+    console.log(path)
     const currentFile = {
-      name: file.name,
-      path: path + '/' + file.name,
+      name: name,
+      path: path,
       size: file.size,
       mimetype: file.mimetype,
     };
     const update = { $push: { files: currentFile } };
-    const currentUser = UserSchema.find({ username: username }).exec();
     return new Promise((resolve, reject) => {
-      this.notExists(file.name, username)
+      this.notExists(path, username)
         .then(async () => {
-          await UserSchema.updateOne({ username: username }, update).exec();
+          UserSchema.updateOne({ username: username }, update).then((u: any) => {
+            console.log(u);
+          }).catch((err: Error) => console.log(err));
         })
         .catch((err) => console.log('ERROR: ' + err));
     });
   }
 
-  async addFiles(files: Array<any>, path: string, names: Array<string>) {
+  async addFiles(files: Array<any>, path: string, names: Array<string>, username: string) {
     let counter = 0;
-    files.forEach((el: File) => {
-      this.addFile(el, path, names[counter]);
+    files.forEach((el: any) => {
+      this.addFile(el, path, names[counter], username);
       counter++;
     });
 
@@ -52,16 +53,23 @@ class FileService {
     });
   }
 
-  deleteFile = async (path: string) => {};
+  deleteFile = async (path: string, username: string) => {
+    const remove = { $pull: { files: {path: path} } };
+    await UserSchema.findOne({username: username}).exec().then(async (u: any) => {
+      await UserSchema.updateOne({username: u.username}, remove).then((u: any) => {
+        console.log(u);
+      }).catch((err: Error) => console.log(err));
+    })
+  };
 
-  private notExists = async (filename: string, username: string) => {
+  private notExists = async (filepath: string, username: string) => {
     return new Promise(async (resolve, reject) => {
       const user = await UserSchema.findOne({username: username}).select('files').exec();
       if (user) {
         const file = user.get('files', null, { getters: false});
         if (file) {
           file.forEach((el: any) => {
-            if(el.name === filename) {
+            if(el.path === filepath) {
               console.log("File already exists")
               reject("File already exists")
             }

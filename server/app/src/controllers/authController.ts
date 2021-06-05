@@ -40,7 +40,7 @@ const register = async (req: Express.Request, res: Express.Response) => {
   await UserService.addUser(newUser)
     .then(() => {
       fs.mkdir('../../info/' + newUser.username, (err) => {
-        console.log(err);
+        console.error(err);
       });
       const token = jwt.sign(
         {

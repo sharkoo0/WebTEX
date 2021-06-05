@@ -23,6 +23,7 @@ filesRouter.get('/search', async (req, res) => {
     async (err: Error, user: any) => {
       if (err) {
         res.status(400).json({ error: err });
+        return;
       } else {
         const file = user.files;
         const db = mongoose.connection.db.collection('users');
@@ -31,12 +32,13 @@ filesRouter.get('/search', async (req, res) => {
         let result: Array<any> = [];
         files.forEach((l) => {
           if (l.name === filename) {
-            result.push(l);
-            // res.status(200).json(l);
+            // result.push(l);
+            res.status(200).json(l);
+            return;
           }
         });
-        res.status(200).json(result);
-        // res.status(400).json({ 'error: No such a file': '' });
+        // res.status(200).json(result);
+        res.status(400).json({ 'error: No such a file': '' });
       }
     }
   );
