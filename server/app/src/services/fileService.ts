@@ -83,10 +83,6 @@ class FileService {
     });
   };
 
-  private makeShareDir = (usernameTo: string, usernameFrom: string) => {
-
-  };
-
   async shareFile(usernameFrom: string, usernameTo: string, filepath: string) {
     return new Promise(async (resolve, reject) => {
       const user = await UserSchema.findOne({username: usernameFrom}).select('files').exec();
@@ -98,7 +94,6 @@ class FileService {
             if(userTo){
               fs.access('../../shared/' + usernameTo + '/' + usernameFrom, (err: Error) => {
                 if(err) {
-                  console.error("The folder doesn't exist");
                   fs.mkdir('../../shared/' + usernameTo + '/' + usernameFrom);
                   console.log("Folder created");
                 } else {
@@ -146,13 +141,11 @@ class FileService {
         reject("Recipient not found");
       }
       const path = folderpath.substr(folderpath.lastIndexOf('/' + usernameFrom + '/') + usernameFrom.length + 2);
-      console.log(path);
 
       senderFiles.forEach((el: any) => {
         if(el.path.includes(folderpath)) {
           fs.access('../../shared/' + usernameTo + '/' + usernameFrom + '/' + path.substr(0, path.lastIndexOf('/')), (err: Error) => {
             if(err) {
-              console.error("The folder doesn't exist");
               fs.mkdir('../../shared/' + usernameTo + '/' + usernameFrom + '/' + path.substr(0, path.lastIndexOf('/')), {recursive: true}).then(() => {
                 console.log("Folder created");
               }).catch((err: Error) => {
@@ -163,7 +156,6 @@ class FileService {
             }
           });
           const newElPath = el.path.replace('../../info', '../../shared/' + usernameTo);
-          console.log(newElPath);
           fs.copyFile(el.path, newElPath);
           const newSharedFile = {
             name: el.name,
