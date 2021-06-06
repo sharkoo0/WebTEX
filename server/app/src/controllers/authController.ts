@@ -5,6 +5,7 @@ import UserSchema from '../schemas/userSchema';
 import mongoose from 'mongoose';
 import fs from 'fs';
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 
 const logout = async (req: Express.Request, res: Express.Response) => {
   res.clearCookie('sessionId');
@@ -13,7 +14,7 @@ const logout = async (req: Express.Request, res: Express.Response) => {
 
 const login = async (req: Express.Request, res: Express.Response) => {
   const body: User = req.body;
-  await UserService.login(body.email, body.password)
+  UserService.login(body.email, body.password)
     .then(() => {
       const token = jwt.sign(
         {
