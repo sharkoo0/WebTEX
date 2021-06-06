@@ -42,6 +42,9 @@ const register = async (req: Express.Request, res: Express.Response) => {
       fs.mkdir('../../info/' + newUser.username, (err) => {
         console.error(err);
       });
+      fs.mkdir('../../shared/' + newUser.username, (err) => {
+        console.error(err);
+      });
       const token = jwt.sign(
         {
           name: newUser.email,

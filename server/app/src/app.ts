@@ -3,6 +3,7 @@ import Cors from 'cors';
 import { saveRouter } from './routes/save';
 import { authRouter } from './routes/auth';
 import { filesRouter } from './routes/files';
+import { shareRouter } from './routes/shareFiles';
 import { createFolderRouter } from './routes/create-folder';
 import models, { connectDB } from '../config/dbConnection';
 import path from 'path';
@@ -21,6 +22,7 @@ app.use('/auth', authRouter);
 app.use('/files', filesRouter);
 app.use('/save', saveRouter);
 app.use('/create-folder',createFolderRouter);
+app.use('/share', shareRouter);
 
 app.use(authMiddleware);
 

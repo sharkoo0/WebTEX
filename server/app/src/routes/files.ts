@@ -32,13 +32,11 @@ filesRouter.get('/search', async (req, res) => {
         let result: Array<any> = [];
         files.forEach((l) => {
           if (l.name === filename) {
-            // result.push(l);
-            res.status(200).json(l);
+            result.push(l);
             return;
           }
         });
-        // res.status(200).json(result);
-        res.status(400).json({ 'error: No such a file': '' });
+        res.status(200).json(result);
       }
     }
   );
