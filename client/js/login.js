@@ -1,18 +1,14 @@
 async function sendReq(event) {
-   let myForm = document.getElementById('myForm');
-   let username = document.getElementById('username').value;
-   let password =  document.getElementById('password').value;
+    event.preventDefault();
+    let username = document.getElementById('username').value;
+    let password = document.getElementById('password').value;
 
-    const formData = new FormData(myForm);
-    formData.append('username',username);
-    formData.append('password',password);
+    const user = {
+        email: username,
+        password: password
+    }
 
-    var meggedObj = {};
-    for (var pair of formData.entries()) {
-        meggedObj[pair[0]]= pair[1];
-      }
-   
-    const {data: response }= await fetch('http://localhost:3000/auth/login', {
+    const response = await fetch('http://localhost:3000/auth/login', {
         headers: {
             'Content-Type': 'application/json'
         },
@@ -20,8 +16,16 @@ async function sendReq(event) {
         mode: 'cors',
         cache: 'no-cache',
         credentials: 'same-origin',
-        redirect: 'follow',
-        body: JSON.stringify(meggedObj)
+        body: JSON.stringify(user)
     });
-    location.href = 'myFiles.html';
+
+    const json = await response.json();
+    console.log(json.files[0]);
+
+    if(response.status === 200) {
+        window.location.replace('../html/myFiles.html');
+        window.localStorage.setItem("token", json);
+    } else {
+        console.log(response.statusText);
+    }
 };

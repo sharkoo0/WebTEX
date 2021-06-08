@@ -4,3 +4,4 @@ client/node_modules
 server/app/dist
 info/*
 shared/*
+testSPA

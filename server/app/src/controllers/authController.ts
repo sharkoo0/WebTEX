@@ -15,7 +15,7 @@ const logout = async (req: Express.Request, res: Express.Response) => {
 const login = async (req: Express.Request, res: Express.Response) => {
   const body: User = req.body;
   UserService.login(body.email, body.password)
-    .then(() => {
+    .then(async () => {
       const token = jwt.sign(
         {
           name: body.email,
@@ -25,10 +25,11 @@ const login = async (req: Express.Request, res: Express.Response) => {
           expiresIn: '10h',
         }
       );
-      console.log(token);
+      // console.log(token);
+      const files = await UserSchema.findOne({email: body.email}).select('files').exec();
       res.setHeader('Authorization', token);
       // res.status(200).json(body);
-      res.status(200).json({"token: ":token})
+      res.status(200).json({"token": token, "files": files.files});
       // res.render('../client/html/myFiles.html', {msg: 'Express'})
     })
     .catch((error) => {
@@ -56,7 +57,7 @@ const register = async (req: Express.Request, res: Express.Response) => {
         }
       );
       res.setHeader('Authorization', token);
-      res.status(200).json(newUser);
+      res.status(200).json(token);
       // res.redirect(200, '/');
     })
     .catch((err) => {
