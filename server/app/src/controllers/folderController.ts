@@ -7,16 +7,29 @@ import fs from 'fs';
 const postMethod = async (req: Express.Request, res: Express.Response) => {
   const newFolder: Folder = req.body;
   if (newFolder) {
-    if(fs.existsSync('../../info/' + req.body.username + '/' + req.body.path + '/' + req.body.name)) {
-      res.status(400).json("Error: Folder already exists");
-      return;
-    }
-    fs.mkdir('../../info/' + req.body.username + '/' + req.body.path + '/' + req.body.name, { recursive: true }, (err) => {
-      if(err) {
-        res.status(400).json({error: err});
+    if(req.body.path) {
+      if(fs.existsSync('../../info/' + req.body.username + '/' + req.body.path + '/' + req.body.name)) {
+        res.status(400).json("Error: Folder already exists");
         return;
       }
-    })
+      fs.mkdir('../../info/' + req.body.username + '/' + req.body.path + '/' + req.body.name, { recursive: true }, (err) => {
+        if(err) {
+          res.status(400).json({error: err});
+          return;
+        }
+      })
+    } else {
+      if(fs.existsSync('../../info/' + req.body.username + '/' + req.body.name)) {
+        res.status(400).json("Error: Folder already exists");
+        return;
+      }
+      fs.mkdir('../../info/' + req.body.username + '/' + req.body.name, { recursive: true }, (err) => {
+        if(err) {
+          res.status(400).json({error: err});
+          return;
+        }
+      })
+    }
     await FolderService.addFolder(newFolder.name).then(() => {
       res.sendStatus(200);
     }).catch(error => {

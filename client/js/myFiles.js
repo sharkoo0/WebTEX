@@ -29,11 +29,10 @@ async function getFiles() {
 
     const json = await response.json()
     const files = json.files;
-    
+
     const tbody = document.getElementById('tbody');
     
     for(let i = 0; i < files.length; ++i) {
-        console.log(files[i])
         const tr = document.createElement('tr');
         const td1 = document.createElement('td');
         const td2 = document.createElement('td');
@@ -99,34 +98,55 @@ function share() {
 }
 
 async function sendReq(event) {
-    // let myForm = document.getElementById('create-folder');
+    event.preventDefault();
+
     let newFolder =  document.getElementById('new-folder').value;
-    
-    // const formData = new FormData(myForm);
-    // formData.append('name',newFolder);
-
-    // var meggedObj = {};
-
-    // for (var pair of formData.entries()) {
-    //     meggedObj[pair[0]] = pair[1];
-    // }
+    const token = window.localStorage.getItem("token");
+    console.log(token)
 
     const req = {
-        name: newFolder
+        name: newFolder,
+        username: window.localStorage.getItem("username")
+        //how to get path???
     }
 
     const response = await fetch('http://localhost:3000/create-folder', {
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': token
         },
         method: 'POST',
         mode: 'cors',
         cache: 'no-cache',
         credentials: 'same-origin',
-        redirect: 'follow',
-        body: JSON.stringify(meggedObj)
+        body: JSON.stringify(req)
     });
-    location.href = 'myFiles.html';
+
+    if(response.status === 200) {
+        const tr = tbody.insertRow(0);
+        const td1 = document.createElement('td');
+        const td2 = document.createElement('td');
+        const td3 = document.createElement('td');
+        const td4 = document.createElement('td');
+        const td5 = document.createElement('td');
+        const td6 = document.createElement('td');
+        tr.classList.add("data-row");
+        td1.innerHTML = `<img src="../images/folder-solid.png" class="img-folder"/> ${newFolder}`;
+        td2.innerHTML = '22/03/2021';
+        td3.innerHTML = '0 KB';
+        td4.innerHTML = '<input  type="Image" src="../images/download-solid.png" class="action-buttons">';
+        td5.innerHTML = '<input  type="Image" src="../images/Vector.png" class="action-buttons" onclick="deleteFile()">';
+        td6.innerHTML = '<input  type="Image" src="../images/share.png" class="action-buttons" onclick="share()">';
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tr.appendChild(td3);
+        tr.appendChild(td4);
+        tr.appendChild(td5);
+        tr.appendChild(td6);
+        const modal = document.getElementsByClassName('wrapper modal');
+        modal[1].style.display = 'none';
+        // tbody.appendChild(tr);
+    }
 };
 
 
