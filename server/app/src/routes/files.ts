@@ -42,4 +42,14 @@ filesRouter.get('/search', async (req, res) => {
   );
 });
 
+filesRouter.get('/all', async (req, res) => {
+  if(!req.headers.authorization) {
+    res.sendStatus(401);
+    return;
+  }
+
+  const userFiles = await UserSchema.findOne({username: req.query.username}).select('files').exec();
+  res.status(200).json({"files": userFiles.files});
+});
+
 export { filesRouter };

@@ -30,6 +30,7 @@ async function sendReq(event) {
     if(response.status === 200){
         window.location.replace("../html/myFiles.html");
         window.localStorage.setItem("token", json);
+        window.localStorage.setItem("username", email);
     } else {
         console.error(response.status);
     }

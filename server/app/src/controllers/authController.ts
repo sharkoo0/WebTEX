@@ -25,7 +25,7 @@ const login = async (req: Express.Request, res: Express.Response) => {
           expiresIn: '10h',
         }
       );
-      // console.log(token);
+      console.log(token);
       const files = await UserSchema.findOne({email: body.email}).select('files').exec();
       res.setHeader('Authorization', token);
       // res.status(200).json(body);

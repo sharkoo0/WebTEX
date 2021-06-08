@@ -20,11 +20,12 @@ async function sendReq(event) {
     });
 
     const json = await response.json();
-    console.log(json.files[0]);
+    // console.log(json.files[0]);
 
     if(response.status === 200) {
         window.location.replace('../html/myFiles.html');
-        window.localStorage.setItem("token", json);
+        window.localStorage.setItem("token", json.token);
+        window.localStorage.setItem("username", username);
     } else {
         console.log(response.statusText);
     }
