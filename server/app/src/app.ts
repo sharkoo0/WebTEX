@@ -39,3 +39,4 @@ connectDB()
   .catch((error: Error) => {
     console.log(error);
   });
+

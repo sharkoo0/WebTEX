@@ -13,7 +13,7 @@ import mongoose from 'mongoose';
 
 const filesRouter = Express.Router();
 
-filesRouter.post('/upload', Upload.array('file-to-upload'), uploadFiles);
+filesRouter.post('/upload', Upload.array('filetoupload'), uploadFiles);
 filesRouter.delete('/delete', deleteFiles);
 
 filesRouter.get('/search', async (req, res) => {

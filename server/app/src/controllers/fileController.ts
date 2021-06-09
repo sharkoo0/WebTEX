@@ -29,8 +29,10 @@ let Upload = Multer({
 
 const uploadFiles = async (req: Express.Request, res: Express.Response) => {
   try {
-    const newFiles = req.files as Array<any>;
+    const newFiles = req.body.files as Array<any>;
+    console.log(req.body.files)
     if(!req.body.username) {
+      console.log(req.body.username)
       res.status(401).json("error: Invalid username");
       return;
     }
@@ -51,7 +53,7 @@ const uploadFiles = async (req: Express.Request, res: Express.Response) => {
               res.status(201).json(newFiles);
               return;
             }).catch(err => {
-              res.json({'error': err})
+              res.status(400).json({'error': err})
               return;
             });
           }).catch((err: Error) => {
@@ -67,7 +69,7 @@ const uploadFiles = async (req: Express.Request, res: Express.Response) => {
               res.status(201).json(newFiles);
               return;
             }).catch(err => {
-              res.json({'error': err})
+              res.status(400).json({'error': err})
               return;
             });
           }).catch((err: Error) => {
@@ -80,6 +82,7 @@ const uploadFiles = async (req: Express.Request, res: Express.Response) => {
       })
     }
   } catch(error) {
+    console.log(' fhasjk')
     res.send(error);
   }
 };

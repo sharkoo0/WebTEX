@@ -8,6 +8,7 @@
     <title>MyCloud</title>
     <link rel="stylesheet" type="text/css" href="../css/myFiles.css" />
     <script src="../js/myFiles.js" defer></script>
+    <script src="../js/uploadButton.js" defer></script>
     <script src="../js/nav.js" defer></script>
 </head>
 
@@ -43,13 +44,14 @@
         </nav>
     </header>
 
-    <form class="wrapper modal">
+    <form class="wrapper modal" id="uploadModal" method="POST">
         <section class="upload-section">
             <h1 class="upload-text">Upload files</h1>
             <section class="get-file-section">
                 <img src="../images/cloud-download.png" class="img-upload" />
                 <h3 class="select-file">Select file</h3>
-                <a href="myFiles.html"><button class="br-btn">Browse</button></a>
+                <input class="br-btn" id="filetoupload" type="file" multiple/>
+                <a href="myFiles.html"><button class="br-btn" onclick="sendFiles(event)">Browse</button></a>
             </section>
             <button type="reset" class="style-btn cancel" id="cancel" onclick="cancelUpdate()">Cancel</button>
         </section>
