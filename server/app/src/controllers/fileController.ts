@@ -3,6 +3,7 @@ import Multer from 'multer';
 import fs from 'fs-extra';
 import fileService from '../services/fileService';
 import FileSchema from '../schemas/fileSchema';
+import jwt from 'jsonwebtoken';
 
 let name = "";
 const genFolderName = (folderName: String) => {
@@ -27,26 +28,58 @@ let Upload = Multer({
 }
 );
 
+// const genToken = (username: string) => {
+//   return jwt.sign(
+//     {
+//       name: username,
+//     },
+//     'TOPSECRETCODE',
+//     {
+//       expiresIn: '15s',
+//     }
+//   );
+// }
+
+const genShortToken = async (req: Express.Request, res: Express.Response) => {
+  const token = jwt.sign(
+    {
+      name: res.locals.username
+    },
+    'TOPSECRETCODE',
+    {
+      expiresIn: '15s',
+    }
+  );
+  console.log(token)
+  res.json({'token': token});
+}
+
 const uploadFiles = async (req: Express.Request, res: Express.Response) => {
   try {
-    const newFiles = req.body.files as Array<any>;
+    console.log(req);
+    const newFiles = req.body.files;
     console.log(req.body.files)
-    if(!req.body.username) {
-      console.log(req.body.username)
+    console.log(newFiles)
+    console.log(req.query.username);
+    if(!req.query.username) {
+      console.log(req.query.username)
       res.status(401).json("error: Invalid username");
       return;
     }
 
     let names: Array<string> = [];
-    newFiles.forEach((el) => {
+    newFiles.forEach((el: any) => {
       names.push(el.originalname);
     })
 
     let folder = req.body.folder;
     if(newFiles) {  
-      newFiles.forEach(el => {
+      
+      newFiles.forEach((el: any) => {
         if(folder){
+          console.log(req.body.username)
           const path = '../../info/' + req.body.username + '/' + req.body.folder + '/' + el.filename;
+          console.log(path)
           fs.move('../../info/' + el.filename, path).then(() => {
             console.info("File moved")
             fileService.addFiles(newFiles, path, names, req.body.username).then(() => {
@@ -82,7 +115,7 @@ const uploadFiles = async (req: Express.Request, res: Express.Response) => {
       })
     }
   } catch(error) {
-    console.log(' fhasjk')
+    console.log(error)
     res.send(error);
   }
 };
@@ -106,4 +139,4 @@ const deleteFiles = async (req: Express.Request, res: Express.Response) => {
   }  
 };
 
-export { Upload, uploadFiles, deleteFiles };
+export { Upload, uploadFiles, deleteFiles, genShortToken };

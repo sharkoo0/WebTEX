@@ -7,6 +7,7 @@ import {
   Upload,
   uploadFiles,
   deleteFiles,
+  genShortToken
 } from '../controllers/fileController';
 import UserSchema from '../schemas/userSchema';
 import mongoose from 'mongoose';
@@ -15,6 +16,7 @@ const filesRouter = Express.Router();
 
 filesRouter.post('/upload', Upload.array('filetoupload'), uploadFiles);
 filesRouter.delete('/delete', deleteFiles);
+filesRouter.get('/token', genShortToken);
 
 filesRouter.get('/search', async (req, res) => {
   const filename = req.body.filename;
