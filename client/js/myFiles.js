@@ -6,10 +6,10 @@
 //     deleteForm[0].style.display = 'block';
 // }
 
-// function cancelDel() {
-//     const modal = document.getElementsByClassName('wrapper delete-file');
-//     modal[0].style.display = 'none';
-// }
+function cancelDel() {
+    const modal = document.getElementsByClassName('wrapper delete-file');
+    modal[0].style.display = 'none';
+}
 
 async function getFiles(type) {
     const username = window.localStorage.getItem("username");
@@ -240,6 +240,7 @@ async function openFolder(event) {
 window.onload = getFiles('my');
 
 let fileToDelete;
+let type;
 function deleteFile(event) {
     event.preventDefault();
 
@@ -248,8 +249,10 @@ function deleteFile(event) {
     deleteForm.style.display = 'block';
 
     fileToDelete = event.srcElement.parentNode.parentNode.childNodes[0].innerText;
+    type = event.srcElement.parentNode.parentNode.childNodes[0].childNodes[0].getAttribute('src');
+    console.log(fileToDelete)
+    console.log(type)
 }
-
 
 async function delFile(event) {
     event.preventDefault();
@@ -267,7 +270,16 @@ async function delFile(event) {
         username: username
     }
 
-    const response = await fetch('http://localhost:3000/files/delete', {
+    console.log(path)
+
+    let url;
+    if(type.includes('file')) {
+        url = 'http://localhost:3000/files/delete/file';
+    } else {
+        url = 'http://localhost:3000/files/delete/folder';
+    }
+
+    const response = await fetch(url, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': token
@@ -281,6 +293,7 @@ async function delFile(event) {
     });
 
     console.log(response)
+    location.reload();
 }
 
 

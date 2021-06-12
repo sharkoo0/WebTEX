@@ -3,7 +3,9 @@ import Multer from 'multer';
 import fs from 'fs-extra';
 import fileService from '../services/fileService';
 import FileSchema from '../schemas/fileSchema';
+import UserSchema from '../schemas/userSchema';
 import jwt from 'jsonwebtoken';
+import userService from '../services/userService';
 
 let name = "";
 const genFolderName = (folderName: String) => {
@@ -143,4 +145,18 @@ const deleteFiles = async (req: Express.Request, res: Express.Response) => {
   }  
 };
 
-export { Upload, uploadFiles, deleteFiles, genShortToken };
+const deleteFolder = async (req: Express.Request, res: Express.Response) => {
+  const username = req.body.username;
+  const folderpath = req.body.path;
+  const path = '../../info/' + username + '/' + folderpath;
+  const files = (await UserSchema.findOne({username: username}).select('files').exec()).files;
+
+  files.forEach(async (el: any) => {
+    if(el.path.startsWith(path)) {
+      await fileService.deleteFile(el.path, username);
+      await fs.rmdir(path, {recursive: true});
+    }
+  })
+}
+
+export { Upload, uploadFiles, deleteFiles, genShortToken, deleteFolder };

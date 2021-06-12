@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     transform: true,
     trim: true,
-    maxLengt: 25,
+    maxLength: 25,
   },
   lastName: {
     type: String,
