@@ -13,14 +13,37 @@ class FileService {
     const temp = await db.findOne({ username: username});
     await this.isCorrect(file);
     const currentFile = {
-      name: names,
-      path: path,
+      name: file.name,
+      path: path + file.name,
       size: file.size,
       mimetype: file.mimetype,
     };
     temp.files.push(currentFile);
     const update = { $push: { files: currentFile } };
-    await db.updateOne({ username: username}, update);
+    const currentUser = UserSchema.find({ username: username }).exec();
+    return new Promise((resolve, reject) => {
+      this.notExists(file.name, username)
+        .then(async () => {
+          await UserSchema.updateOne({ username: username }, update).exec();
+        })
+        .catch((err) => console.log('ERROR: ' + err));
+    });
+
+    // console.log(currentUser);
+    // const user = UserSchema.findOneAndUpdate(
+    //   {username: path.substr(path.lastIndexOf('/') + 1)},
+    //   {
+    //     $addToSet: {
+    //       files: {
+    //         "name": file.name,
+    //         "path": path,
+    //         "size": file.size,
+    //         "mimetype": file.mimetype
+    //       }
+    //     }
+    //   }
+    // )
+
     return file;
   }
 
