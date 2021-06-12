@@ -16,3 +16,10 @@ function cancelUpdate() {
     const modal = document.getElementsByClassName('wrapper modal');
     modal[0].style.display = 'none';
 }
+
+async function logout(event) {
+    event.preventDefault();
+
+    window.localStorage.clear();
+    location.href = '../html/login.html';
+}

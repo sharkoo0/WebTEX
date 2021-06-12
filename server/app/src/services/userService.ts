@@ -85,9 +85,9 @@ class UserService {
     newPassword?: string,
     confNewPassword?: string
   ) => {
-    const user = await UserSchema.findOne({username: username}).exec().then(async (u: any) => {
+    const user = UserSchema.findOne({username: username}).exec().then(async (u: any) => {
       if(u && !newPassword) {
-        const pass = await UserSchema.findOne({username: username}).select('password').exec();
+        const pass = (await UserSchema.findOne({username: username}).select('password').exec()).password;
         newPassword = pass?.get('password');        
       }
       await UserSchema.findOneAndUpdate(
@@ -104,7 +104,7 @@ class UserService {
     })
   };
 
-  addFile = async (username: String) => {};
+  // addFile = async (username: String) => {};
 }
 
 export default new UserService();

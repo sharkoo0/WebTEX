@@ -8,7 +8,6 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
 const logout = async (req: Express.Request, res: Express.Response) => {
-  res.clearCookie('sessionId');
   res.json({ logout: true });
 };
 
