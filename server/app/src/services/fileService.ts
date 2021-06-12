@@ -50,7 +50,23 @@ class FileService {
     });
   }
 
-  deleteFile = async (path: string) => {};
+  deleteFile = async (path: string, filename: string) => {
+    console.log(path);
+    const username = path.substr(path.lastIndexOf('/') + 1);
+    //const db = mongoose.connection.db.collection('users');
+    const db = await UserSchema.findOne({username: username}).select("files username").exec();
+    //const temp = await db.findOne({ username: username});
+    
+    const files = db?.get('files');
+    console.log(db);
+    console.log(username);
+    console.log(files);
+    
+    // temp.files.delete(currentFile);
+    // const delete = { $delete: { files: currentFile } };
+    // await db.deleteOne({ username: username, files: currentFile}, delete);
+    // return file;
+  };
 
 }
 

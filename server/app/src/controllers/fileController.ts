@@ -64,10 +64,12 @@ const deleteFiles = async (req: Express.Request, res: Express.Response) => {
   let { path } = req.body;
   path = path.split('\\').join('/');
   try {
-    fileService.deleteFile(path);
-    fs.unlink(path, function(err) {
+    fileService.deleteFile(path, req.body.filename);
+    fs.unlink(path + '/' + req.body.filename, function(err) {
       if (err) {
+        console.log(err);
         res.status(500).send(err);
+
       } else {
         res.send("Successfully deleted the file.");
         console.log("Successfully deleted the file.");
@@ -75,7 +77,7 @@ const deleteFiles = async (req: Express.Request, res: Express.Response) => {
     });
   } catch(error) {
     res.send(error);
-  }  
+  }
 };
 
 export { Upload, uploadFiles, deleteFiles };
