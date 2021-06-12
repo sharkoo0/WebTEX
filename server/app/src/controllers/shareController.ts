@@ -10,9 +10,15 @@ const shareFolder = async (req: Express.Request, res: Express.Response) => {
 }
 
 const shareFile = async (req: Express.Request, res: Express.Response) => {
-  FileService.shareFile(req.body.sender, req.body.recipient, req.body.filepath).then(() => {
+  // console.log(req.body.sender)
+  // console.log(req.body.recipient)
+  // console.log(req.body.filepath)
+  const filepath = '../../info/' + req.body.sender + '/' + req.body.filepath;
+  console.log(filepath)
+  FileService.shareFile(req.body.sender, req.body.recipient, filepath).then(() => {
     res.status(200).json("message: File shared successfully");
   }).catch((err: Error) => {
+    console.log('here')
     res.status(400).json({"error": err});
   })
 }

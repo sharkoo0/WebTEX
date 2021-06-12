@@ -23,10 +23,14 @@ class FileService {
           UserSchema.updateOne({ username: username }, update)
             .then((u: any) => {
               console.log(u);
+              resolve(true);
             })
             .catch((err: Error) => console.error(err));
         })
-        .catch((err) => console.error('ERROR: ' + err));
+        .catch((err) => {
+          console.error('ERROR: ' + err)
+          reject(err);
+        });
     });
   }
 
@@ -62,12 +66,12 @@ class FileService {
 
   deleteFile = async (path: string, username: string) => {
     const remove = { $pull: { files: { path: path } } };
-    await UserSchema.findOne({ username: username })
+    UserSchema.findOne({ username: username })
       .exec()
       .then(async (u: any) => {
         await UserSchema.updateOne({ username: u.username }, remove)
           .then((u: any) => {
-            console.log(u);
+            // console.log(u);
           })
           .catch((err: Error) => console.log(err));
       });
@@ -98,74 +102,57 @@ class FileService {
 
   async shareFile(usernameFrom: string, usernameTo: string, filepath: string) {
     return new Promise(async (resolve, reject) => {
-      const user = await UserSchema.findOne({ username: usernameFrom })
-        .select('files')
-        .exec();
+      const user = await UserSchema.findOne({ username: usernameFrom }).select('files').exec();
       if (user) {
         const files = user.get('files', null, { getters: false });
         files.forEach(async (el: any) => {
           if (el.path === filepath) {
-            const userTo = await UserSchema.findOne({
-              username: usernameTo,
-            }).exec();
+            const userTo = await UserSchema.findOne({username: usernameTo}).exec();
             if (userTo) {
-              fs.access(
-                '../../shared/' + usernameTo + '/' + usernameFrom,
-                (err: Error) => {
+              const sharePath = '../../shared/' + usernameTo + '/' + usernameFrom;
+              fs.access(sharePath, async (err: Error) => {
                   if (err) {
-                    fs.mkdir('../../shared/' + usernameTo + '/' + usernameFrom);
-                    console.log('Folder created');
-                  } else {
-                    console.log('The folder exists');
+                      fs.mkdir(sharePath, {recursive: true});
+                  } 
+                }
+              );
+              fs.copyFile(filepath, '../../shared/' + usernameTo + '/' + usernameFrom + '/' + el.name, (err) => {
+                  if(err){
+                    reject(err);
                   }
                 }
               );
-              fs.copyFile(
-                filepath,
-                '../../shared/' +
-                  usernameTo +
-                  '/' +
-                  usernameFrom +
-                  '/' +
-                  el.name
-              );
               const newSharedFile = {
                 name: el.name,
-                path:
-                  '../../shared/' +
-                  usernameTo +
-                  '/' +
-                  usernameFrom +
-                  '/' +
-                  el.name,
+                path: '../../shared/' + usernameTo + '/' + usernameFrom + '/' + el.name,
                 size: el.size,
                 mimetype: el.mimetype,
                 owner: usernameFrom,
               };
-              const addShareFile = { $push: { sharedFiles: newSharedFile } };
+              const addShareFile = { $addToSet: { sharedFiles: newSharedFile } };
               UserSchema.updateOne({ username: usernameTo }, addShareFile)
                 .then((u: any) => {
                   resolve(true);
                 })
                 .catch((err: Error) => {
-                  console.error(err);
                   reject('Cannot share this file');
                 });
+            } else {
+              // reject('Invalid recipient');
             }
-            reject('Invalid recipient');
+            resolve(true);
+            return;  
+          } else {
+            // reject('Invalid filepath');
           }
-          reject('Invalid filepath');
         });
-      }
-      reject('Invalid sender');
+      } else {
+        // reject('Invalid sender');
+      } 
     });
   }
 
-  async shareFolder(
-    usernameFrom: string,
-    usernameTo: string,
-    folderpath: string
-  ) {
+  async shareFolder(usernameFrom: string, usernameTo: string, folderpath: string) {
     return new Promise(async (resolve, reject) => {
       const sender = await UserSchema.findOne({ username: usernameFrom })
         .select('files')
@@ -183,32 +170,12 @@ class FileService {
       if (!recipient) {
         reject('Recipient not found');
       }
-      const path = folderpath.substr(
-        folderpath.lastIndexOf('/' + usernameFrom + '/') +
-          usernameFrom.length +
-          2
-      );
-
+      const path = folderpath.substr(folderpath.lastIndexOf('/' + usernameFrom + '/') + usernameFrom.length + 2);
       senderFiles.forEach((el: any) => {
         if (el.path.includes(folderpath)) {
-          fs.access(
-            '../../shared/' +
-              usernameTo +
-              '/' +
-              usernameFrom +
-              '/' +
-              path.substr(0, path.lastIndexOf('/')),
-            (err: Error) => {
+          fs.access('../../shared/' + usernameTo + '/' + usernameFrom + '/' + path.substr(0, path.lastIndexOf('/')), (err: Error) => {
               if (err) {
-                fs.mkdir(
-                  '../../shared/' +
-                    usernameTo +
-                    '/' +
-                    usernameFrom +
-                    '/' +
-                    path.substr(0, path.lastIndexOf('/')),
-                  { recursive: true }
-                )
+                fs.mkdir( '../../shared/' + usernameTo + '/' + usernameFrom + '/' + path.substr(0, path.lastIndexOf('/')), { recursive: true })
                   .then(() => {
                     console.log('Folder created');
                   })

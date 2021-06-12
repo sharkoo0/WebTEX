@@ -54,4 +54,15 @@ filesRouter.get('/all', async (req, res) => {
   res.status(200).json({"files": userFiles.files});
 });
 
+filesRouter.get('/allShared', async (req, res) => {
+  if(!req.headers.authorization) {
+    res.sendStatus(401);
+    return;
+  }
+
+  const userFiles = await UserSchema.findOne({username: req.query.username}).select('sharedFiles').exec();
+  console.log(userFiles.sharedFiles);
+  res.status(200).json({"files": userFiles.sharedFiles});
+});
+
 export { filesRouter };

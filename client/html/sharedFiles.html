@@ -59,7 +59,7 @@
             <h1>Delete file</h1>
             <h1>Are you sure that you want to delete this file?</h1>
             <button type="reset" class="style-btn cancel" onclick="cancelDel()">Cancel</button>
-            <button class="style-btn delete-btn" onclick="deleteFile()">DELETE</button>
+            <button class="style-btn delete-btn" onclick="delFile(event)">DELETE</button>
         </section>
     </form>
     <form class="wrapper modal share">
@@ -75,7 +75,7 @@
 
     <main class="wrapper dashboard">
         <section class="dashboard-buttons">
-            <a href="myFiles.html" class="style-btn">My files</a>
+            <a href="myFiles.html" class="style-btn" id="my-files-button" onclick="loadMyFiles(event)">My files</a>
         </section>
         <section class="content">
             <div class="div-table">
@@ -91,22 +91,7 @@
                     </tr>
                 </thead>
                 <tbody id="tbody">
-                    <tr class = "data-row">
-                        <td>
-                            <img src="../images/folder-solid.png" class="img-folder" /> Photos
-                        </td>
-                        <td>22/04/2021</td>
-                        <td>40MB</td>
-                        <td>
-                            <input  type="Image" src="../images/download-solid.png" class="action-buttons" />
-                        </td>
-                        <td>
-                            <input  type="Image" src="../images/Vector.png" class="action-buttons" onclick="deleteFile()" />
-                        </td>
-                        <td>
-                            <input type="Image" src="../images/share.png" class="action-buttons" onclick="share()" />
-                        </td>
-                    </tr>
+                    
                 </tbody>
             </table>
         </section>

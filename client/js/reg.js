@@ -1,3 +1,6 @@
+import './myFiles';
+import { getFiles } from './myFiles';
+
 async function sendReq(event) {
     event.preventDefault();
 
@@ -31,6 +34,7 @@ async function sendReq(event) {
         window.location.replace("../html/myFiles.html");
         window.localStorage.setItem("token", json);
         window.localStorage.setItem("username", email);
+        getFiles('my');
     } else {
         console.error(response.status);
     }

@@ -56,16 +56,16 @@ const genShortToken = async (req: Express.Request, res: Express.Response) => {
 
 const uploadFiles = async (req: Express.Request, res: Express.Response) => {
   try {
-    console.log(req);
-    const newFiles = req.body.files;
+    // console.log(req);
+    const newFiles = req.files as Array<any>;
     console.log(req.body.files)
     console.log(newFiles)
-    console.log(req.query.username);
-    if(!req.query.username) {
-      console.log(req.query.username)
-      res.status(401).json("error: Invalid username");
-      return;
-    }
+    // console.log(req.query.username);
+    // if(!req.query.username) {
+    //   console.log(req.query.username)
+    //   res.status(401).json("error: Invalid username");
+    //   return;
+    // }
 
     let names: Array<string> = [];
     newFiles.forEach((el: any) => {
@@ -122,9 +122,13 @@ const uploadFiles = async (req: Express.Request, res: Express.Response) => {
 
 const deleteFiles = async (req: Express.Request, res: Express.Response) => {
   let { path } = req.body;
+  console.log(path)
   path = path.split('\\').join('/');
+  console.log(path)
+  path = '../../info/' + req.body.username + '/' + path;
+  console.log(path)
   try {
-    fileService.deleteFile(path, req.body.username);
+    await fileService.deleteFile(path, req.body.username);
     fs.unlink(path, function(err) {
       if (err) {
         res.status(500).send(err);

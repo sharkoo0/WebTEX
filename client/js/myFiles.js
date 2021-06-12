@@ -11,10 +11,26 @@
 //     modal[0].style.display = 'none';
 // }
 
-async function getFiles() {
+async function getFiles(type) {
     const username = window.localStorage.getItem("username");
     const token = window.localStorage.getItem("token");
-    const url = `http://localhost:3000/files/all?username=${username}`;
+
+    const loc = document.getElementsByClassName('location')[0].innerHTML;
+    // console.log('location')
+    // console.log(loc)
+
+    let url;
+    if(loc === 'Files'){
+        url = `http://localhost:3000/files/all?username=${username}`;
+    } else if(loc === 'Shared Files') {
+        url = `http://localhost:3000/files/allShared?username=${username}`
+    } else {
+        console.error("Invalid file type");
+        return;
+    }
+
+    console.log(url)
+        
 
     const response = await fetch(url, {
         headers: {
@@ -28,10 +44,15 @@ async function getFiles() {
     });
 
     const json = await response.json()
+    console.log(json)
     const files = json.files;
+
+    console.log(files);
 
     const tbody = document.getElementById('tbody');
     
+    let allNames = [];
+
     for(let i = 0; i < files.length; ++i) {
         let flag = true;
         let path = files[i].path.substr(files[i].path.lastIndexOf('/' + username) + 1) //username/fdsk
@@ -44,6 +65,12 @@ async function getFiles() {
             flag = false;
             nameHolder = path;
         }
+
+        if(allNames.includes(nameHolder)) {
+            continue;
+        }
+
+        allNames.push(nameHolder);
 
         let tr;
         const td1 = document.createElement('td');
@@ -66,8 +93,8 @@ async function getFiles() {
         tr.classList.add("data-row");
         td2.innerHTML = '22/03/2021';
         td4.innerHTML = '<input  type="Image" src="../images/download-solid.png" class="action-buttons">';
-        td5.innerHTML = '<input  type="Image" src="../images/Vector.png" class="action-buttons" onclick="deleteFile()">';
-        td6.innerHTML = '<input  type="Image" src="../images/share.png" class="action-buttons" onclick="share()">';
+        td5.innerHTML = '<input  type="Image" src="../images/Vector.png" class="action-buttons" onclick="deleteFile(event)">';
+        td6.innerHTML = '<input  type="Image" src="../images/share.png" class="action-buttons" onclick="share(event)">';
         tr.appendChild(td1);
         tr.appendChild(td2);
         tr.appendChild(td3);
@@ -83,13 +110,28 @@ async function getFiles() {
     window.localStorage.setItem('path', '');
 };
 
+
 async function openFolder(event) {
     event.preventDefault();
 
     window.localStorage.setItem('folder', event.srcElement.innerHTML)
     const username = window.localStorage.getItem("username");
     const token = window.localStorage.getItem("token");
-    const url = `http://localhost:3000/files/all?username=${username}`;
+    const loc = document.getElementsByClassName('location')[0].innerHTML;
+    // console.log('location')
+    // console.log(loc)
+
+    let url;
+    if(loc === 'Files'){
+        url = `http://localhost:3000/files/all?username=${username}`;
+    } else if(loc === 'Shared Files') {
+        url = `http://localhost:3000/files/allShared?username=${username}`
+    } else {
+        console.error("Invalid file type");
+        return;
+    }
+
+    // const url = `http://localhost:3000/files/all?username=${username}`;
 
     const response = await fetch(url, {
         headers: {
@@ -108,12 +150,25 @@ async function openFolder(event) {
     const currentFolder = window.localStorage.getItem("folder");
 
     const currentPath = window.localStorage.getItem('path');
-    const path = `../../info/${username}/${currentPath}${currentFolder}`;
+    let path;
+    if(loc === 'Files') {
+        path = `../../info/${username}/${currentPath}${currentFolder}`;
+    } else if(loc === 'Shared Files') {
+        path = `../../shared/${username}/${currentPath}${currentFolder}`;
+    } else {
+        console.error("Invalid file type");
+        return;
+    }
+
+    // console.log(path)
+    // const path = `../../info/${username}/${currentPath}${currentFolder}`;
     console.log(path)
 
     const tbody = document.createElement('tbody');
     tbody.setAttribute('id', 'tbody');
     const tbody2 = document.getElementById('tbody');
+
+    let allNames = [];
     
     for(let i = 0; i < files.length; ++i) {
         let flag;
@@ -133,6 +188,12 @@ async function openFolder(event) {
             nameHolder = pathHolder;
         }
 
+        if(allNames.includes(nameHolder)) {
+            continue;
+        }
+
+        allNames.push(nameHolder);
+
         let tr;
         const td1 = document.createElement('td');
         const td2 = document.createElement('td');
@@ -154,8 +215,8 @@ async function openFolder(event) {
         tr.classList.add("data-row");
         td2.innerHTML = '22/03/2021';
         td4.innerHTML = '<input  type="Image" src="../images/download-solid.png" class="action-buttons">';
-        td5.innerHTML = '<input  type="Image" src="../images/Vector.png" class="action-buttons" onclick="deleteFile()">';
-        td6.innerHTML = '<input  type="Image" src="../images/share.png" class="action-buttons" onclick="share()">';
+        td5.innerHTML = '<input  type="Image" src="../images/Vector.png" class="action-buttons" onclick="deleteFile(event)">';
+        td6.innerHTML = '<input  type="Image" src="../images/share.png" class="action-buttons" onclick="share(event)">';
         tr.appendChild(td1);
         tr.appendChild(td2);
         tr.appendChild(td3);
@@ -176,13 +237,35 @@ async function openFolder(event) {
     }
 }
 
-window.onload = getFiles();
+window.onload = getFiles('my');
 
-async function deleteFile() {
+let fileToDelete;
+function deleteFile(event) {
+    event.preventDefault();
+
     const deleteForm = document.getElementsByClassName('wrapper delete-file')[0];
+    // console.log(document.getElementsByClassName('wrapper delete-file'))
     deleteForm.style.display = 'block';
 
+    fileToDelete = event.srcElement.parentNode.parentNode.childNodes[0].innerText;
+}
+
+
+async function delFile(event) {
+    event.preventDefault();
+
     const token = window.localStorage.getItem("token");
+    const username = window.localStorage.getItem('username');
+    let path = window.localStorage.getItem('path');
+    console.log(path + '/' + fileToDelete);
+    path = path + '/' + fileToDelete;
+    path = path.replace('/ ', '')
+    console.log(path)
+
+    const file = {
+        path: path,
+        username: username
+    }
 
     const response = await fetch('http://localhost:3000/files/delete', {
         headers: {
@@ -194,16 +277,17 @@ async function deleteFile() {
         cache: 'no-cache',
         credentials: 'same-origin',
         redirect: 'follow',
-        body: {
-            path: ""
-        }
+        body: JSON.stringify(file)
     });
+
+    console.log(response)
 }
 
-// function cancelShare() {
-//     const modal = document.getElementsByClassName('wrapper share');
-//     modal[0].style.display = 'none';
-// }
+
+function cancelShare() {
+    const modal = document.getElementsByClassName('wrapper share');
+    modal[0].style.display = 'none';
+}
 
 function createFolderModal() {
     const modal = document.getElementsByClassName('wrapper modal');
@@ -244,7 +328,22 @@ async function sendReq(event) {
         body: JSON.stringify(req)
     });
 
-    if(response.status === 200) {
+    const dataRows = document.getElementsByClassName('data-row');
+    console.log(dataRows[0].childNodes[0].innerText)
+    console.log(newFolder)
+
+    let flag = false
+
+    for(let i = 0; i < dataRows.length; ++i) {
+        if(dataRows[i].childNodes[0].innerText.replace(' ', '') === newFolder) {
+            alert("Folder with this name already exists");
+            flag = true;
+            console.log(flag)
+            break;
+        }
+    }
+
+    if(response.status === 200 && !flag) {
         const tr = tbody.insertRow(0);
         const td1 = document.createElement('td');
         const td2 = document.createElement('td');
@@ -257,8 +356,8 @@ async function sendReq(event) {
         td2.innerHTML = '22/03/2021';
         td3.innerHTML = '0 KB';
         td4.innerHTML = '<input  type="Image" src="../images/download-solid.png" class="action-buttons">';
-        td5.innerHTML = '<input  type="Image" src="../images/Vector.png" class="action-buttons" onclick="deleteFile()">';
-        td6.innerHTML = '<input  type="Image" src="../images/share.png" class="action-buttons" onclick="share()">';
+        td5.innerHTML = '<input  type="Image" src="../images/Vector.png" class="action-buttons" onclick="deleteFile(event)">';
+        td6.innerHTML = '<input  type="Image" src="../images/share.png" class="action-buttons" onclick="share(event)">';
         tr.appendChild(td1);
         tr.appendChild(td2);
         tr.appendChild(td3);
@@ -269,5 +368,78 @@ async function sendReq(event) {
         modal[1].style.display = 'none';
     }
 };
+
+let filename;
+
+function share(event) {
+    event.preventDefault();
+
+    const modal = document.getElementsByClassName('wrapper share');
+    modal[0].style.display = 'block'
+
+    filename = event.srcElement.parentNode.parentNode.childNodes[0].innerText;
+    console.log(filename)
+}
+
+async function sendShare(event) {
+    event.preventDefault();
+
+    const sender = window.localStorage.getItem('username');
+    const recipient = document.getElementById('share-file').value;
+    let path = window.localStorage.getItem('path');
+    // const filename = share(event);
+
+    // console.log(sender)
+    // console.log(recipient)
+    // console.log(filename)
+    // if(!path) {
+    //     path = window.localStorage.getItem('folder')
+    // }
+    let filePath = path + '/' + filename;
+    // console.log(path === ' ')
+    console.log(filePath);
+    filePath = filePath.replace('/ ','')
+    console.log(filePath)
+
+    const sharedFile = {
+        sender: sender,
+        recipient: recipient,
+        filepath: filePath
+    }   
+
+    const response = await fetch('http://localhost:3000/share/file', {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': window.localStorage.getItem('token')
+        },
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        body: JSON.stringify(sharedFile)
+    })
+
+    console.log((await response.json()).error)
+}
+
+async function loadSharedFiles(event) {
+    event.preventDefault();
+
+    window.location.href = '../html/sharedFiles.html'
+    getFiles('shared')
+}
+
+// window.addEventListener("load", loadSharedFiles(event), false); 
+
+function loadMyFiles(event) {
+    event.preventDefault();
+
+    window.location.href = '../html/myFiles.html'
+    getFiles('my')
+}
+
+
+
+
 
 
