@@ -26,7 +26,7 @@ class FileService {
         .then(async () => {
           await UserSchema.updateOne({ username: username }, update).exec();
         })
-        .catch((err) => console.log('ERROR: ' + err));
+        .catch((err : any) => console.log('ERROR: ' + err));
     });
 
     // console.log(currentUser);

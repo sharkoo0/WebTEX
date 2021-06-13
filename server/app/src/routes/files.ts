@@ -16,19 +16,19 @@ filesRouter.get('/get', async (req, res) => {
   const filename = req.body.fileName;
   const user = await UserSchema.findOne({username: req.body.username}, async (err: Error, user: any) => {
     if(err) {
-      res.status(400).json({"error": err});
+      return res.status(400).json({error: err});
     }
     const file = user.files;
     const db = mongoose.connection.db.collection('users');
     const userFromDB = await db.findOne({username: req.body.username});
     const files: Array<any> = userFromDB.files;
     let result: Array<any> = [];
-    files.forEach(l => {
-      if(l.name === filename){
-        res.status(200).json(l);
+    files.forEach(file => {
+      if(file.name === filename){
+        return res.status(200).json(file);
       }
     }) 
-    res.status(400).json({"error: No such a file": ""});
+    res.status(400).json({error: "No such file."});
   })
   
 });
