@@ -8,7 +8,6 @@ class FolderService {
     constructor() { }
 
     async addFolder(name: string) {
-
         return new Promise((resolve, reject) => {
             this.notExists(name)
             .then(async () => {
@@ -20,31 +19,25 @@ class FolderService {
                     size: 10,
                 });
                 await newFolder.save();
-                console.log(newFolder);
                 resolve(true);
-
             })
             .catch((err) => {
                 console.log(err);
                 reject("folder already exists");
               });
-
         });
     }
-
 
     private notExists = (name: string) => {
         return new Promise(async (resolve, reject) => {
           const folder = await FolderSchema.findOne({ name: name }).exec();
           if (folder) {
-            // throw new Error("user already exist");
             reject("Folder already exists");
           }
           resolve(true);
         });
       };
     
-
 }
 
 

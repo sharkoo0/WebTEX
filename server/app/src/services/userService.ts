@@ -1,8 +1,10 @@
 import { User } from '../models/userModel';
-import { userDetails } from '../models/userModel';
-import models from '../../config/dbConnection';
 import UserSchema from '../schemas/userSchema';
 import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
+
+mongoose.set('useFindAndModify', false);
+const SALT_ROUNDS = 10;
 
 class UserService {
   constructor() {}
@@ -12,10 +14,12 @@ class UserService {
         this.isCorrect(user);
         this.notExists(user.username)
           .then(async () => {
+            const salt = await bcrypt.genSalt(SALT_ROUNDS);
+            const hash = await bcrypt.hash(user.password, salt);
             const newUser = new UserSchema({
               _id: new mongoose.Types.ObjectId(),
               username: user.username,
-              password: user.password,
+              password: hash,
               email: user.email,
               firstName: user.firstName,
               lastName: user.lastName,
@@ -24,16 +28,14 @@ class UserService {
               birthdate: user.birthdate,
               phone: user.phone,
             });
-            console.log("here")
             await newUser.save();
             resolve(true);
           })
           .catch((err) => {
-            console.log(err);
+            console.log(`ERROR: ${err}`);
             reject("User already exists");
           });
     })
-    
   }
 
   private isCorrect({ username, password, email, firstName, lastName }: User) {
@@ -45,48 +47,36 @@ class UserService {
     });
   }
 
-  createUser = async () => {
-    // const user = new models.User(this.users[0]);
-  };
-
   private notExists = (username: string) => {
     return new Promise(async (resolve, reject) => {
       const user = await UserSchema.findOne({ username: username }).exec();
       if (user) {
-        // throw new Error("user already exist");
         reject("User already exists");
       }
       resolve(true);
     });
   };
 
-  private exists = (email: string) => {
+  login = async (email: string, password: string) => {
     return new Promise(async (resolve, reject) => {
-      const user = await UserSchema.findOne({ email: email }).exec();
-      if (user) {
-        resolve(true);
+      const user = await UserSchema.findOne({email: email}).exec();
+      if(user) {
+        const credentials = await UserSchema.findOne({email: email}).select('password').exec();
+        const pass = await bcrypt.compare(password, credentials.password);
+        if(!pass) {
+          reject("Wrong password");
+        } else {
+          resolve(true);
+        }
       }
-      reject("User not exists");
-    });
-  };
+      reject("Wrong email");
+    })
+  }
 
-  login = async (email: string, p: string) => {
-    console.log("hello madafaka")
-    return new Promise((resolve, reject) => {
-        this.exists(email).then(() => {
-          const user = UserSchema.findOne({ email: email }).exec();
-            user.then((u: any) => {
-              console.log("zadara")
-                resolve(true);
-            })
-        }).catch(() => {
-          reject("The user doesn't exists");
-        })
-    });
-  };
 
   change = async (
     id: number,
+    username: string,
     email?: string,
     phone?: string,
     altEmail?: string,
@@ -95,20 +85,26 @@ class UserService {
     newPassword?: string,
     confNewPassword?: string
   ) => {
-    const user = UserSchema.findOneAndUpdate(
-      { id: id },
-      {
-        email: email,
-        phone: phone,
-        altEmail: altEmail,
-        address: address,
-        photoPath: photo,
-        password: newPassword,
+    const user = UserSchema.findOne({username: username}).exec().then(async (u: any) => {
+      if(u && !newPassword) {
+        const pass = (await UserSchema.findOne({username: username}).select('password').exec()).password;
+        newPassword = pass?.get('password');        
       }
-    );
+      await UserSchema.findOneAndUpdate(
+        { username: username },
+        {
+          email: email,
+          phone: phone,
+          altEmail: altEmail,
+          address: address,
+          photoPath: photo,
+          password: newPassword,
+        }
+      )
+    })
   };
 
-  addFile = async (username: String) => {};
+  // addFile = async (username: String) => {};
 }
 
 export default new UserService();

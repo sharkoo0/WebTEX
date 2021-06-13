@@ -7,10 +7,12 @@ export async function authMiddleware(req: Request, res: Response, next: NextFunc
   const token = req.headers.authorization;
   if(!token) {
     res.sendStatus(401);
+    return;
   } else {
     // process.env.PRIVATE_KEY
     try {
-      const verified = jwt.verify(token, 'TOPSECRETCODE');
+      const verified: any = jwt.verify(token, 'TOPSECRETCODE');
+      res.locals.username = verified.name;
       next();
     } catch (error) {
       res.sendStatus(403).send('Your token has expired');

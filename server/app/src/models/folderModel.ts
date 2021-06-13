@@ -5,5 +5,4 @@ export interface Folder {
   destination: string;
   path: string;
   size: number;
-  // owner: User;
 }

@@ -3,35 +3,35 @@ async function sendReq(event) {
     let profilePhoto =  document.getElementById('file-upload').value;
     let newPass =  document.getElementById('pass').value;
     let confNewPass =  document.getElementById('conf-pass').value;
-    
+    let email = document.getElementById('email').value;
+
     const formData = new FormData(myForm);
     formData.append('photoPath',profilePhoto);
     formData.append('password',newPass);
     formData.append('confPassword',confNewPass);
-
+    formData.append('username',email)
     
-    var meggedObj = {};
-
-    for (var pair of formData.entries()) {
-        console.log(pair[1]);
-        meggedObj[pair[0]] = pair[1];
+    const user = {
+        photoPath: profilePhoto,
+        password: newPass,
+        confPassword: confNewPass,
+        username: email,
+        altEmail: email
     }
 
-    const {
-        data: response
-    } = await fetch('http://localhost:3000/save', {
+    const response = await fetch('http://localhost:3000/save/put', {
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': window.localStorage.getItem('token')
         },
         method: 'PUT',
         mode: 'cors',
         cache: 'no-cache',
         credentials: 'same-origin',
-        // redirect: 'follow',
-        body: JSON.stringify(meggedObj)
+        body: JSON.stringify(user)
     });
 
-    // return response.json();
+    console.log(response)
 
 };
 
@@ -48,7 +48,6 @@ fileselector.addEventListener('change',(event)=>{
 
     const reader = new FileReader();
     reader.addEventListener('load', (event)=> {
-      
         output.src = event.target.result;
     });
     reader.readAsDataURL(file);

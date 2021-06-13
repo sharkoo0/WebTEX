@@ -2,56 +2,47 @@ import { File } from '../models/fileModel';
 import models from '../../config/dbConnection';
 import UserSchema from '../schemas/userSchema';
 import fs from 'fs-extra';
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
 class FileService {
   constructor() {}
 
-  async addFile(file: File, path: string, names: string) {
-    const username = path.substr(path.lastIndexOf('/') + 1);
-    const db = mongoose.connection.db.collection('users');
-    const temp = await db.findOne({ username: username});
+  async addFile(file: File, path: string, name: string, username: string) {
     await this.isCorrect(file);
+    console.log(path);
     const currentFile = {
-      name: file.name,
-      path: path + file.name,
+      name: name,
+      path: path,
       size: file.size,
-      mimetype: file.mimetype,
+      mimetype: file.type,
     };
-    temp.files.push(currentFile);
     const update = { $push: { files: currentFile } };
-    const currentUser = UserSchema.find({ username: username }).exec();
     return new Promise((resolve, reject) => {
-      this.notExists(file.name, username)
+      this.notExists(path, username)
         .then(async () => {
-          await UserSchema.updateOne({ username: username }, update).exec();
+          UserSchema.updateOne({ username: username }, update)
+            .then((u: any) => {
+              console.log(u);
+              resolve(true);
+            })
+            .catch((err: Error) => console.error(err));
         })
-        .catch((err : any) => console.log('ERROR: ' + err));
+        .catch((err) => {
+          console.error('ERROR: ' + err)
+          reject(err);
+        });
     });
-
-    // console.log(currentUser);
-    // const user = UserSchema.findOneAndUpdate(
-    //   {username: path.substr(path.lastIndexOf('/') + 1)},
-    //   {
-    //     $addToSet: {
-    //       files: {
-    //         "name": file.name,
-    //         "path": path,
-    //         "size": file.size,
-    //         "mimetype": file.mimetype
-    //       }
-    //     }
-    //   }
-    // )
-
-    return file;
   }
 
-  async addFiles(files: Array<any>, path: string, names: Array<string>) {
+  async addFiles(
+    files: Array<any>,
+    path: string,
+    names: Array<string>,
+    username: string
+  ) {
     let counter = 0;
-    files.forEach((el: File) => {
-      this.addFile(el, path, names[counter]);
-      console.log('counter' + counter)
+    files.forEach((el: any) => {
+      this.addFile(el, path, names[counter], username);
       counter++;
     });
 
@@ -73,24 +64,154 @@ class FileService {
     });
   }
 
-  deleteFile = async (path: string, filename: string) => {
-    console.log(path);
-    const username = path.substr(path.lastIndexOf('/') + 1);
-    //const db = mongoose.connection.db.collection('users');
-    const db = await UserSchema.findOne({username: username}).select("files username").exec();
-    //const temp = await db.findOne({ username: username});
-    
-    const files = db?.get('files');
-    console.log(db);
-    console.log(username);
-    console.log(files);
-    
-    // temp.files.delete(currentFile);
-    // const delete = { $delete: { files: currentFile } };
-    // await db.deleteOne({ username: username, files: currentFile}, delete);
-    // return file;
+  deleteFile = async (path: string, username: string) => {
+    const remove = { $pull: { files: { path: path } } };
+    UserSchema.findOne({ username: username })
+      .exec()
+      .then(async (u: any) => {
+        await UserSchema.updateOne({ username: u.username }, remove)
+          .then((u: any) => {
+            // console.log(u);
+          })
+          .catch((err: Error) => console.log(err));
+      });
   };
 
+  private notExists = async (filepath: string, username: string) => {
+    return new Promise(async (resolve, reject) => {
+      const user = await UserSchema.findOne({ username: username })
+        .select('files')
+        .exec();
+      if (user) {
+        const file = user.get('files', null, { getters: false });
+        if (file) {
+          file.forEach((el: any) => {
+            if (el.path === filepath) {
+              console.log('File already exists');
+              reject('File already exists');
+            }
+          });
+          resolve(true);
+        } else {
+          resolve(true);
+        }
+      }
+      reject('Incorrect user');
+    });
+  };
+
+  async shareFile(usernameFrom: string, usernameTo: string, filepath: string) {
+    return new Promise(async (resolve, reject) => {
+      const user = await UserSchema.findOne({ username: usernameFrom }).select('files').exec();
+      if (user) {
+        const files = user.get('files', null, { getters: false });
+        files.forEach(async (el: any) => {
+          if (el.path === filepath) {
+            const userTo = await UserSchema.findOne({username: usernameTo}).exec();
+            if (userTo) {
+              const sharePath = '../../shared/' + usernameTo + '/' + usernameFrom;
+              fs.access(sharePath, async (err: Error) => {
+                  if (err) {
+                      fs.mkdir(sharePath, {recursive: true});
+                  } 
+                }
+              );
+              fs.copyFile(filepath, '../../shared/' + usernameTo + '/' + usernameFrom + '/' + el.name, (err) => {
+                  if(err){
+                    reject(err);
+                  }
+                }
+              );
+              const newSharedFile = {
+                name: el.name,
+                path: '../../shared/' + usernameTo + '/' + usernameFrom + '/' + el.name,
+                size: el.size,
+                mimetype: el.mimetype,
+                owner: usernameFrom,
+              };
+              const addShareFile = { $addToSet: { sharedFiles: newSharedFile } };
+              UserSchema.updateOne({ username: usernameTo }, addShareFile)
+                .then((u: any) => {
+                  resolve(true);
+                })
+                .catch((err: Error) => {
+                  reject('Cannot share this file');
+                });
+            } else {
+              // reject('Invalid recipient');
+            }
+            resolve(true);
+            return;  
+          } else {
+            // reject('Invalid filepath');
+          }
+        });
+      } else {
+        // reject('Invalid sender');
+      } 
+    });
+  }
+
+  async shareFolder(usernameFrom: string, usernameTo: string, folderpath: string) {
+    return new Promise(async (resolve, reject) => {
+      const sender = await UserSchema.findOne({ username: usernameFrom })
+        .select('files')
+        .exec();
+      if (!sender) {
+        reject('Sender not found');
+      }
+      const senderFiles = sender.files;
+      if (!senderFiles) {
+        reject('Folder not found');
+      }
+      const recipient = await UserSchema.findOne({
+        username: usernameTo,
+      }).exec();
+      if (!recipient) {
+        reject('Recipient not found');
+      }
+      const path = folderpath.substr(folderpath.lastIndexOf('/' + usernameFrom + '/') + usernameFrom.length + 2);
+      senderFiles.forEach((el: any) => {
+        if (el.path.includes(folderpath)) {
+          fs.access('../../shared/' + usernameTo + '/' + usernameFrom + '/' + path.substr(0, path.lastIndexOf('/')), (err: Error) => {
+              if (err) {
+                fs.mkdir( '../../shared/' + usernameTo + '/' + usernameFrom + '/' + path.substr(0, path.lastIndexOf('/')), { recursive: true })
+                  .then(() => {
+                    console.log('Folder created');
+                  })
+                  .catch((err: Error) => {
+                    console.error(err);
+                  });
+              } else {
+                console.log('The folder exists');
+              }
+            }
+          );
+          const newElPath = el.path.replace(
+            '../../info',
+            '../../shared/' + usernameTo
+          );
+          fs.copyFile(el.path, newElPath);
+          const newSharedFile = {
+            name: el.name,
+            path: newElPath,
+            size: el.size,
+            mimetype: el.mimetype,
+            owner: usernameFrom,
+          };
+          const addShareFile = { $push: { sharedFiles: newSharedFile } };
+          UserSchema.updateOne({ username: usernameTo }, addShareFile)
+            .then((u: any) => {
+              resolve(true);
+            })
+            .catch((err: Error) => {
+              console.error(err);
+              reject('Cannot share this file');
+            });
+        }
+      });
+    });
+  }
 }
 
 export default new FileService();

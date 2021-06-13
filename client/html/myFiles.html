@@ -8,6 +8,7 @@
     <title>MyCloud</title>
     <link rel="stylesheet" type="text/css" href="../css/myFiles.css" />
     <script src="../js/myFiles.js" defer></script>
+    <script src="../js/uploadButton.js" defer></script>
     <script src="../js/nav.js" defer></script>
 </head>
 
@@ -28,7 +29,7 @@
                     <a href="#"><img src="../images/user.jpg" class="img-user" /></a>
                     <ul class="dropdown">
                         <li><a href="userDetails.html">Account</a></li>
-                        <li><a href="login.html">Log out</a></li>
+                        <li><a href="login.html" onclick="logout(event)">Log out</a></li>
                     </ul>
                 </li>
                 <li class="hambuger">
@@ -43,13 +44,14 @@
         </nav>
     </header>
 
-    <form class="wrapper modal">
+    <form class="wrapper modal" id="uploadModal" method="POST">
         <section class="upload-section">
             <h1 class="upload-text">Upload files</h1>
             <section class="get-file-section">
                 <img src="../images/cloud-download.png" class="img-upload" />
                 <h3 class="select-file">Select file</h3>
-                <a href="myFiles.html"><button class="br-btn">Browse</button></a>
+                <input class="br-btn" id="filetoupload" type="file" multiple/>
+                <a href="myFiles.html"><button class="br-btn" onclick="sendFiles(event)">Browse</button></a>
             </section>
             <button type="reset" class="style-btn cancel" id="cancel" onclick="cancelUpdate()">Cancel</button>
         </section>
@@ -70,8 +72,8 @@
         <section class="modal-section share">
             <h1 class="create-folder-text">Share</h1>
             <section>
-                <input type="text" name="new-folder" placeholder="Enter email..."/>
-                <button class="style-btn">Share</button>
+                <input id="share-file" type="text" name="new-folder" placeholder="Enter email..."/>
+                <button class="style-btn" onclick="sendShare(event)">Share</button>
                 <button type="reset" class="style-btn cancel" onclick="cancelShare()">Cancel</button>
             </section>
         </section>
@@ -82,13 +84,13 @@
             <h1>Delete file</h1>
             <h1>Are you sure that you want to delete this file?</h1>
             <button type="reset" class="style-btn cancel" onclick="cancelDel()">Cancel</button>
-            <button class="style-btn delete-btn" onclick="deleteFile()">DELETE</button>
+            <button class="style-btn delete-btn" onclick="delFile(event)">DELETE</button>
         </section>
     </form>
 
     <main class="wrapper dashboard">
         <section class="dashboard-buttons">
-            <a href="sharedFiles.html" class="style-btn">Shared files</a>
+            <a href="sharedFiles.html" class="style-btn" onclick="loadSharedFiles(event)">Shared files</a>
         </section>
         <section class="content">
             <div class="div-table">

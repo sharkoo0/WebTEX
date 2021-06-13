@@ -3,6 +3,9 @@ import Multer from 'multer';
 import fs from 'fs-extra';
 import fileService from '../services/fileService';
 import FileSchema from '../schemas/fileSchema';
+import UserSchema from '../schemas/userSchema';
+import jwt from 'jsonwebtoken';
+import userService from '../services/userService';
 
 let name = "";
 const genFolderName = (folderName: String) => {
@@ -27,51 +30,114 @@ let Upload = Multer({
 }
 );
 
+// const genToken = (username: string) => {
+//   return jwt.sign(
+//     {
+//       name: username,
+//     },
+//     'TOPSECRETCODE',
+//     {
+//       expiresIn: '15s',
+//     }
+//   );
+// }
+
+const genShortToken = async (req: Express.Request, res: Express.Response) => {
+  const token = jwt.sign(
+    {
+      name: res.locals.username
+    },
+    'TOPSECRETCODE',
+    {
+      expiresIn: '15s',
+    }
+  );
+  console.log(token)
+  res.json({'token': token});
+}
+
 const uploadFiles = async (req: Express.Request, res: Express.Response) => {
   try {
+    // console.log(req);
     const newFiles = req.files as Array<any>;
-    if(req.body.username) {
-      console.log(req.body.username);
-    } else {
-      res.status(401).json("error: Invalid username");
-    }
+    console.log(req.body.files)
+    console.log(newFiles)
+    // console.log(req.query.username);
+    // if(!req.query.username) {
+    //   console.log(req.query.username)
+    //   res.status(401).json("error: Invalid username");
+    //   return;
+    // }
 
     let names: Array<string> = [];
-    newFiles.forEach((el) => {
-      console.log(el.originalname);
+    newFiles.forEach((el: any) => {
       names.push(el.originalname);
     })
-    console.log(names)
 
+    let folder = req.body.folder;
     if(newFiles) {  
-      newFiles.forEach(el => {
-        fs.move('../../info/' + el.filename, '../../info/' + req.body.username + '/' + el.filename);
+      
+      newFiles.forEach((el: any) => {
+        if(folder){
+          console.log(req.body.username)
+          const path = '../../info/' + req.body.username + '/' + req.body.folder + '/' + el.filename;
+          console.log(path)
+          fs.move('../../info/' + el.filename, path).then(() => {
+            console.info("File moved")
+            fileService.addFiles(newFiles, path, names, req.body.username).then(() => {
+              res.status(201).json(newFiles);
+              return;
+            }).catch(err => {
+              res.status(400).json({'error': err})
+              return;
+            });
+          }).catch((err: Error) => {
+            console.log(err);
+            res.status(400).json(err.message);
+            return;
+          });
+        } else {
+          const path = '../../info/' + req.body.username + '/' + el.filename;
+          fs.move('../../info/' + el.filename, path).then(() => {
+            console.log("File moved")
+            fileService.addFiles(newFiles, path, names, req.body.username).then(() => {
+              res.status(201).json(newFiles);
+              return;
+            }).catch(err => {
+              res.status(400).json({'error': err})
+              return;
+            });
+          }).catch((err: Error) => {
+            console.log(err);
+            res.status(400).json(err.message);
+            return;
+          });
+        }
+        
       })
-  
-      fileService.addFiles(newFiles, '../../info/' + req.body.username, names).then(() => {
-        res.status(201).json(newFiles);
-      }).catch(err => res.json({'error': err}));
-      // res.json();
-    } else {
-      res.sendStatus(400);
     }
   } catch(error) {
+    console.log(error)
     res.send(error);
   }
 };
 
 const deleteFiles = async (req: Express.Request, res: Express.Response) => {
   let { path } = req.body;
+  console.log(path)
   path = path.split('\\').join('/');
+  console.log(path)
+  path = '../../info/' + req.body.username + '/' + path;
+  console.log(path)
   try {
-    fileService.deleteFile(path, req.body.filename);
-    fs.unlink(path + '/' + req.body.filename, function(err) {
+    await fileService.deleteFile(path, req.body.username);
+    fs.unlink(path, function(err) {
       if (err) {
         console.log(err);
         res.status(500).send(err);
-
+        return;
       } else {
-        res.send("Successfully deleted the file.");
+        res.status(200).send("Successfully deleted the file.");
         console.log("Successfully deleted the file.");
       }
     });
@@ -80,4 +146,18 @@ const deleteFiles = async (req: Express.Request, res: Express.Response) => {
   }
 };
 
-export { Upload, uploadFiles, deleteFiles };
+const deleteFolder = async (req: Express.Request, res: Express.Response) => {
+  const username = req.body.username;
+  const folderpath = req.body.path;
+  const path = '../../info/' + username + '/' + folderpath;
+  const files = (await UserSchema.findOne({username: username}).select('files').exec()).files;
+
+  files.forEach(async (el: any) => {
+    if(el.path.startsWith(path)) {
+      await fileService.deleteFile(el.path, username);
+      await fs.rmdir(path, {recursive: true});
+    }
+  })
+}
+
+export { Upload, uploadFiles, deleteFiles, genShortToken, deleteFolder };
