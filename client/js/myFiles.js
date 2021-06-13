@@ -54,7 +54,7 @@ function viewFileTable(tbody,files,username) {
         }
         tr.classList.add("data-row");
         td2.innerHTML = '22/03/2021';
-        td4.innerHTML = '<input  type="Image" src="../images/download-solid.png" class="action-buttons">';
+        td4.innerHTML = '<input  type="Image" src="../images/download-solid.png" class="action-buttons" onclick="downloadFile(event)">';
         td5.innerHTML = '<input  type="Image" src="../images/Vector.png" class="action-buttons" onclick="deleteFile(event)">';
         td6.innerHTML = '<input  type="Image" src="../images/share.png" class="action-buttons" onclick="share(event)">';
         tr.appendChild(td1);
@@ -105,10 +105,10 @@ async function getFiles(type) {
         });
     
         const json = await response.json()
-        console.log(json)
+        // console.log(json)
         const files = json.files;
     
-        console.log(files);
+        // console.log(files);
     
         const tbody = document.getElementById('tbody');
         
@@ -214,14 +214,13 @@ async function openFolder(event) {
             tr = document.createElement('tr');
             td3.innerHTML = files[i].size + ' KB';
         } else {
-            td1.innerHTML = `<img src="../images/folder-solid.png" class="img-folder"/> 
-                            <a class="folder-click" onclick="openFolder(event)">${nameHolder}</a>`;
+            td1.innerHTML = `<img src="../images/folder-solid.png" class="img-folder"/><a class="folder-click" onclick="openFolder(event)">${nameHolder}</a>`;
             tr = tbody.insertRow(0);
             td3.innerHTML = '0 KB';
         }
         tr.classList.add("data-row");
         td2.innerHTML = '22/03/2021';
-        td4.innerHTML = '<input  type="Image" src="../images/download-solid.png" class="action-buttons">';
+        td4.innerHTML = '<input  type="Image" src="../images/download-solid.png" class="action-buttons" onclick="downloadFile(event)">';
         td5.innerHTML = '<input  type="Image" src="../images/Vector.png" class="action-buttons" onclick="deleteFile(event)">';
         td6.innerHTML = '<input  type="Image" src="../images/share.png" class="action-buttons" onclick="share(event)">';
         tr.appendChild(td1);
@@ -370,10 +369,10 @@ async function sendReq(event) {
         const td5 = document.createElement('td');
         const td6 = document.createElement('td');
         tr.classList.add("data-row");
-        td1.innerHTML = `<img src="../images/folder-solid.png" class="img-folder"/> <a onclick="openFolder(event)">${newFolder}</a>`;
+        td1.innerHTML = `<img src="../images/folder-solid.png" class="img-folder"/><a onclick="openFolder(event)">${newFolder}</a>`;
         td2.innerHTML = '22/03/2021';
         td3.innerHTML = '0 KB';
-        td4.innerHTML = '<input  type="Image" src="../images/download-solid.png" class="action-buttons">';
+        td4.innerHTML = '<input  type="Image" src="../images/download-solid.png" class="action-buttons" onclick="downloadFile(event)">';
         td5.innerHTML = '<input  type="Image" src="../images/Vector.png" class="action-buttons" onclick="deleteFile(event)">';
         td6.innerHTML = '<input  type="Image" src="../images/share.png" class="action-buttons" onclick="share(event)">';
         tr.appendChild(td1);

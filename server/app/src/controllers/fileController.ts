@@ -125,7 +125,7 @@ const uploadFiles = async (req: Express.Request, res: Express.Response) => {
     }
   } catch (error) {
     console.log(error)
-    res.send(error);
+    res.json(error);
   }
 };
 
@@ -172,7 +172,7 @@ const findAllFiles = (files : Array<any>, searchedFileName : string, foundFiles 
 
   for (const item of files) {
     if (Array.isArray(item) && item.length > 0) findAllFiles(item, searchedFileName, foundFiles);
-    if (!Array.isArray(item) && item.name === searchedFileName) foundFiles.push(item);
+    if (!Array.isArray(item) && item.name.includes(searchedFileName)) foundFiles.push(item);
   }
   return foundFiles;
 }

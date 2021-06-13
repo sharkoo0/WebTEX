@@ -31,7 +31,7 @@ const postMethod = async (req: Express.Request, res: Express.Response) => {
       })
     }
     await FolderService.addFolder(newFolder.name).then(() => {
-      res.sendStatus(200);
+      res.status(200).json("msg: Successfully created folder");
     }).catch(error => {
       console.log(error);
       res.sendStatus(401);

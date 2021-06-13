@@ -13,6 +13,7 @@ import {
 } from '../controllers/fileController';
 import UserSchema from '../schemas/userSchema';
 import mongoose from 'mongoose';
+import path from 'path';
 
 const filesRouter = Express.Router();
 
@@ -69,5 +70,21 @@ filesRouter.get('/allShared', async (req, res) => {
   console.log(userFiles.sharedFiles);
   res.status(200).json({"files": userFiles.sharedFiles});
 });
+
+filesRouter.get('/download', (req, res) => {
+  UserSchema.findOne({username: req.query.username}).select('files').exec().then((obj: any) => {
+    const files = obj.files;
+    files.forEach((el: any) => {
+      if(el.name === req.query.filename) {
+        const filepath = el.path;
+        res.download(path.resolve(__dirname + '../../../' + filepath))
+        return;
+      }
+    })
+  }).catch((err: Error) => {
+    console.log(err)
+    res.status(404).json({'error: ': err});
+  })
+})
 
 export { filesRouter };
