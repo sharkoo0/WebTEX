@@ -14,5 +14,5 @@ app.get("/*", (req, res) => {
 app.use("/static", express.static(path.resolve(__dirname, "frontend", "static")));
 
 app.listen(8081, ()=>{
-  console.log("trygnahme")
+  console.log("Server start on port 8080");
 })

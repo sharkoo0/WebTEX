@@ -193,6 +193,9 @@ const searchFile = async (req: Express.Request, res: Express.Response) => {
         const foundSharedFiles = findAllFiles(sharedFiles, filename);
 
         const allFoundFiles = [...foundMyFiles, ...foundSharedFiles];
+
+        if (allFoundFiles.length == 0) return res.status(400).json({ error: err });
+
         return res.status(200).json(allFoundFiles);
       }
     };
