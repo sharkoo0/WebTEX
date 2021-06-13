@@ -1,15 +1,16 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 
-// const secret = require('crypto').randomBytes(64).toString('hex');
-
-export async function authMiddleware(req: Request, res: Response, next: NextFunction) {
+export async function authMiddleware(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   const token = req.headers.authorization;
-  if(!token) {
+  if (!token) {
     res.sendStatus(401);
     return;
   } else {
-    // process.env.PRIVATE_KEY
     try {
       const verified: any = jwt.verify(token, 'TOPSECRETCODE');
       res.locals.username = verified.name;

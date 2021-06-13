@@ -1,11 +1,3 @@
-// import { URLSearchParams } from 'url';
-
-// function deleteFile() {
-
-//     const deleteForm = document.getElementsByClassName('wrapper delete-file');
-//     deleteForm[0].style.display = 'block';
-// }
-
 function getUsername() {
     const username = window.localStorage.getItem("username");
     return username;
@@ -78,7 +70,7 @@ function cancelDel() {
 
 async function getFiles(type) {
     const username = getUsername();
- 
+
     const token = window.localStorage.getItem("token");
 
     if (document.getElementsByClassName('location')[0] != null) {
@@ -115,11 +107,11 @@ async function getFiles(type) {
             if (flag) {
                 if (files[index].path.startsWith('../../info/' + username + '/' + window.localStorage.getItem('path'))) {
                     arr.push(files[index]);
-                } 
+                }
             } else {
                 if (files[index].path.startsWith('../../shared/' + username + '/' + window.localStorage.getItem('path'))) {
                     arr.push(files[index]);
-                } 
+                }
             }
 
 
@@ -134,42 +126,23 @@ async function getFiles(type) {
 };
 
 function foldersPath(currentFolder) {
-
-
-
     let currentFolderLocation = document.getElementById('location-folder');
     let text2 = document.createElement('span');
     text2.setAttribute('onclick', 'getFiles("my")');
     text2.setAttribute('class', 'loc-folder');
-    let text1 = document.createTextNode('/ ' +currentFolder);
+    let text1 = document.createTextNode('/ ' + currentFolder);
 
     text2.appendChild(text1);
     currentFolderLocation.appendChild(text2);
-
-    
-
-    // let loc2 = document.getElementsByClassName('loc-folder')[0].innerHTML;
-    // console.log(loc2);
-
-
 }
 
 function test() {
+    const currentPath = window.localStorage.getItem('path');
 
-        // const currentFolder1 = window.localStorage.getItem("folder");
-        const currentPath = window.localStorage.getItem('path');
-
-        let pathHolder = currentPath.replace(currentFolder, '');
-        let folderHolder = currentPath.replace('/' + currentFolder, '');
-        localStorage.setItem('folder', folderHolder);
-        localStorage.setItem('path', pathHolder);
-   
-    // location.href = '../html/myFiles.html'
-    //  const username = getUsername();
-    // const token = window.localStorage.getItem("token");
-    // const loc = document.getElementsByClassName('location')[0].innerHTML;
-
-
+    let pathHolder = currentPath.replace(currentFolder, '');
+    let folderHolder = currentPath.replace('/' + currentFolder, '');
+    localStorage.setItem('folder', folderHolder);
+    localStorage.setItem('path', pathHolder);
 }
 
 async function openFolder(event) {
@@ -189,8 +162,6 @@ async function openFolder(event) {
         console.error("Invalid file type");
         return;
     }
-
-    // const url = `http://localhost:3000/files/all?username=${username}`;
 
     const response = await fetch(url, {
         headers: {
@@ -218,9 +189,6 @@ async function openFolder(event) {
         console.error("Invalid file type");
         return;
     }
-
-    // console.log(path)
-    // const path = `../../info/${username}/${currentPath}${currentFolder}`;
 
     const tbody = document.createElement('tbody');
     tbody.setAttribute('id', 'tbody');
@@ -304,13 +272,10 @@ function deleteFile(event) {
     event.preventDefault();
 
     const deleteForm = document.getElementsByClassName('wrapper delete-file')[0];
-    // console.log(document.getElementsByClassName('wrapper delete-file'))
     deleteForm.style.display = 'block';
 
     fileToDelete = event.srcElement.parentNode.parentNode.childNodes[0].innerText;
     type = event.srcElement.parentNode.parentNode.childNodes[0].childNodes[0].getAttribute('src');
-    console.log(fileToDelete)
-    console.log(type)
 }
 
 async function delFile(event) {
@@ -319,17 +284,13 @@ async function delFile(event) {
     const token = window.localStorage.getItem("token");
     const username = window.localStorage.getItem('username');
     let path = window.localStorage.getItem('path');
-    console.log(path + '/' + fileToDelete);
     path = path + '/' + fileToDelete;
     path = path.replace('/ ', '')
-    console.log(path)
 
     const file = {
         path: path,
         username: username
     }
-
-    console.log(path)
 
     let url;
     if (type.includes('file')) {
@@ -351,7 +312,6 @@ async function delFile(event) {
         body: JSON.stringify(file)
     });
 
-    console.log(response)
     location.reload();
 }
 
@@ -370,11 +330,6 @@ function cancelCreateFolder() {
     const modal = document.getElementsByClassName('wrapper modal');
     modal[1].style.display = 'none';
 }
-
-// function share() {
-//     const modal = document.getElementsByClassName('wrapper share');
-//     modal[0].style.display = 'block';
-// }
 
 async function sendReq(event) {
     event.preventDefault();
@@ -408,7 +363,6 @@ async function sendReq(event) {
         if (dataRows[i].childNodes[0].innerText.replace(' ', '') === newFolder) {
             alert("Folder with this name already exists");
             flag = true;
-            console.log(flag)
             break;
         }
     }
@@ -448,7 +402,6 @@ function share(event) {
     modal[0].style.display = 'block'
 
     filename = event.srcElement.parentNode.parentNode.childNodes[0].innerText;
-    console.log(filename)
 }
 
 async function sendShare(event) {
@@ -457,19 +410,8 @@ async function sendShare(event) {
     const sender = window.localStorage.getItem('username');
     const recipient = document.getElementById('share-file').value;
     let path = window.localStorage.getItem('path');
-    // const filename = share(event);
-
-    // console.log(sender)
-    // console.log(recipient)
-    // console.log(filename)
-    // if(!path) {
-    //     path = window.localStorage.getItem('folder')
-    // }
     let filePath = path + '/' + filename;
-    // console.log(path === ' ')
-    console.log(filePath);
     filePath = filePath.replace('/ ', '')
-    console.log(filePath)
 
     const sharedFile = {
         sender: sender,
@@ -489,7 +431,6 @@ async function sendShare(event) {
         body: JSON.stringify(sharedFile)
     })
 
-    console.log((await response.json()).error)
 }
 
 async function loadSharedFiles(event) {
@@ -498,8 +439,6 @@ async function loadSharedFiles(event) {
     window.location.href = '../html/sharedFiles.html'
     getFiles('shared')
 }
-
-// window.addEventListener("load", loadSharedFiles(event), false); 
 
 function loadMyFiles(event) {
     event.preventDefault();

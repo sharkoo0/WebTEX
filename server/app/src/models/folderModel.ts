@@ -1,4 +1,4 @@
-import { User } from "./userModel";
+import { User } from './userModel';
 
 export interface Folder {
   name: string;

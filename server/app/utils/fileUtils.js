@@ -7,7 +7,6 @@ function writeFilePromise(path, content) {
                 reject(error);
             }
             resolve;
-            console.log('after resolve');
         })
     });
 }

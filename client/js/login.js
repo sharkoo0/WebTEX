@@ -21,15 +21,17 @@ async function sendReq(event) {
     const json = await response.json();
 
 
-    if(response.status === 200) {
+    if (response.status === 200) {
         window.location.replace('../html/myFiles.html');
         window.localStorage.setItem("token", json.token);
         window.localStorage.setItem("username", username);
     } else {
-        // console.log(response.statusText);
         errorMsg();
     }
-    
+
+    //TODO -> test
+    // location.reload(); 
+
 };
 
 function errorMsg() {

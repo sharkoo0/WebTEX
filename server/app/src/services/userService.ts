@@ -7,13 +7,12 @@ mongoose.set('useFindAndModify', false);
 const SALT_ROUNDS = 10;
 
 class UserService {
-  constructor() { }
+  constructor() {}
 
   async addUser(user: User) {
     return new Promise((resolve, reject) => {
       this.isCorrect(user)
         .then(async () => {
-          
           this.notExists(user.username)
             .then(async () => {
               const salt = await bcrypt.genSalt(SALT_ROUNDS);
@@ -34,16 +33,13 @@ class UserService {
               resolve(true);
             })
             .catch((err) => {
-              console.log(`ERROR: ${err}`);
-              reject("User already exists");
+              reject('User already exists');
             });
-
-        }).catch((err) => {
-          console.log(`ERROR: ${err}`);
-          reject("wrong credentials");
+        })
+        .catch((err) => {
+          reject('wrong credentials');
         });
-
-    })
+    });
   }
 
   private isCorrect({ username, password, email, firstName, lastName }: User) {
@@ -59,7 +55,7 @@ class UserService {
     return new Promise(async (resolve, reject) => {
       const user = await UserSchema.findOne({ username: username }).exec();
       if (user) {
-        reject("User already exists");
+        reject('User already exists');
       }
       resolve(true);
     });
@@ -69,20 +65,19 @@ class UserService {
     return new Promise(async (resolve, reject) => {
       const user = await UserSchema.findOne({ email: email }).exec();
       if (user) {
-        const credentials = await UserSchema.findOne({ email: email }).select('password').exec();
+        const credentials = await UserSchema.findOne({ email: email })
+          .select('password')
+          .exec();
         const pass = await bcrypt.compare(password, credentials.password);
         if (!pass) {
-          reject("Wrong password");
+          reject('Wrong password');
         } else {
           resolve(true);
         }
       }
-      reject("Wrong email");
-    })
-  }
-
-  // parolatanakaio123 // pbabrb...
-
+      reject('Wrong email');
+    });
+  };
 
   change = async (
     id: number,
@@ -95,26 +90,30 @@ class UserService {
     newPassword?: string,
     confNewPassword?: string
   ) => {
-    const user = UserSchema.findOne({ username: username }).exec().then(async (u: any) => {
-      if (u && !newPassword) {
-        const pass = (await UserSchema.findOne({ username: username }).select('password').exec()).password;
-        newPassword = pass?.get('password');
-      }
-      await UserSchema.findOneAndUpdate(
-        { username: username },
-        {
-          email: email,
-          phone: phone,
-          altEmail: altEmail,
-          address: address,
-          photoPath: photo,
-          password: newPassword,
+    const user = UserSchema.findOne({ username: username })
+      .exec()
+      .then(async (u: any) => {
+        if (u && !newPassword) {
+          const pass = (
+            await UserSchema.findOne({ username: username })
+              .select('password')
+              .exec()
+          ).password;
+          newPassword = pass?.get('password');
         }
-      )
-    })
+        await UserSchema.findOneAndUpdate(
+          { username: username },
+          {
+            email: email,
+            phone: phone,
+            altEmail: altEmail,
+            address: address,
+            photoPath: photo,
+            password: newPassword,
+          }
+        );
+      });
   };
-
-  // addFile = async (username: String) => {};
 }
 
 export default new UserService();

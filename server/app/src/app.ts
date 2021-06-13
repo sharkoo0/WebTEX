@@ -21,13 +21,13 @@ app.use(Express.json());
 app.use('/auth', authRouter);
 app.use('/files', filesRouter);
 app.use('/save', saveRouter);
-app.use('/create-folder',createFolderRouter);
+app.use('/create-folder', createFolderRouter);
 app.use('/share', shareRouter);
 
 app.use(authMiddleware);
 
 app.get('/get', (req, res) => {
- UserSchema.find().then((user: any) => res.json(user));
+  UserSchema.find().then((user: any) => res.json(user));
 });
 
 connectDB()
@@ -37,6 +37,5 @@ connectDB()
     });
   })
   .catch((error: Error) => {
-    console.log(error);
+    console.error(error);
   });
-

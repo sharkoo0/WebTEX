@@ -1,4 +1,4 @@
-import { User } from "./userModel";
+import { User } from './userModel';
 
 export interface File {
   name: string;

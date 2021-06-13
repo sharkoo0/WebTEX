@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-// import { File } from '../models/fileModel';
 
 const userSchema = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
@@ -48,27 +47,27 @@ const userSchema = new mongoose.Schema({
   },
   birthdate: {
     type: String,
-    // required: true,
-    // transform: true,
-    // min: 1970-1-1,
-    // max: Date.now()
   },
   phone: {
-      type: String
+    type: String,
   },
-  files: [{
-      name: String,
-      path: String,
-      size: Number,
-      mimetype: String
-  }],
-  sharedFiles: [{
+  files: [
+    {
       name: String,
       path: String,
       size: Number,
       mimetype: String,
-      owner: String
-  }]
+    },
+  ],
+  sharedFiles: [
+    {
+      name: String,
+      path: String,
+      size: Number,
+      mimetype: String,
+      owner: String,
+    },
+  ],
 });
 
 const UserSchema = mongoose.model('User', userSchema);

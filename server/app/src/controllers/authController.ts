@@ -15,20 +15,20 @@ const login = async (req: Express.Request, res: Express.Response) => {
   const body: User = req.body;
   UserService.login(body.email, body.password)
     .then(async () => {
-        const token = jwt.sign(
-          {
-            name: body.email,
-          },
-          'TOPSECRETCODE',
-          {
-            expiresIn: '10h',
-          }
-        );
-        const files = await UserSchema.findOne({email: body.email}).select('files').exec();
-        res.setHeader('Authorization', token);
-        // res.status(200).json(body);
-        res.status(200).json({"token": token, "files": files.files});
-        // res.render('../client/html/myFiles.html', {msg: 'Express'})
+      const token = jwt.sign(
+        {
+          name: body.email,
+        },
+        'TOPSECRETCODE',
+        {
+          expiresIn: '10h',
+        }
+      );
+      const files = await UserSchema.findOne({ email: body.email })
+        .select('files')
+        .exec();
+      res.setHeader('Authorization', token);
+      res.status(200).json({ token: token, files: files.files });
     })
     .catch((error) => {
       res.status(401).json({ error: error });
@@ -56,7 +56,6 @@ const register = async (req: Express.Request, res: Express.Response) => {
       );
       res.setHeader('Authorization', token);
       res.status(200).json(token);
-      // res.redirect(200, '/');
     })
     .catch((err) => {
       res.status(400).json({ error: err });
