@@ -11,16 +11,16 @@ function getUsername() {
     return username;
 }
 
-function viewFileTable(tbody,files,username) {
-  
+function viewFileTable(tbody, files, username) {
+
     let allNames = [];
-    
-    for(let i = 0; i < files.length; ++i) {
+
+    for (let i = 0; i < files.length; ++i) {
         let flag = true;
-        let path = files[i].path.substr(files[i].path.lastIndexOf('/' + username) + 1) //username/fdsk
-        path = path.substr(path.indexOf('/') + 1) //fjkasf/fjsdklf/fsdkjfsj
+        let path = files[i].path.substr(files[i].path.lastIndexOf('/' + username) + 1)
+        path = path.substr(path.indexOf('/') + 1);
         let nameHolder;
-        if(path.includes('/')){
+        if (path.includes('/')) {
             flag = true;
             nameHolder = path.substr(0, path.indexOf('/'));
         } else {
@@ -28,7 +28,7 @@ function viewFileTable(tbody,files,username) {
             nameHolder = path;
         }
 
-        if(allNames.includes(nameHolder)) {
+        if (allNames.includes(nameHolder)) {
             continue;
         }
 
@@ -41,8 +41,8 @@ function viewFileTable(tbody,files,username) {
         const td4 = document.createElement('td');
         const td5 = document.createElement('td');
         const td6 = document.createElement('td');
-        
-        if(!flag) {
+
+        if (!flag) {
             td1.innerHTML = `<img src="../images/file-solid.png" class="img-folder"/> ${nameHolder}`;
             tr = document.createElement('tr');
             td3.innerHTML = files[i].size + ' KB';
@@ -63,12 +63,12 @@ function viewFileTable(tbody,files,username) {
         tr.appendChild(td4);
         tr.appendChild(td5);
         tr.appendChild(td6);
-        if(!flag){
+        if (!flag) {
             tbody.appendChild(tr);
         }
-        
+
     }
-   
+
 }
 
 function cancelDel() {
@@ -78,21 +78,24 @@ function cancelDel() {
 
 async function getFiles(type) {
     const username = getUsername();
+ 
     const token = window.localStorage.getItem("token");
 
-    if(document.getElementsByClassName('location')[0] != null){
+    if (document.getElementsByClassName('location')[0] != null) {
         const loc = document.getElementsByClassName('location')[0].innerHTML;
         let url;
-        if(loc === 'Files'){
+        let flag;
+        if (loc === 'All Files') {
+            flag = true;
             url = `http://localhost:3000/files/all?username=${username}`;
-        } else if(loc === 'Shared Files') {
+        } else if (loc === 'Shared Files') {
+            flag = false;
             url = `http://localhost:3000/files/allShared?username=${username}`
         } else {
             console.error("Invalid file type");
             return;
         }
-    
-        console.log(url)
+
         const response = await fetch(url, {
             headers: {
                 'Content-Type': 'application/json',
@@ -103,22 +106,71 @@ async function getFiles(type) {
             cache: 'no-cache',
             credentials: 'same-origin'
         });
-    
+
         const json = await response.json()
-        console.log(json)
-        const files = json.files;
-    
-        console.log(files);
-    
+
+        let files = json.files;
+        let arr = [];
+        for (let index = 0; index < files.length; index++) {
+            if (flag) {
+                if (files[index].path.startsWith('../../info/' + username + '/' + window.localStorage.getItem('path'))) {
+                    arr.push(files[index]);
+                } 
+            } else {
+                if (files[index].path.startsWith('../../shared/' + username + '/' + window.localStorage.getItem('path'))) {
+                    arr.push(files[index]);
+                } 
+            }
+
+
+        }
+
         const tbody = document.getElementById('tbody');
-        
-        viewFileTable(tbody,files,username);
- 
-    
-        window.localStorage.setItem('path', '');
+
+        viewFileTable(tbody, arr, username);
+
+        // window.localStorage.setItem('path', '');
     }
 };
 
+function foldersPath(currentFolder) {
+
+
+
+    let currentFolderLocation = document.getElementById('location-folder');
+    let text2 = document.createElement('span');
+    text2.setAttribute('onclick', 'getFiles("my")');
+    text2.setAttribute('class', 'loc-folder');
+    let text1 = document.createTextNode('/ ' +currentFolder);
+
+    text2.appendChild(text1);
+    currentFolderLocation.appendChild(text2);
+
+    
+
+    // let loc2 = document.getElementsByClassName('loc-folder')[0].innerHTML;
+    // console.log(loc2);
+
+
+}
+
+function test() {
+
+        // const currentFolder1 = window.localStorage.getItem("folder");
+        const currentPath = window.localStorage.getItem('path');
+
+        let pathHolder = currentPath.replace(currentFolder, '');
+        let folderHolder = currentPath.replace('/' + currentFolder, '');
+        localStorage.setItem('folder', folderHolder);
+        localStorage.setItem('path', pathHolder);
+   
+    // location.href = '../html/myFiles.html'
+    //  const username = getUsername();
+    // const token = window.localStorage.getItem("token");
+    // const loc = document.getElementsByClassName('location')[0].innerHTML;
+
+
+}
 
 async function openFolder(event) {
     event.preventDefault();
@@ -129,9 +181,9 @@ async function openFolder(event) {
     const loc = document.getElementsByClassName('location')[0].innerHTML;
 
     let url;
-    if(loc === 'Files'){
+    if (loc === 'All Files') {
         url = `http://localhost:3000/files/all?username=${username}`;
-    } else if(loc === 'Shared Files') {
+    } else if (loc === 'Shared Files') {
         url = `http://localhost:3000/files/allShared?username=${username}`
     } else {
         console.error("Invalid file type");
@@ -158,9 +210,9 @@ async function openFolder(event) {
 
     const currentPath = window.localStorage.getItem('path');
     let path;
-    if(loc === 'Files') {
+    if (loc === 'All Files') {
         path = `../../info/${username}/${currentPath}${currentFolder}`;
-    } else if(loc === 'Shared Files') {
+    } else if (loc === 'Shared Files') {
         path = `../../shared/${username}/${currentPath}${currentFolder}`;
     } else {
         console.error("Invalid file type");
@@ -169,25 +221,23 @@ async function openFolder(event) {
 
     // console.log(path)
     // const path = `../../info/${username}/${currentPath}${currentFolder}`;
-    console.log(path)
 
     const tbody = document.createElement('tbody');
     tbody.setAttribute('id', 'tbody');
     const tbody2 = document.getElementById('tbody');
 
     let allNames = [];
-    
-    for(let i = 0; i < files.length; ++i) {
+
+    for (let i = 0; i < files.length; ++i) {
         let flag;
         let pathHolder = files[i].path;
-        if(pathHolder.startsWith(path)) {
+        if (pathHolder.startsWith(path)) {
             pathHolder = pathHolder.replace(path + '/', '');
-            console.log(' tuka sam')
         } else {
             continue;
         }
         let nameHolder;
-        if(pathHolder.includes('/')){
+        if (pathHolder.includes('/')) {
             flag = true;
             nameHolder = pathHolder.substr(0, pathHolder.indexOf('/'));
         } else {
@@ -195,7 +245,7 @@ async function openFolder(event) {
             nameHolder = pathHolder;
         }
 
-        if(allNames.includes(nameHolder)) {
+        if (allNames.includes(nameHolder)) {
             continue;
         }
 
@@ -208,8 +258,8 @@ async function openFolder(event) {
         const td4 = document.createElement('td');
         const td5 = document.createElement('td');
         const td6 = document.createElement('td');
-        
-        if(!flag) {
+
+        if (!flag) {
             td1.innerHTML = `<img src="../images/file-solid.png" class="img-folder"/> ${nameHolder}`;
             tr = document.createElement('tr');
             td3.innerHTML = files[i].size + ' KB';
@@ -230,24 +280,27 @@ async function openFolder(event) {
         tr.appendChild(td4);
         tr.appendChild(td5);
         tr.appendChild(td6);
-        if(!flag){
+        if (!flag) {
             tbody.appendChild(tr);
         }
-        
+
     }
 
     tbody2.parentNode.replaceChild(tbody, tbody2);
-    if(currentPath === ''){
+    if (currentPath === '') {
         window.localStorage.setItem('path', window.localStorage.getItem('folder') + '/');
     } else {
         window.localStorage.setItem('path', currentPath + window.localStorage.getItem('folder'));
     }
+
+    foldersPath(currentFolder);
 }
 
 window.onload = getFiles('my');
 
 let fileToDelete;
 let type;
+
 function deleteFile(event) {
     event.preventDefault();
 
@@ -280,7 +333,7 @@ async function delFile(event) {
     console.log(path)
 
     let url;
-    if(type.includes('file')) {
+    if (type.includes('file')) {
         url = 'http://localhost:3000/files/delete/file';
     } else {
         url = 'http://localhost:3000/files/delete/folder';
@@ -327,7 +380,7 @@ function cancelCreateFolder() {
 async function sendReq(event) {
     event.preventDefault();
 
-    let newFolder =  document.getElementById('new-folder').value;
+    let newFolder = document.getElementById('new-folder').value;
     const token = window.localStorage.getItem("token");
 
     const req = {
@@ -352,8 +405,8 @@ async function sendReq(event) {
 
     let flag = false
 
-    for(let i = 0; i < dataRows.length; ++i) {
-        if(dataRows[i].childNodes[0].innerText.replace(' ', '') === newFolder) {
+    for (let i = 0; i < dataRows.length; ++i) {
+        if (dataRows[i].childNodes[0].innerText.replace(' ', '') === newFolder) {
             alert("Folder with this name already exists");
             flag = true;
             console.log(flag)
@@ -361,7 +414,7 @@ async function sendReq(event) {
         }
     }
 
-    if(response.status === 200 && !flag) {
+    if (response.status === 200 && !flag) {
         const tr = tbody.insertRow(0);
         const td1 = document.createElement('td');
         const td2 = document.createElement('td');
@@ -416,14 +469,14 @@ async function sendShare(event) {
     let filePath = path + '/' + filename;
     // console.log(path === ' ')
     console.log(filePath);
-    filePath = filePath.replace('/ ','')
+    filePath = filePath.replace('/ ', '')
     console.log(filePath)
 
     const sharedFile = {
         sender: sender,
         recipient: recipient,
         filepath: filePath
-    }   
+    }
 
     const response = await fetch('http://localhost:3000/share/file', {
         headers: {
@@ -455,4 +508,3 @@ function loadMyFiles(event) {
     window.location.href = '../html/myFiles.html'
     getFiles('my')
 }
-

@@ -20,7 +20,7 @@
         <nav>
             <ul class="navigation">
                 <li>
-                    <a href="myFiles.html"><img class="logo" id='logo' src="../images/team-logo.jpg" onclick='clearStorage(event)'></a>
+                   <img class="logo" id='logo' src="../images/team-logo.jpg" onclick='clearStorage(event)'>
                 </li>
                 <li class="search-container">
                     <input type="text" name="search-text-field" id="searchID" placeholder="Search..." class="search" />
@@ -97,7 +97,8 @@
         </section>
         <section class="content">
             <div class="div-table">
-                <h2 class="location">Files</h2>
+                <h2 class="location" onclick='clearStorage(event)'>All Files</h2>
+                <p id="location-folder"></p>
                 <a href="#" class="create-folder" onclick="createFolderModal()" >+Create folder</a>
             </div>
             <table class="file-table">

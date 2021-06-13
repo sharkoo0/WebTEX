@@ -32,3 +32,4 @@ function clearStorage(event) {
 
     location.href = '../html/myFiles.html'
 }
+

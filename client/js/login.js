@@ -19,9 +19,7 @@ async function sendReq(event) {
     });
 
     const json = await response.json();
-    // console.log(json.files[0]);
 
-  
 
     if(response.status === 200) {
         window.location.replace('../html/myFiles.html');
