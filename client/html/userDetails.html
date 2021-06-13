@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon"/>
+    <link rel="icon" href="../images/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" type="text/css" href="../css/userDetails.css" />
+    <title>User Details</title>
+    <script src="../js/changePassword.js" defer></script>
+    <script src="../js/nav.js" defer></script>
+    <script src="../js/profileUpdate.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul class="navigation">
+                <li>
+                    <a href="myFiles.html"><img class="logo" src="../images/team-logo.jpg" /></a>
+                </li>
+                <li class="search-container">
+                    <input type="text " name="search-text-field" placeholder="Search..." class="search" />
+                </li>
+                <li class="upload-btn-container">
+                    <a href="#" class="style-btn" onclick="upload()">Upload</a>
+                </li>
+                <li class="user-dropdown">
+                    <a href="#"><img src="../images/user.jpg" class="img-user" /></a>
+                    <ul class="dropdown">
+                        <li><a href="userDetails.html">Account</a></li>
+                        <li><a href="login.html" onclick="logout(event)">Log out</a></li>
+                    </ul>
+                </li>
+                <li class="hambuger">
+                    <a href="#" onclick="changeStyle()"><img src="../images/menu.png" /></a>
+                </li>
+            </ul>
+            <ul class="mobile-menu">
+                <li><a href="#" onclick="upload()">Upload</a></li>
+                <li><a href="userDetails.html">Account</a></li>
+                <li><a href="login.html">Log out</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <form class="wrapper modal">
+        <section class="upload-section">
+            <h1 class="upload-text">Upload files</h1>
+            <section class="get-file-section">
+                <img src="../images/cloud-download.png" class="img-upload" />
+                <h3 class="select-file">Select file</h3>
+                <a href="myFiles.html"><button class="br-btn">Browse</button></a>
+            </section>
+            <button type="reset" class="style-btn cancel" id="cancel" onclick="cancelUpdate()">Cancel</button>
+        </section>
+    </form>
+
+    <form class="wrapper modal">
+        <section class="form-section">
+            <h3 class="sign-text">Change password</h3>
+            <section>
+                <fieldset class="input-container">
+                    <input type="password" id="pass" name="newPass" required placeholder="Enter your new password*" />
+                </fieldset>
+                <fieldset class="input-container">
+                    <input type="password" id="conf-pass" name="confirm" required placeholder="Re-enter your new password*" />
+                </fieldset>
+                <button type="button" class="next-btn" id="next" onclick="nextStep()">Next</button>
+                <button type="reset" class="style-btn" id="cancel" onclick="cancelChange()">Cancel</button>
+            </section>
+        </section>
+    </form>
+
+    <main class="wrapper dashboard">
+        <section class="main-form">
+            <form class="user-photo">
+                <img class="user" id="output" src="../images/user.jpg" />
+            </form>
+            <form class="user-details" id="user-details">
+                <label class="info">Names: </label>
+                <input class="userNames" name="names" placeholder="names" />
+                <label class="info">Email: </label>
+                <input id="email" type="email" class="userEmail" name="email" placeholder="email" />
+                <label class="info">Alternative email: </label>
+                <input type="email" class="userAlt-email"  name="altEmail" placeholder="alternative email" />
+                <label class="info">Phone number: </label>
+                <input class="userPhone" pattern="[0]{1}[7-9]{2}[0-9]{7}" name="phone" placeholder="phone number" />
+                <label class="info">Address: </label>
+                <input class="userAddress" name="address" placeholder="address" />
+            </form>
+        </section>
+        <section class="buttons">
+            <section class="upload-image">
+                <label for="file-upload" class="upload-file-container style-btn">
+                    Choose new photo...
+                </label>
+                <input id="file-upload" type="file" accept="image/jpg" name="photo"/>
+            </section>
+            <button class="finish style-btn" onclick="changePassword() ">
+                Change password
+            </button><button class="save style-btn" onclick="sendReq(event)" >Save changes</button>
+            
+        </section>
+    </main>
+
+    <footer>
+        <p>Creatd by Team 15</p>
+        <img class="logo" src="../images/team-logo.jpg " />
+    </footer>
+</body>
+
+</html>

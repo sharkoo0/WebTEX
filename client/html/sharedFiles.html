@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon"/>
+    <link rel="icon" href="../images/favicon.ico" type="image/x-icon"/>
+    <title>MyCloud | Shared with me</title>
+    <link rel="stylesheet" type="text/css" href="../css/myFiles.css" />
+    <script src="../js/myFiles.js" defer></script>
+    <script src="../js/nav.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul class="navigation">
+                <li>
+                    <a href="myFiles.html"><img class="logo" src="../images/team-logo.jpg" /></a>
+                </li>
+                <li class="search-container">
+                    <input type="text " name="search-text-field" placeholder="Search..." class="search" />
+                </li>
+                <li class="upload-btn-container">
+                    <a href="#" class="style-btn" onclick="upload()">Upload</a>
+                </li>
+                <li class="user-dropdown">
+                    <a href="#"><img src="../images/user.jpg" class="img-user" /></a>
+                    <ul class="dropdown">
+                        <li><a href="userDetails.html">Account</a></li>
+                        <li><a href="login.html" onclick="logout(event)">Log out</a></li>
+                    </ul>
+                </li>
+                <li class="hambuger">
+                    <a href="#" onclick="changeStyle()"><img src="../images/menu.png" /></a>
+                </li>
+            </ul>
+            <ul class="mobile-menu">
+                <li><a href="#" onclick="upload()">Upload</a></li>
+                <li><a href="userDetails.html">Account</a></li>
+                <li><a href="login.html">Log out</a></li>
+            </ul>
+        </nav>
+    </header>
+    <form class="wrapper modal">
+        <section class="upload-section">
+            <h1 class="upload-text">Upload files</h1>
+            <section class="get-file-section">
+                <img src="../images/cloud-download.png" class="img-upload" />
+                <h3 class="select-file">Select file</h3>
+                <a href="myFiles.html"><button class="br-btn">Browse</button></a>
+            </section>
+            <button type="reset" class="style-btn cancel" id="cancel" onclick="cancelUpdate()">Cancel</button>
+        </section>
+    </form>
+    
+    <form class="wrapper modal delete-file">
+        <section class="modal-section">
+            <h1>Delete file</h1>
+            <h1>Are you sure that you want to delete this file?</h1>
+            <button type="reset" class="style-btn cancel" onclick="cancelDel()">Cancel</button>
+            <button class="style-btn delete-btn" onclick="delFile(event)">DELETE</button>
+        </section>
+    </form>
+    <form class="wrapper modal share">
+        <section class="modal-section share">
+            <h1 class="create-folder-text">Share</h1>
+            <section>
+                <input type="text" name="new-folder" placeholder="Enter email..."/>
+                <button class="style-btn">Share</button>
+                <button type="reset" class="style-btn cancel" onclick="cancelShare()">Cancel</button>
+            </section>
+        </section>
+    </form>
+
+    <main class="wrapper dashboard">
+        <section class="dashboard-buttons">
+            <a href="myFiles.html" class="style-btn" id="my-files-button" onclick="loadMyFiles(event)">My files</a>
+        </section>
+        <section class="content">
+            <div class="div-table">
+                <h2 class="location">Shared Files</h2>
+            </div>
+            <table class="file-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Date created</th>
+                        <th>Size</th>
+                        <th colspan="3">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                    
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <footer>
+        <p>Creatd by Team 15</p>
+        <img class="logo" src="../images/team-logo.jpg" />
+    </footer>
+</body>
+
+</html>

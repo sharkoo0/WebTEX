@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon"/>
+    <link rel="icon" href="../images/favicon.ico" type="image/x-icon"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Sign in | MyCloud</title>
+    <link rel="stylesheet" type="text/css" href="../css/auth.css" />
+    <script src="../js/login.js" defer></script>
+</head>
+
+<body>
+    <main class="wrapper">
+        <section class="form-section">
+            <img class="logo form" src="../images/team-logo.jpg" />
+            <h3 class="sign-text">Sign in </h3>
+            <form id="myForm" method="POST">
+                <div class="input-container">
+                    <input id="username" type="email" name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="E-mail"/>
+                </div>
+                <div class="input-container">
+                    <input id="password" type="password" required class="password" name="password" minlength="6" placeholder="Password" autocomplete="on" />
+                </div>
+                <label id="error-msg"></label>
+                <button class=" form-btn" onclick="sendReq(event)">Sign in</button>
+            </form>
+            <span>Don't have an Account? <a href="registration.html">Sign up now!</a></span>
+        </section>
+    </main>
+</body>
+
+</html>
