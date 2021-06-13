@@ -21,7 +21,7 @@ filesRouter.delete('/delete/file', deleteFiles);
 filesRouter.delete('/delete/folder', deleteFolder);
 filesRouter.get('/token', genShortToken);
 
-filesRouter.get('/search', searchFile);
+filesRouter.get('/search/:filename', searchFile);
 
 // filesRouter.get('/search', async (req, res) => {
 //   const filename = req.body.filename;
