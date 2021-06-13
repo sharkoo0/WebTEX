@@ -1,94 +1,69 @@
-const openModal = () => {
-    const modal = document.getElementById('uploadModal');
+function openModal () {
+    const modal = document.getElementsByClassName('wrapper modal');
     modal[0].style.display = 'block';
 }
 
-const closeModal = () => {
-    const modal = document.getElementById('uploadModal');
+function closeModal() {
+    const modal = document.getElementsByClassName('wrapper modal');
     modal[0].style.display = 'none';
 }
 
-const input = document.getElementById('filetoupload');
 
 async function sendFiles(event) {
     event.preventDefault();
 
-    openModal();
+    const form = document.getElementById('uploadModal');
+    const formData = new FormData(form);
 
-    const authToken = window.localStorage.getItem("token");
-    const username = window.localStorage.getItem("username");
-    let path = window.localStorage.getItem("path")
-    if (path === '') {
-        path = window.localStorage.getItem('folder');
-    }
-    // console.log(username)
-    const formData = new FormData();
+    // const input = document.getElementById('filetoupload');
 
-    const files = input.files;
-    console.log(files)
-    // console.log(files[0])
-    let array = [];
-    for(let i = 0; i < files.length; ++i) {
-        console.log(files[i])
-        array[i] = files[i]    
-    }
-    console.log(array)
-    // formData.append('files', input.files);
-    formData.append('filesrray', a)
-    console.log(formData)
-    // console.log(typeof files)
-    // console.log("files")
-    // console.log(files);
+    const username = window.localStorage.getItem('username');
+    const token = window.localStorage.getItem('token');
 
-    // let filesToUpload = [];
-    // for (let i = 0; i < files.length; ++i) {
-    //     filesToUpload[i] = {
-    //         name: files[i].name,
-    //         type: files[i].type,
-    //         size: files[i].size
-    //     }
+    // console.log(input.files);
+
+    // let form = new FormData();
+
+    // for (let i = 0; i < input.files.length; i++) {
+    //     const element = input.files[i];
+    //     console.log(element);
+    //     form.append('files', element)
     // }
+    // console.log(form.entries)
 
-    const file = {
-        files: files,
-        username: username,
-        folder: path
+    // const files = {
+    //     files: input.files
+    // }
+    // console.log('before fetch')
+
+    let folder = window.localStorage.getItem('path') + '/' + window.localStorage.getItem('folder');
+    folder = folder.replace('/ ', '');
+    console.log(folder);
+
+    let url;
+    if(folder.includes('undefined') || folder.includes('null')) {
+        url = `http://localhost:3000/files/upload?username=${username}&token=${token}`;
+    } else {
+        url = `http://localhost:3000/files/upload?username=${username}&token=${token}&folder=${folder}`;
     }
-    // console.log(path)
-    // console.log(file)
 
-    const res = await fetch(`http://localhost:3000/files/token`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': authToken
-        },
-        method: 'GET',
+    fetch(url, {
+        method: 'POST',
         mode: 'cors',
         cache: 'no-cache',
-        credentials: 'same-origin'
-    })
-    let token = (await res.json()).token;
-    // console.log(await res.json())
-    if (token) {
-        console.log(token)
-        const response = await fetch(`http://localhost:3000/files/upload?username=${username}&path=${path}`, {
-            headers: {
-                // 'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>',
-                'Authorization': authToken
-            },
-            method: 'POST',
-            mode: 'cors',
-            cache: 'no-cache',
-            credentials: 'same-origin',
-            // files: formData,
-            body: formData
-        });
+        credentials: 'same-origin',
+        body: formData
+    }).then(async (response) => {
         console.log(await response.json())
-    }
+    })
+    console.log('after fetch')
 
+    closeModal(event);
+    location.reload();
+    // console.log(await response.json())
 
+    // console.log(await response.json());
     
-    closeModal();
 }
 
-//FIX onload -> show only unique folders
+

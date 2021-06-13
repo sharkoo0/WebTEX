@@ -15,7 +15,7 @@ import mongoose from 'mongoose';
 
 const filesRouter = Express.Router();
 
-filesRouter.post('/upload', Upload.array('filetoupload'), uploadFiles);
+filesRouter.post('/upload', Upload.array('files'), uploadFiles);
 filesRouter.delete('/delete/file', deleteFiles);
 filesRouter.delete('/delete/folder', deleteFolder);
 filesRouter.get('/token', genShortToken);

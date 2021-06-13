@@ -59,32 +59,39 @@ const genShortToken = async (req: Express.Request, res: Express.Response) => {
 const uploadFiles = async (req: Express.Request, res: Express.Response) => {
   try {
     // console.log(req);
+    // console.log(req.files)
     const newFiles = req.files as Array<any>;
-    console.log(req.body.files)
-    console.log(newFiles)
-    // console.log(req.query.username);
-    // if(!req.query.username) {
-    //   console.log(req.query.username)
-    //   res.status(401).json("error: Invalid username");
-    //   return;
-    // }
+    const username: string | undefined = req.query.username?.toString();
+    // console.log(req.body.files)
+    // console.log(newFiles)
+    // console.log(typeof req.query.username)
+    // res.status(200).json(req.query.username);
+    // return;
+    // console.log(username);
+    if(!username || !req.query.token) {
+      // console.log(username)
+      res.status(401).json("error: Invalid username");
+      return;
+    }
 
     let names: Array<string> = [];
     newFiles.forEach((el: any) => {
       names.push(el.originalname);
     })
 
-    let folder = req.body.folder;
+    let folder: string | undefined = req.query.folder?.toString();
+    folder = folder?.substr(0, folder.lastIndexOf('/') - 1);
+    // console.log(folder)
     if(newFiles) {  
       
       newFiles.forEach((el: any) => {
-        if(folder){
-          console.log(req.body.username)
-          const path = '../../info/' + req.body.username + '/' + req.body.folder + '/' + el.filename;
+        if(folder && folder !== '/'){
+          console.log(folder)
+          const path = '../../info/' + req.query.username + '/' + folder + '/' + el.filename;
           console.log(path)
           fs.move('../../info/' + el.filename, path).then(() => {
             console.info("File moved")
-            fileService.addFiles(newFiles, path, names, req.body.username).then(() => {
+            fileService.addFiles(newFiles, path, names, username).then(() => {
               res.status(201).json(newFiles);
               return;
             }).catch(err => {
@@ -97,10 +104,10 @@ const uploadFiles = async (req: Express.Request, res: Express.Response) => {
             return;
           });
         } else {
-          const path = '../../info/' + req.body.username + '/' + el.filename;
+          const path = '../../info/' + req.query.username + '/' + el.filename;
           fs.move('../../info/' + el.filename, path).then(() => {
             console.log("File moved")
-            fileService.addFiles(newFiles, path, names, req.body.username).then(() => {
+            fileService.addFiles(newFiles, path, names, username).then(() => {
               res.status(201).json(newFiles);
               return;
             }).catch(err => {

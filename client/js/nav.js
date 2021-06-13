@@ -23,3 +23,12 @@ async function logout(event) {
     window.localStorage.clear();
     location.href = '../html/login.html';
 }
+
+function clearStorage(event) {
+    event.preventDefault();
+
+    localStorage.setItem('path', '');
+    localStorage.setItem('folder', '');
+
+    location.href = '../html/myFiles.html'
+}

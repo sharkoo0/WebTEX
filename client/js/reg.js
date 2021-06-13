@@ -38,13 +38,6 @@ async function sendReq(event) {
         window.location.replace("../html/myFiles.html");
         window.localStorage.setItem("token", json);
         window.localStorage.setItem("username", email);
-        import('./myFiles.js')
-      .then(module => {
-        module.getFiles('my');
-      })
-      .catch(err => {
-        console.log('here');
-      });
         // getFiles('my');
     } else {
         errorMsg() 
