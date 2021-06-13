@@ -17,13 +17,13 @@
         <nav>
             <ul class="navigation">
                 <li>
-                    <a href="myFiles.html"><img class="logo" src="../images/team-logo.jpg" /></a>
+                    <a href="myFiles.html"><img class="logo" id='logo' src="../images/team-logo.jpg" onclick='clearStorage(event)'></a>
                 </li>
                 <li class="search-container">
                     <input type="text " name="search-text-field" placeholder="Search..." class="search" />
                 </li>
                 <li class="upload-btn-container">
-                    <a href="#" class="style-btn" onclick="upload()">Upload</a>
+                    <a href="#" class="style-btn" onclick="openModal()">Upload</a>
                 </li>
                 <li class="user-dropdown">
                     <a href="#"><img src="../images/user.jpg" class="img-user" /></a>
@@ -50,10 +50,10 @@
             <section class="get-file-section">
                 <img src="../images/cloud-download.png" class="img-upload" />
                 <h3 class="select-file">Select file</h3>
-                <input class="br-btn" id="filetoupload" type="file" multiple/>
+                <input class="br-btn" id="filetoupload" name="files" type="file" multiple/>
                 <a href="myFiles.html"><button class="br-btn" onclick="sendFiles(event)">Browse</button></a>
             </section>
-            <button type="reset" class="style-btn cancel" id="cancel" onclick="cancelUpdate()">Cancel</button>
+            <button type="reset" class="style-btn cancel" id="cancel" onclick="closeModal()">Cancel</button>
         </section>
     </form>
 
