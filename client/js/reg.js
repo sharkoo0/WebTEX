@@ -45,7 +45,7 @@ async function sendReq(event) {
 };
 
 function errorMsg() {
-    var error_msg = document.getElementById('error-msg');
-    var text = document.createTextNode("Invalid credentials ");
+    let error_msg = document.getElementById('error-msg');
+    let text = document.createTextNode("Invalid credentials ");
     error_msg.appendChild(text);
 }
