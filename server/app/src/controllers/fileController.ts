@@ -79,7 +79,6 @@ const uploadFiles = async (req: Express.Request, res: Express.Response) => {
       names.push(el.originalname);
     })
 
-<<<<<<< HEAD
     let folder: string | undefined = req.query.folder?.toString();
     folder = folder?.substr(0, folder.lastIndexOf('/') - 1);
     // console.log(folder)
@@ -89,15 +88,6 @@ const uploadFiles = async (req: Express.Request, res: Express.Response) => {
         if(folder && folder !== '/'){
           console.log(folder)
           const path = '../../info/' + req.query.username + '/' + folder + '/' + el.filename;
-=======
-    let folder = req.body.folder;
-    if (newFiles) {
-
-      newFiles.forEach((el: any) => {
-        if (folder) {
-          console.log(req.body.username)
-          const path = '../../info/' + req.body.username + '/' + req.body.folder + '/' + el.filename;
->>>>>>> fb2ef19b3d1a85b116c581ad5cffd5de885fd50c
           console.log(path)
           fs.move('../../info/' + el.filename, path).then(() => {
             console.info("File moved")
