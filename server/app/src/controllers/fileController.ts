@@ -12,7 +12,7 @@ const genFolderName = (folderName: String) => {
   return new String('../../info/' + folderName);
 };
 
-function storageUpload(){
+function storageUpload() {
   const storage = Multer.diskStorage({
     destination: (req, file, cb) => {
       console.log(name);
@@ -53,7 +53,7 @@ const genShortToken = async (req: Express.Request, res: Express.Response) => {
     }
   );
   console.log(token)
-  res.json({'token': token});
+  res.json({ 'token': token });
 }
 
 const uploadFiles = async (req: Express.Request, res: Express.Response) => {
@@ -75,10 +75,10 @@ const uploadFiles = async (req: Express.Request, res: Express.Response) => {
     })
 
     let folder = req.body.folder;
-    if(newFiles) {  
-      
+    if (newFiles) {
+
       newFiles.forEach((el: any) => {
-        if(folder){
+        if (folder) {
           console.log(req.body.username)
           const path = '../../info/' + req.body.username + '/' + req.body.folder + '/' + el.filename;
           console.log(path)
@@ -88,7 +88,7 @@ const uploadFiles = async (req: Express.Request, res: Express.Response) => {
               res.status(201).json(newFiles);
               return;
             }).catch(err => {
-              res.status(400).json({'error': err})
+              res.status(400).json({ 'error': err })
               return;
             });
           }).catch((err: Error) => {
@@ -104,7 +104,7 @@ const uploadFiles = async (req: Express.Request, res: Express.Response) => {
               res.status(201).json(newFiles);
               return;
             }).catch(err => {
-              res.status(400).json({'error': err})
+              res.status(400).json({ 'error': err })
               return;
             });
           }).catch((err: Error) => {
@@ -113,10 +113,10 @@ const uploadFiles = async (req: Express.Request, res: Express.Response) => {
             return;
           });
         }
-        
+
       })
     }
-  } catch(error) {
+  } catch (error) {
     console.log(error)
     res.send(error);
   }
@@ -131,7 +131,7 @@ const deleteFiles = async (req: Express.Request, res: Express.Response) => {
   console.log(path)
   try {
     await fileService.deleteFile(path, req.body.username);
-    fs.unlink(path, function(err) {
+    fs.unlink(path, function (err) {
       if (err) {
         console.log(err);
         res.status(500).send(err);
@@ -141,7 +141,7 @@ const deleteFiles = async (req: Express.Request, res: Express.Response) => {
         console.log("Successfully deleted the file.");
       }
     });
-  } catch(error) {
+  } catch (error) {
     res.send(error);
   }
 };
@@ -150,14 +150,46 @@ const deleteFolder = async (req: Express.Request, res: Express.Response) => {
   const username = req.body.username;
   const folderpath = req.body.path;
   const path = '../../info/' + username + '/' + folderpath;
-  const files = (await UserSchema.findOne({username: username}).select('files').exec()).files;
+  const files = (await UserSchema.findOne({ username: username }).select('files').exec()).files;
 
   files.forEach(async (el: any) => {
-    if(el.path.startsWith(path)) {
+    if (el.path.startsWith(path)) {
       await fileService.deleteFile(el.path, username);
-      await fs.rmdir(path, {recursive: true});
+      await fs.rmdir(path, { recursive: true });
     }
   })
 }
 
-export { Upload, uploadFiles, deleteFiles, genShortToken, deleteFolder };
+const findAllFiles = (files : Array<any>, searchedFileName : string, foundFiles : Array<any> = []) => {
+  if (files.length === 0) return foundFiles;
+
+  for (const item of files) {
+    if (Array.isArray(item) && item.length > 0) findAllFiles(item, searchedFileName, foundFiles);
+    if (!Array.isArray(item) && item.name === searchedFileName) foundFiles.push(item);
+  }
+  return foundFiles;
+}
+
+const searchFile = async (req: Express.Request, res: Express.Response) => {
+  const filename = req.body.filename;
+
+  const findFile =
+    async (err: Error, userData: any) => {
+      if (err) { //user is not found
+        return res.status(400).json({ error: err });
+      } else {
+        const files: Array<any> = userData.files;
+        const sharedFiles: Array<any> = userData.sharedFiles;
+        if (filename === "") return res.status(200).json(files);
+
+        const foundMyFiles = findAllFiles(files, filename);
+        const foundSharedFiles = findAllFiles(sharedFiles, filename);
+
+        const allFoundFiles = [...foundMyFiles, ...foundSharedFiles];
+        return res.status(200).json(allFoundFiles);
+      }
+    };
+  await UserSchema.findOne({ username: req.body.username }, findFile);
+};
+
+export { Upload, uploadFiles, deleteFiles, genShortToken, deleteFolder, searchFile };
