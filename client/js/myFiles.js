@@ -15,99 +15,100 @@ async function getFiles(type) {
     const username = window.localStorage.getItem("username");
     const token = window.localStorage.getItem("token");
 
-    const loc = document.getElementsByClassName('location')[0].innerHTML;
+    if(document.getElementsByClassName('location')[0] != null){
+        const loc = document.getElementsByClassName('location')[0].innerHTML;
+        let url;
+        if(loc === 'Files'){
+            url = `http://localhost:3000/files/all?username=${username}`;
+        } else if(loc === 'Shared Files') {
+            url = `http://localhost:3000/files/allShared?username=${username}`
+        } else {
+            console.error("Invalid file type");
+            return;
+        }
+    
+        console.log(url)
+        const response = await fetch(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token
+            },
+            method: 'GET',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin'
+        });
+    
+        const json = await response.json()
+        console.log(json)
+        const files = json.files;
+    
+        console.log(files);
+    
+        const tbody = document.getElementById('tbody');
+        
+        let allNames = [];
+    
+        for(let i = 0; i < files.length; ++i) {
+            let flag = true;
+            let path = files[i].path.substr(files[i].path.lastIndexOf('/' + username) + 1) //username/fdsk
+            path = path.substr(path.indexOf('/') + 1) //fjkasf/fjsdklf/fsdkjfsj
+            let nameHolder;
+            if(path.includes('/')){
+                flag = true;
+                nameHolder = path.substr(0, path.indexOf('/'));
+            } else {
+                flag = false;
+                nameHolder = path;
+            }
+    
+            if(allNames.includes(nameHolder)) {
+                continue;
+            }
+    
+            allNames.push(nameHolder);
+    
+            let tr;
+            const td1 = document.createElement('td');
+            const td2 = document.createElement('td');
+            const td3 = document.createElement('td');
+            const td4 = document.createElement('td');
+            const td5 = document.createElement('td');
+            const td6 = document.createElement('td');
+            
+            if(!flag) {
+                td1.innerHTML = `<img src="../images/file-solid.png" class="img-folder"/> ${nameHolder}`;
+                tr = document.createElement('tr');
+                td3.innerHTML = files[i].size + ' KB';
+            } else {
+                td1.innerHTML = `<img src="../images/folder-solid.png" class="img-folder"/> 
+                                <button class="folder-click" onclick="openFolder(event)">${nameHolder}</button>`;
+                tr = tbody.insertRow(0);
+                td3.innerHTML = '0 KB';
+            }
+            tr.classList.add("data-row");
+            td2.innerHTML = '22/03/2021';
+            td4.innerHTML = '<input  type="Image" src="../images/download-solid.png" class="action-buttons">';
+            td5.innerHTML = '<input  type="Image" src="../images/Vector.png" class="action-buttons" onclick="deleteFile(event)">';
+            td6.innerHTML = '<input  type="Image" src="../images/share.png" class="action-buttons" onclick="share(event)">';
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            tr.appendChild(td3);
+            tr.appendChild(td4);
+            tr.appendChild(td5);
+            tr.appendChild(td6);
+            if(!flag){
+                tbody.appendChild(tr);
+            }
+            
+        }
+    
+        window.localStorage.setItem('path', '');
+    }
+    
     // console.log('location')
     // console.log(loc)
 
-    let url;
-    if(loc === 'Files'){
-        url = `http://localhost:3000/files/all?username=${username}`;
-    } else if(loc === 'Shared Files') {
-        url = `http://localhost:3000/files/allShared?username=${username}`
-    } else {
-        console.error("Invalid file type");
-        return;
-    }
-
-    console.log(url)
-        
-
-    const response = await fetch(url, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': token
-        },
-        method: 'GET',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin'
-    });
-
-    const json = await response.json()
-    console.log(json)
-    const files = json.files;
-
-    console.log(files);
-
-    const tbody = document.getElementById('tbody');
-    
-    let allNames = [];
-
-    for(let i = 0; i < files.length; ++i) {
-        let flag = true;
-        let path = files[i].path.substr(files[i].path.lastIndexOf('/' + username) + 1) //username/fdsk
-        path = path.substr(path.indexOf('/') + 1) //fjkasf/fjsdklf/fsdkjfsj
-        let nameHolder;
-        if(path.includes('/')){
-            flag = true;
-            nameHolder = path.substr(0, path.indexOf('/'));
-        } else {
-            flag = false;
-            nameHolder = path;
-        }
-
-        if(allNames.includes(nameHolder)) {
-            continue;
-        }
-
-        allNames.push(nameHolder);
-
-        let tr;
-        const td1 = document.createElement('td');
-        const td2 = document.createElement('td');
-        const td3 = document.createElement('td');
-        const td4 = document.createElement('td');
-        const td5 = document.createElement('td');
-        const td6 = document.createElement('td');
-        
-        if(!flag) {
-            td1.innerHTML = `<img src="../images/file-solid.png" class="img-folder"/> ${nameHolder}`;
-            tr = document.createElement('tr');
-            td3.innerHTML = files[i].size + ' KB';
-        } else {
-            td1.innerHTML = `<img src="../images/folder-solid.png" class="img-folder"/> 
-                            <button class="folder-click" onclick="openFolder(event)">${nameHolder}</button>`;
-            tr = tbody.insertRow(0);
-            td3.innerHTML = '0 KB';
-        }
-        tr.classList.add("data-row");
-        td2.innerHTML = '22/03/2021';
-        td4.innerHTML = '<input  type="Image" src="../images/download-solid.png" class="action-buttons">';
-        td5.innerHTML = '<input  type="Image" src="../images/Vector.png" class="action-buttons" onclick="deleteFile(event)">';
-        td6.innerHTML = '<input  type="Image" src="../images/share.png" class="action-buttons" onclick="share(event)">';
-        tr.appendChild(td1);
-        tr.appendChild(td2);
-        tr.appendChild(td3);
-        tr.appendChild(td4);
-        tr.appendChild(td5);
-        tr.appendChild(td6);
-        if(!flag){
-            tbody.appendChild(tr);
-        }
-        
-    }
-
-    window.localStorage.setItem('path', '');
 };
 
 
@@ -342,8 +343,6 @@ async function sendReq(event) {
     });
 
     const dataRows = document.getElementsByClassName('data-row');
-    console.log(dataRows[0].childNodes[0].innerText)
-    console.log(newFolder)
 
     let flag = false
 
@@ -450,9 +449,4 @@ function loadMyFiles(event) {
     window.location.href = '../html/myFiles.html'
     getFiles('my')
 }
-
-
-
-
-
 

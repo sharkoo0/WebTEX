@@ -7,34 +7,42 @@ mongoose.set('useFindAndModify', false);
 const SALT_ROUNDS = 10;
 
 class UserService {
-  constructor() {}
+  constructor() { }
 
   async addUser(user: User) {
     return new Promise((resolve, reject) => {
-        this.isCorrect(user);
-        this.notExists(user.username)
-          .then(async () => {
-            const salt = await bcrypt.genSalt(SALT_ROUNDS);
-            const hash = await bcrypt.hash(user.password, salt);
-            const newUser = new UserSchema({
-              _id: new mongoose.Types.ObjectId(),
-              username: user.username,
-              password: hash,
-              email: user.email,
-              firstName: user.firstName,
-              lastName: user.lastName,
-              photoPath: user.photoPath,
-              altEmail: user.altEmail,
-              birthdate: user.birthdate,
-              phone: user.phone,
+      this.isCorrect(user)
+        .then(async () => {
+          
+          this.notExists(user.username)
+            .then(async () => {
+              const salt = await bcrypt.genSalt(SALT_ROUNDS);
+              const hash = await bcrypt.hash(user.password, salt);
+              const newUser = new UserSchema({
+                _id: new mongoose.Types.ObjectId(),
+                username: user.username,
+                password: hash,
+                email: user.email,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                photoPath: user.photoPath,
+                altEmail: user.altEmail,
+                birthdate: user.birthdate,
+                phone: user.phone,
+              });
+              await newUser.save();
+              resolve(true);
+            })
+            .catch((err) => {
+              console.log(`ERROR: ${err}`);
+              reject("User already exists");
             });
-            await newUser.save();
-            resolve(true);
-          })
-          .catch((err) => {
-            console.log(`ERROR: ${err}`);
-            reject("User already exists");
-          });
+
+        }).catch((err) => {
+          console.log(`ERROR: ${err}`);
+          reject("wrong credentials");
+        });
+
     })
   }
 
@@ -59,11 +67,11 @@ class UserService {
 
   login = async (email: string, password: string) => {
     return new Promise(async (resolve, reject) => {
-      const user = await UserSchema.findOne({email: email}).exec();
-      if(user) {
-        const credentials = await UserSchema.findOne({email: email}).select('password').exec();
+      const user = await UserSchema.findOne({ email: email }).exec();
+      if (user) {
+        const credentials = await UserSchema.findOne({ email: email }).select('password').exec();
         const pass = await bcrypt.compare(password, credentials.password);
-        if(!pass) {
+        if (!pass) {
           reject("Wrong password");
         } else {
           resolve(true);
@@ -85,10 +93,10 @@ class UserService {
     newPassword?: string,
     confNewPassword?: string
   ) => {
-    const user = UserSchema.findOne({username: username}).exec().then(async (u: any) => {
-      if(u && !newPassword) {
-        const pass = (await UserSchema.findOne({username: username}).select('password').exec()).password;
-        newPassword = pass?.get('password');        
+    const user = UserSchema.findOne({ username: username }).exec().then(async (u: any) => {
+      if (u && !newPassword) {
+        const pass = (await UserSchema.findOne({ username: username }).select('password').exec()).password;
+        newPassword = pass?.get('password');
       }
       await UserSchema.findOneAndUpdate(
         { username: username },

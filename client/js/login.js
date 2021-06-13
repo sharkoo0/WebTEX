@@ -7,7 +7,6 @@ async function sendReq(event) {
         email: username,
         password: password
     }
-
     const response = await fetch('http://localhost:3000/auth/login', {
         headers: {
             'Content-Type': 'application/json'
@@ -22,11 +21,21 @@ async function sendReq(event) {
     const json = await response.json();
     // console.log(json.files[0]);
 
+  
+
     if(response.status === 200) {
         window.location.replace('../html/myFiles.html');
         window.localStorage.setItem("token", json.token);
         window.localStorage.setItem("username", username);
     } else {
-        console.log(response.statusText);
+        // console.log(response.statusText);
+        errorMsg();
     }
+    
 };
+
+function errorMsg() {
+    var error_msg = document.getElementById('error-msg');
+    var text = document.createTextNode("Invalid email or password ");
+    error_msg.appendChild(text);
+}

@@ -1,5 +1,7 @@
-import './myFiles';
-import { getFiles } from './myFiles';
+// import './myFiles.js';
+// import { getFiles } from './myFiles.js';
+
+// console.log(getFiles);
 
 async function sendReq(event) {
     event.preventDefault();
@@ -8,7 +10,7 @@ async function sendReq(event) {
     let newPass = document.getElementById('password').value;
     let firstName = document.getElementById('first-name').value;
     let secondName = document.getElementById('second-name').value;
-
+    
     const user = {
         username: email,
         email: email,
@@ -16,6 +18,8 @@ async function sendReq(event) {
         firstName: firstName,
         lastName: secondName
     }
+
+    console.log(user);
 
     const response = await fetch('http://localhost:3000/auth/register', {
         headers: {
@@ -34,8 +38,21 @@ async function sendReq(event) {
         window.location.replace("../html/myFiles.html");
         window.localStorage.setItem("token", json);
         window.localStorage.setItem("username", email);
-        getFiles('my');
+        import('./myFiles.js')
+      .then(module => {
+        module.getFiles('my');
+      })
+      .catch(err => {
+        console.log('here');
+      });
+        // getFiles('my');
     } else {
-        console.error(response.status);
+        errorMsg() 
     }
+};
+
+function errorMsg() {
+    var error_msg = document.getElementById('error-msg');
+    var text = document.createTextNode("Invalid credentials ");
+    error_msg.appendChild(text);
 }
