@@ -172,13 +172,13 @@ const findAllFiles = (files : Array<any>, searchedFileName : string, foundFiles 
 
   for (const item of files) {
     if (Array.isArray(item) && item.length > 0) findAllFiles(item, searchedFileName, foundFiles);
-    if (!Array.isArray(item) && item.name === searchedFileName) foundFiles.push(item);
+    if (!Array.isArray(item) && item.name.substr(0, item.name.lastIndexOf('.') - 1).includes(searchedFileName)) foundFiles.push(item);
   }
   return foundFiles;
 }
 
 const searchFile = async (req: Express.Request, res: Express.Response) => {
-  const filename = req.body.filename;
+  const filename = req.params.filename;
 
   const findFile =
     async (err: Error, userData: any) => {
@@ -196,10 +196,10 @@ const searchFile = async (req: Express.Request, res: Express.Response) => {
 
         if (allFoundFiles.length == 0) return res.status(400).json({ error: err });
 
-        return res.status(200).json(allFoundFiles);
+        return res.status(200).json({'files': allFoundFiles});
       }
     };
-  await UserSchema.findOne({ username: req.body.username }, findFile);
+  await UserSchema.findOne({ username: req.query.username }, findFile);
 };
 
 export { Upload, uploadFiles, deleteFiles, genShortToken, deleteFolder, searchFile };
