@@ -6,13 +6,78 @@
 //     deleteForm[0].style.display = 'block';
 // }
 
+function getUsername() {
+    const username = window.localStorage.getItem("username");
+    return username;
+}
+
+function viewFileTable(tbody,files,username) {
+  
+    let allNames = [];
+    
+    for(let i = 0; i < files.length; ++i) {
+        let flag = true;
+        let path = files[i].path.substr(files[i].path.lastIndexOf('/' + username) + 1) //username/fdsk
+        path = path.substr(path.indexOf('/') + 1) //fjkasf/fjsdklf/fsdkjfsj
+        let nameHolder;
+        if(path.includes('/')){
+            flag = true;
+            nameHolder = path.substr(0, path.indexOf('/'));
+        } else {
+            flag = false;
+            nameHolder = path;
+        }
+
+        if(allNames.includes(nameHolder)) {
+            continue;
+        }
+
+        allNames.push(nameHolder);
+
+        let tr;
+        const td1 = document.createElement('td');
+        const td2 = document.createElement('td');
+        const td3 = document.createElement('td');
+        const td4 = document.createElement('td');
+        const td5 = document.createElement('td');
+        const td6 = document.createElement('td');
+        
+        if(!flag) {
+            td1.innerHTML = `<img src="../images/file-solid.png" class="img-folder"/> ${nameHolder}`;
+            tr = document.createElement('tr');
+            td3.innerHTML = files[i].size + ' KB';
+        } else {
+            td1.innerHTML = `<img src="../images/folder-solid.png" class="img-folder"/> 
+                            <a class="folder-click" onclick="openFolder(event)">${nameHolder}</a>`;
+            tr = tbody.insertRow(0);
+            td3.innerHTML = '0 KB';
+        }
+        tr.classList.add("data-row");
+        td2.innerHTML = '22/03/2021';
+        td4.innerHTML = '<input  type="Image" src="../images/download-solid.png" class="action-buttons">';
+        td5.innerHTML = '<input  type="Image" src="../images/Vector.png" class="action-buttons" onclick="deleteFile(event)">';
+        td6.innerHTML = '<input  type="Image" src="../images/share.png" class="action-buttons" onclick="share(event)">';
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tr.appendChild(td3);
+        tr.appendChild(td4);
+        tr.appendChild(td5);
+        tr.appendChild(td6);
+        if(!flag){
+            tbody.appendChild(tr);
+        }
+        
+    }
+   
+}
+
 function cancelDel() {
     const modal = document.getElementsByClassName('wrapper delete-file');
     modal[0].style.display = 'none';
 }
 
 async function getFiles(type) {
-    const username = window.localStorage.getItem("username");
+    const username = getUsername();
     const token = window.localStorage.getItem("token");
 
     if(document.getElementsByClassName('location')[0] != null){
@@ -47,68 +112,11 @@ async function getFiles(type) {
     
         const tbody = document.getElementById('tbody');
         
-        let allNames = [];
-    
-        for(let i = 0; i < files.length; ++i) {
-            let flag = true;
-            let path = files[i].path.substr(files[i].path.lastIndexOf('/' + username) + 1) //username/fdsk
-            path = path.substr(path.indexOf('/') + 1) //fjkasf/fjsdklf/fsdkjfsj
-            let nameHolder;
-            if(path.includes('/')){
-                flag = true;
-                nameHolder = path.substr(0, path.indexOf('/'));
-            } else {
-                flag = false;
-                nameHolder = path;
-            }
-    
-            if(allNames.includes(nameHolder)) {
-                continue;
-            }
-    
-            allNames.push(nameHolder);
-    
-            let tr;
-            const td1 = document.createElement('td');
-            const td2 = document.createElement('td');
-            const td3 = document.createElement('td');
-            const td4 = document.createElement('td');
-            const td5 = document.createElement('td');
-            const td6 = document.createElement('td');
-            
-            if(!flag) {
-                td1.innerHTML = `<img src="../images/file-solid.png" class="img-folder"/> ${nameHolder}`;
-                tr = document.createElement('tr');
-                td3.innerHTML = files[i].size + ' KB';
-            } else {
-                td1.innerHTML = `<img src="../images/folder-solid.png" class="img-folder"/> 
-                                <button class="folder-click" onclick="openFolder(event)">${nameHolder}</button>`;
-                tr = tbody.insertRow(0);
-                td3.innerHTML = '0 KB';
-            }
-            tr.classList.add("data-row");
-            td2.innerHTML = '22/03/2021';
-            td4.innerHTML = '<input  type="Image" src="../images/download-solid.png" class="action-buttons">';
-            td5.innerHTML = '<input  type="Image" src="../images/Vector.png" class="action-buttons" onclick="deleteFile(event)">';
-            td6.innerHTML = '<input  type="Image" src="../images/share.png" class="action-buttons" onclick="share(event)">';
-            tr.appendChild(td1);
-            tr.appendChild(td2);
-            tr.appendChild(td3);
-            tr.appendChild(td4);
-            tr.appendChild(td5);
-            tr.appendChild(td6);
-            if(!flag){
-                tbody.appendChild(tr);
-            }
-            
-        }
+        viewFileTable(tbody,files,username);
+ 
     
         window.localStorage.setItem('path', '');
     }
-    
-    // console.log('location')
-    // console.log(loc)
-
 };
 
 
@@ -116,11 +124,9 @@ async function openFolder(event) {
     event.preventDefault();
 
     window.localStorage.setItem('folder', event.srcElement.innerHTML)
-    const username = window.localStorage.getItem("username");
+    const username = getUsername();
     const token = window.localStorage.getItem("token");
     const loc = document.getElementsByClassName('location')[0].innerHTML;
-    // console.log('location')
-    // console.log(loc)
 
     let url;
     if(loc === 'Files'){
@@ -209,7 +215,7 @@ async function openFolder(event) {
             td3.innerHTML = files[i].size + ' KB';
         } else {
             td1.innerHTML = `<img src="../images/folder-solid.png" class="img-folder"/> 
-                            <button class="folder-click" onclick="openFolder(event)">${nameHolder}</button>`;
+                            <a class="folder-click" onclick="openFolder(event)">${nameHolder}</a>`;
             tr = tbody.insertRow(0);
             td3.innerHTML = '0 KB';
         }
@@ -364,7 +370,7 @@ async function sendReq(event) {
         const td5 = document.createElement('td');
         const td6 = document.createElement('td');
         tr.classList.add("data-row");
-        td1.innerHTML = `<img src="../images/folder-solid.png" class="img-folder"/> <button onclick="openFolder(event)">${newFolder}</button>`;
+        td1.innerHTML = `<img src="../images/folder-solid.png" class="img-folder"/> <a onclick="openFolder(event)">${newFolder}</a>`;
         td2.innerHTML = '22/03/2021';
         td3.innerHTML = '0 KB';
         td4.innerHTML = '<input  type="Image" src="../images/download-solid.png" class="action-buttons">';
