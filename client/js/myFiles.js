@@ -104,12 +104,23 @@ async function getFiles(type) {
         let files = json.files;
         let arr = [];
         for (let index = 0; index < files.length; index++) {
+            let path;
             if (flag) {
-                if (files[index].path.startsWith('../../info/' + username + '/' + window.localStorage.getItem('path'))) {
+                if(!window.localStorage.getItem('path')) {
+                    path = '../../info/' + username;
+                } else {
+                    path = '../../info/' + username + '/' + window.localStorage.getItem('path');
+                }
+                if (files[index].path.startsWith(path)) {
                     arr.push(files[index]);
                 }
             } else {
-                if (files[index].path.startsWith('../../shared/' + username + '/' + window.localStorage.getItem('path'))) {
+                if(!window.localStorage.getItem('path')) {
+                    path = '../../shared/' + username;
+                } else {
+                    path = '../../shared/' + username + '/' + window.localStorage.getItem('path');
+                }
+                if (files[index].path.startsWith(path)) {
                     arr.push(files[index]);
                 }
             }

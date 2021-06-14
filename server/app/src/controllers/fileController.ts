@@ -162,9 +162,7 @@ const findAllFiles = (
       findAllFiles(item, searchedFileName, foundFiles);
     if (
       !Array.isArray(item) &&
-      item.name
-        .substr(0, item.name.lastIndexOf('.') - 1)
-        .includes(searchedFileName)
+      (item.name.substr(0, item.name.lastIndexOf('.')).includes(searchedFileName) || item.name == searchedFileName)
     )
       foundFiles.push(item);
   }
